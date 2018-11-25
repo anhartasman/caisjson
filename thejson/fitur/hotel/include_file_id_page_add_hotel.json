@@ -1,0 +1,318 @@
+{
+    "title": "Add Data Hotel",
+    "subtitle": "Form Add Data Hotel",
+    "frame": "adminpage",
+    "id": "add_hotel",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_hotel",
+            "title": "Form Data Hotel",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_hotel",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+                        {
+                            "type": "select",
+                            "id": "pilihan_bintang",
+                            "label": "Bintang",
+                            "variable": "pilihan_bintang_hotel",
+                            "class": "form-control",
+                            "theme": "admin",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "bintang_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "hotelname",
+                            "label": "Nama",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter nama hotel"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan nama hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "address",
+                            "label": "Address",
+                            "variable": "isian_address",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter Address"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan alamat hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select2",
+                            "id": "fasilitas",
+                            "label": "Fasilitas Hotel",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "daftar_fasilitas",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {
+                                "multiple": "multiple"
+                            },
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "hotelcode",
+                            "label": "Hotel Code",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Isikan Hotel Code"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan Hotel Code",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "textarea",
+                            "id": "hoteldescription",
+                            "label": "Description",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Isikan deskripsi hotel"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan deskripsi hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_hotel",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_hotel",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_hotel",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "insert_data",
+                                                            "action": "insert_data_hotel",
+                                                            "param": [
+                                                                {
+                                                                    "index": "hotelname",
+                                                                    "slash": "",
+                                                                    "value": "isian_hotelname",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "hotelfacility",
+                                                                    "slash": "",
+                                                                    "value": "isian_fasilitas",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "hotelcode",
+                                                                    "slash": "",
+                                                                    "value": "isian_hotelcode",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "hoteldescription",
+                                                                    "slash": "",
+                                                                    "value": "isian_hoteldescription",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "hotelstar",
+                                                                    "slash": "",
+                                                                    "value": "pilihan_bintang_hotel",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "hoteladdress",
+                                                                    "slash": "",
+                                                                    "value": "isian_address",
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataHotel",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [],
+                                                                                    "func_param": [
+                                                                                        "\"tabel_hotel\"",
+                                                                                        "\"daftar_hotel\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
+                                                                    ],
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "returnpackage": {}
+                                                        }
+                                                    ],
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_tingkat",
+            "execute": "many",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [],
+            "array_data": [
+                "id",
+                "nama"
+            ],
+            "where": [],
+            "to_array": {
+                "index": "id",
+                "value": "nama"
+            },
+            "outputVariable": "daftar_tingkat",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_fasilitas",
+            "execute": "many",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [],
+            "array_data": [
+                "id",
+                "fasilitas"
+            ],
+            "where": [],
+            "to_array": {
+                "index": "id",
+                "value": "fasilitas"
+            },
+            "outputVariable": "daftar_fasilitas",
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "returnpackage": {}
+}

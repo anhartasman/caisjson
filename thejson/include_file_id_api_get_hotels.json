@@ -1,0 +1,33 @@
+{
+    "action": "get_hotels",
+    "param": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_hotel",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [],
+            "array_data": [
+                "id",
+                "hotelname",
+                "star",
+                "address"
+            ],
+            "where": [],
+            "outputVariable": "hasil_get_hotels",
+            "output": "[\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['id'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['hotelname'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['star'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['address'],'returnpackage':{}}v\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/edit_hotel\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['id'],'returnpackage':{}}v>Edit ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['id'],'returnpackage':{}}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/delete_hotel\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['id'],'returnpackage':{}}v>Delete ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_hotels','index':['id'],'returnpackage':{}}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_hotels}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

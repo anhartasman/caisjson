@@ -1,0 +1,324 @@
+{
+    "title": "Daftar Hotel",
+    "subtitle": "Daftar Hotel",
+    "frame": "adminpage",
+    "id": "daftar_hotel",
+    "ignore": false,
+    "placement": [
+        {
+            "place": "sidemenu",
+            "returnpackage": {}
+        }
+    ],
+    "elemen": [
+        {
+            "type": "tabel",
+            "id": "tabel_hotel",
+            "title": "Daftar Hotel",
+            "columns": [
+                "ID",
+                "Nama",
+                "Bintang",
+                "Alamat",
+                "",
+                ""
+            ],
+            "link": {
+                "head": [
+                    {
+                        "position": "head",
+                        "type": "modul_page",
+                        "modul": "tabel_hotel",
+                        "page": "add_hotel",
+                        "label": "Tambah",
+                        "returnpackage": {}
+                    }
+                ]
+            },
+            "listeners": [
+                {
+                    "listen": "onload",
+                    "functions": [
+                        {
+                            "func_name": "get_data_hotels",
+                            "func_type": "api_shooter",
+                            "type": "api_shooter",
+                            "content_generate": "auto",
+                            "modul": "retrieve_data",
+                            "action": "get_hotels",
+                            "param": [],
+                            "onAPIReturn": [
+                                {
+                                    "func_type": "json_extracter",
+                                    "func_name": "ekstrakDataHotel",
+                                    "type": "json_extracter",
+                                    "func_param": [
+                                        "this_html_response",
+                                        "\"response_data\""
+                                    ],
+                                    "variable": "hasilEkstrakJSON",
+                                    "returnpackage": {}
+                                },
+                                {
+                                    "func_type": "change_datatable_by_json",
+                                    "func_name": "setTabelHotel",
+                                    "type": "change_datatable_by_json",
+                                    "func_param": [
+                                        "hasilEkstrakJSON"
+                                    ],
+                                    "content_generate": "auto",
+                                    "table_id": "tabel_hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ]
+                }
+            ],
+            "forms": [
+                {
+                    "id": "form_cari_tabel",
+                    "div_class": "box-header",
+                    "attribute": {
+                        "method": "post"
+                    },
+                    "field": [
+                        {
+                            "type": "select2",
+                            "id": "input_kota_hotel",
+                            "label": "Kota",
+                            "variable": "pilihan_kota_hotel",
+                            "class": "",
+                            "theme": "filter",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "status_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select2",
+                            "id": "input_nama_hotel",
+                            "label": "Nama Hotel",
+                            "variable": "pilihan_nama_hotel",
+                            "class": "",
+                            "theme": "filter",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "status_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select2",
+                            "id": "input_lokasi_hotel",
+                            "label": "Lokasi",
+                            "variable": "pilihan_lokasi_hotel",
+                            "class": "",
+                            "theme": "filter",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "status_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select",
+                            "id": "bintang_hotel",
+                            "label": "Bintang",
+                            "variable": "pilihan_bintang_hotel",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "bintang_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onchange",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "set_idx_select_pilih_kelas",
+                                            "param": [
+                                                "1"
+                                            ],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_name": "get_pilihan_kelas",
+                                            "func_type": "api_shooter",
+                                            "type": "api_shooter",
+                                            "content_generate": "auto",
+                                            "modul": "report",
+                                            "action": "get_kelas",
+                                            "param": [
+                                                {
+                                                    "index": "tingkat_id",
+                                                    "slash": "",
+                                                    "value": "pilihan_tingkat",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "onAPIReturn": [
+                                                {
+                                                    "func_type": "json_extracter",
+                                                    "func_name": "extractJSONKelas",
+                                                    "type": "json_extracter",
+                                                    "func_param": [
+                                                        "this_html_response",
+                                                        "\"response_data\""
+                                                    ],
+                                                    "variable": "hasilExtractJSONKelas",
+                                                    "returnpackage": {}
+                                                },
+                                                {
+                                                    "func_name": "set_dropdown_pilihan_kelas",
+                                                    "func_type": "setter_dropdown",
+                                                    "type": "setter_dropdown",
+                                                    "func_param": [
+                                                        "hasilExtractJSONKelas"
+                                                    ],
+                                                    "dropdown_id": "pilih_kelas",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select",
+                            "id": "pilih_kelas",
+                            "label": "Kelas",
+                            "variable": "pilihan_kelas",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onchange",
+                                    "functions": [
+                                        {
+                                            "func_name": "set_tabel_hotel",
+                                            "func_type": "api_shooter",
+                                            "type": "api_shooter",
+                                            "content_generate": "auto",
+                                            "modul": "report",
+                                            "action": "get_students",
+                                            "param": [
+                                                {
+                                                    "index": "tingkat_id",
+                                                    "slash": "",
+                                                    "value": "pilihan_tingkat",
+                                                    "returnpackage": {}
+                                                },
+                                                {
+                                                    "index": "kelas_id",
+                                                    "slash": "",
+                                                    "value": "pilihan_kelas",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "onAPIReturn": [
+                                                {
+                                                    "func_type": "json_extracter",
+                                                    "func_name": "extractJSONIsiTable",
+                                                    "type": "json_extracter",
+                                                    "func_param": [
+                                                        "this_html_response",
+                                                        "\"response_data\""
+                                                    ],
+                                                    "variable": "hasilExtractJSON",
+                                                    "returnpackage": {}
+                                                },
+                                                {
+                                                    "func_type": "change_datatable_by_json",
+                                                    "func_name": "set_isi_tabel_hotel",
+                                                    "type": "change_datatable_by_json",
+                                                    "func_param": [
+                                                        "hasilExtractJSON"
+                                                    ],
+                                                    "content_generate": "auto",
+                                                    "table_id": "tabel_hotel",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select",
+                            "id": "pilih_status",
+                            "label": "Status",
+                            "variable": "pilihan_status",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "status_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [],
+    "engine": [],
+    "returnpackage": {}
+}

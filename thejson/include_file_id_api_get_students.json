@@ -1,0 +1,198 @@
+{
+    "action": "get_students",
+    "param": [
+        {
+            "name": "kelas_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "tingkat_id",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_siswa",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_tingkat_id",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_kelas_id",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "obj_table_tb_jem_pelajaran",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "obj_table_tb_pelajaran",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                "id",
+                "nama",
+                "email",
+                "handphone",
+                "alamat",
+                "fotoprofil"
+            ],
+            "where": [
+                {
+                    "index": "kelas_id",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_kelas_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "index": "tingkat_id",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_tingkat_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "outputVariable": "hasil_get_students",
+            "output": "[\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['nama'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['email'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'hasilbridge','index':[],'returnpackage':{}}v\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/edit_siswa\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v>Edit ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/delete_siswa\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v>Delete ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [
+                {
+                    "type": "table",
+                    "from_engine": false,
+                    "runifnotnull": [],
+                    "table_name": "tb_jem_pelajaran",
+                    "process_name": "select",
+                    "execute": "many",
+                    "output_generate": "manual",
+                    "param": [
+                        {
+                            "type": "variable",
+                            "var_type": "variable",
+                            "var_name": "qhasil_get_students",
+                            "index": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "variable",
+                            "var_type": "variable",
+                            "var_name": "obj_table_tb_pelajaran",
+                            "index": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "array_data": [
+                        "id",
+                        "idp",
+                        "ids"
+                    ],
+                    "where": [
+                        {
+                            "index": "ids",
+                            "operator": "=",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "qhasil_get_students",
+                                "index": [
+                                    "id"
+                                ],
+                                "returnpackage": {}
+                            },
+                            "returnpackage": {}
+                        }
+                    ],
+                    "outputVariable": "hasilbridge",
+                    "output": "v{'type':'variable','var_type':'variable','var_name':'hasilpelajaran','index':[],'returnpackage':{}}v",
+                    "output_divider": ",",
+                    "process": [
+                        {
+                            "type": "table",
+                            "from_engine": false,
+                            "runifnotnull": [],
+                            "table_name": "tb_pelajaran",
+                            "process_name": "select",
+                            "execute": "many",
+                            "output_generate": "manual",
+                            "param": [
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "qhasilbridge",
+                                    "index": [],
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "array_data": [
+                                "id",
+                                "nama"
+                            ],
+                            "where": [
+                                {
+                                    "index": "id",
+                                    "operator": "=",
+                                    "value": {
+                                        "type": "variable",
+                                        "var_type": "variable",
+                                        "var_name": "qhasilbridge",
+                                        "index": [
+                                            "idp"
+                                        ],
+                                        "returnpackage": {}
+                                    },
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "outputVariable": "hasilpelajaran",
+                            "output": "v{'type':'variable','var_type':'variable','var_name':'qhasilpelajaran','index':['nama'],'returnpackage':{}}v",
+                            "output_divider": ",",
+                            "process": [],
+                            "engine": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "engine": [],
+                    "returnpackage": {}
+                }
+            ],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_students}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

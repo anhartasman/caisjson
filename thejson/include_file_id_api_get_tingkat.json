@@ -1,0 +1,32 @@
+{
+    "action": "get_tingkat",
+    "param": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_tingkat",
+            "id": "tb_tingkat",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [],
+            "array_data": [
+                "id",
+                "nama"
+            ],
+            "where": [],
+            "outputVariable": "hasil_get_tingkat",
+            "output": "<option value='v{'type':'variable','var_type':'variable','var_name':'qhasil_get_tingkat','index':['id'],'returnpackage':{}}v'>v{'type':'variable','var_type':'variable','var_name':'qhasil_get_tingkat','index':['nama'],'returnpackage':{}}v<\/option>",
+            "output_divider": "",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "<option value='-1'>- select -<\/option>{hasil_get_tingkat}",
+    "response_type": "text",
+    "returnpackage": {}
+}

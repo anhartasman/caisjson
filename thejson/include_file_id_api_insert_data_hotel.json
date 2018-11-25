@@ -1,0 +1,189 @@
+{
+    "action": "insert_data_hotel",
+    "param": [
+        {
+            "name": "hotelname",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "hotelfacility",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "hoteldescription",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "hotelstar",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "hoteladdress",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "_SESSION"
+            ,"index":["akun_email"]},"operator":"==","value":{
+            "var_name": "hasil_get_akun"
+            ,"index":["email"]}
+          }
+        ]
+        ,"ontrue":{
+          "process": [
+            {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_hotel",
+              "execute": "execute",
+              "id": null,
+              "process_name": "insert",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hotelname",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hotelfacility",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hoteldescription",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hotelstar",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hoteladdress",
+                      "index": [],
+                      "returnpackage": {}
+                  }
+              ],
+              "array_data": [
+                  {
+                      "type": "array_data_index_value",
+                      "index": "kelas_id",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_kelas_id",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "tingkat_id",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_tingkat_id",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "nama",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_nama",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "email",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_email",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "alamat",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_alamat",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "sertifikat",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_sertifikat",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  },
+                  {
+                      "type": "array_data_index_value",
+                      "index": "handphone",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_handphone",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  }
+              ],
+              "where": [],
+              "outputVariable": "hasil_insert_siswa",
+              "returnpackage": {}
+          }]}
+        ,"runifnotnull": []
+      }
+
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_siswa}",
+    "response_type": "text",
+    "returnpackage": {}
+}
