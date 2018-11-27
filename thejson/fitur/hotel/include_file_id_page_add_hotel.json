@@ -105,26 +105,6 @@
                             "returnpackage": {}
                         },
                         {
-                            "type": "text",
-                            "id": "hotelcode",
-                            "label": "Hotel Code",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {
-                                "placeholder": "Isikan Hotel Code"
-                            },
-                            "listeners": [],
-                            "validation": [
-                                {
-                                    "type": "minlength",
-                                    "length": "1",
-                                    "message": "Harap isikan Hotel Code",
-                                    "returnpackage": {}
-                                }
-                            ],
-                            "returnpackage": {}
-                        },
-                        {
                             "type": "textarea",
                             "id": "hoteldescription",
                             "label": "Description",

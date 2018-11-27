@@ -177,6 +177,11 @@
             "type": "array",
             "content": [
                 {
+                    "index": "0",
+                    "value": "0",
+                    "returnpackage": {}
+                },
+                {
                     "index": "1",
                     "value": "1",
                     "returnpackage": {}
@@ -401,6 +406,14 @@
                 {
                     "type": "include_file",
                     "include": "thejson\/include_file_id_api_get_hotels.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_cities.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_locations.json"
                 }
             ],
             "returnpackage": {}

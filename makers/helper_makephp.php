@@ -61,7 +61,11 @@ function create_web_loop($param){
         $content.='$data'.$table->outputVariable.'[]="'.$a.'";'."\n";
       }
       $content.='$result_for_'.$table->outputVariable.' = $db->from(\''.$table_name.'\')'."\n";
-
+      if(isset($table->distinct)){
+        if($table->distinct==true){
+          $content.='->distinct()';
+        }
+      }
       break;
       case "delete":
       $content.='$result_for_'.$table->outputVariable.' = $db->from(\''.$table_name.'\')'."\n";
