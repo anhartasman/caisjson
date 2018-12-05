@@ -143,7 +143,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
 }
 
 ```
- ### Form Field Select
+### Form Field Select
 ```json
 {
    "type": "select",
@@ -158,7 +158,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Datepicker
+### Form Field Datepicker
 ```json
 {
    "type": "datepicker",
@@ -171,7 +171,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Text
+### Form Field Text
 ```json
 {
    "type": "text",
@@ -184,7 +184,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Text View
+### Form Field Text View
 ```json
 {
    "type": "text_view",
@@ -197,7 +197,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Email
+### Form Field Email
 ```json
 {
    "type": "email",
@@ -210,7 +210,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Text Area
+### Form Field Text Area
 ```json
 {
    "type": "textarea",
@@ -223,7 +223,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Richtext
+### Form Field Richtext
 ```json
 {
    "type": "richtext",
@@ -236,7 +236,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field File
+### Form Field File
 ```json
 {
    "type": "file",
@@ -250,7 +250,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Image Upload
+### Form Field Image Upload
 ```json
 },
                {
@@ -270,7 +270,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
 }
 ```
 
- ### Form Field Image
+### Form Field Image
 ```json
 {
    "type": "image",
@@ -283,7 +283,7 @@ Aku *sedang* belajar **menulis** dengan [markdown](https://en.wikipedia.org/wiki
    "validation": []
 }
 ```
- ### Form Field Button
+### Form Field Button
 ```json
 {
    "type": "button",
