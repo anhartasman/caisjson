@@ -1,0 +1,118 @@
+{
+    "title": "Fasilitas Hotel",
+    "subtitle": "Daftar Fasilitas Hotel",
+    "frame": "adminpage",
+    "id": "daftar_fasilitas_hotel",
+    "ignore": false,
+    "placement": [
+        {
+            "place": "sidemenu",
+            "returnpackage": {}
+        }
+    ],
+    "elemen": [
+        {
+            "type": "tabel",
+            "id": "tabel_fasilitas",
+            "title": "Daftar Fasilitas",
+            "columns": [
+                "ID",
+                "Fasilitas",
+                "Icon",
+                "",
+                ""
+            ],
+            "link": {
+                "head": [
+                    {
+                        "position": "head",
+                        "type": "modul_page",
+                        "modul": "tabel_hotel",
+                        "page": "add_fasilitas_hotel",
+                        "label": "Tambah",
+                        "returnpackage": {}
+                    }
+                ]
+            },
+            "listeners": [
+                {
+                    "listen": "onload",
+                    "functions": [
+                        {
+                            "func_name": "get_data_hotels",
+                            "func_type": "api_shooter",
+                            "type": "api_shooter",
+                            "content_generate": "auto",
+                            "modul": "retrieve_data",
+                            "action": "get_hotel_facility",
+                            "param": [],
+                            "onAPIReturn": [
+                                {
+                                    "func_type": "json_extracter",
+                                    "func_name": "ekstrakDataHotel",
+                                    "type": "json_extracter",
+                                    "func_param": [
+                                        "this_html_response",
+                                        "\"response_data\""
+                                    ],
+                                    "variable": "hasilEkstrakJSON",
+                                    "returnpackage": {}
+                                },
+                                {
+                                    "func_type": "change_datatable_by_json",
+                                    "func_name": "setTabelHotel",
+                                    "type": "change_datatable_by_json",
+                                    "func_param": [
+                                        "hasilEkstrakJSON"
+                                    ],
+                                    "content_generate": "auto",
+                                    "table_id": "tabel_fasilitas",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ]
+                }
+            ],
+            "forms": [
+                {
+                    "id": "form_cari_tabel",
+                    "div_class": "box-header",
+                    "attribute": {
+                        "method": "post"
+                    },
+                    "field": [],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [
+      {
+          "type": "table",
+          "from_engine": false,
+          "runifnotnull": [],
+          "table_name": "tb_location_countries",
+          "execute": "many",
+          "process_name": "select",
+          "output_generate": "auto",
+          "param": [],
+          "array_data": [
+              "CountryName",
+              "CountryCode"
+          ],
+          "where": [],
+          "to_array": {
+              "index": "CountryCode",
+              "value": "CountryName"
+          },
+          "outputVariable": "daftar_negara",
+          "returnpackage": {}
+      }
+    ],
+    "engine": [],
+    "returnpackage": {}
+}

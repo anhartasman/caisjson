@@ -1,0 +1,53 @@
+{
+    "action": "get_hotel_images",
+    "param": [{
+        "name": "hotel_id",
+        "mandatory": true,
+        "returnpackage": {}
+    }],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_images_hotel",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [{
+                "type": "variable",
+                "var_type": "variable",
+                "var_name": "param_api_hotel_id",
+                "index": [],
+                "returnpackage": {}
+            }],
+            "array_data": [
+                "id",
+                "idh",
+                "foto"
+            ],
+            "where": [
+              {
+                  "index": "idh",
+                  "operator": "=",
+                  "value": {
+                      "var_name": "param_api_hotel_id",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  "returnpackage": {}
+              }
+            ],
+            "outputVariable": "hasil_get_hotel_images",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['id']}v\",\"<img src='{cais_public_assets_uploads}/v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['foto']}v' width='150px' height='150px' />\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/edit_images_hotel\/image_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['id']}v\/hotel_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['idh']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/delete_images_hotel\/image_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['id']}v\/hotel_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['idh']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_hotel_images','index':['id']}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_hotel_images}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

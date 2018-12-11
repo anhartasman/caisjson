@@ -85,9 +85,68 @@
                 {
                     "type": "include_file",
                     "include": "thejson/fitur/hotel/include_file_id_page_daftar_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_daftar_fasilitas_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_add_fasilitas_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_edit_fasilitas_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_delete_fasilitas_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_add_images_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_edit_images_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_delete_images_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_add_contact_hotel.json"
                 }
             ],
             "returnpackage": {}
+        },
+        {
+            "id": "information",
+            "title": "Information",
+            "subtitle": "System Information",
+            "ignore": false,
+            "placement": [
+                {
+                    "place": "sidemenu",
+                    "returnpackage": {}
+                }
+            ],
+            "page": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_daftar_contact.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_add_contact.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_edit_contact.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_delete_contact.json"
+                }
+            ]
         }
     ],
     "global_variables": [
@@ -355,7 +414,7 @@
                                 }
                             ],
                             "outputVariable": "hasil_get_auth",
-                            "output": "{\\\"id\\\":\\\"v{'type':'variable','var_type':'variable','var_name':'hasil_get_akun','index':['id'],'returnpackage':{}}v\\\",{\\\"email\\\":\\\"v{'type':'variable','var_type':'variable','var_name':'hasil_get_akun','index':['email'],'returnpackage':{}}v\\\",{\\\"level\\\":\\\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_auth','index':['level'],'returnpackage':{}}v\\\"",
+                            "output": "{\\\"id\\\":\\\"v{'var_type':'variable','var_name':'hasil_get_akun','index':['id']}v\\\",{\\\"email\\\":\\\"v{'var_type':'variable','var_name':'hasil_get_akun','index':['email']}v\\\",{\\\"level\\\":\\\"v{'var_type':'variable','var_name':'qhasil_get_auth','index':['level']}v\\\"",
                             "output_divider": "",
                             "process": [],
                             "engine": [],
@@ -414,6 +473,22 @@
                 {
                     "type": "include_file",
                     "include": "thejson\/include_file_id_api_get_locations.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_hotel_facility.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_hotel_images.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_contact.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_hotel_contacts.json"
                 }
             ],
             "returnpackage": {}
@@ -424,6 +499,61 @@
             {
                 "type": "include_file",
                 "include": "thejson\/include_file_id_api_insert_data_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_insert_data_fasilitas_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_insert_data_images_hotel.json"
+              }
+              ,{
+                  "type": "include_file",
+                  "include": "thejson\/include_file_id_api_insert_data_contact.json"
+              }
+            ]
+        },
+        {
+            "modul": "update_data",
+            "action": [
+            {
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_fasilitas_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_images_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_contact.json"
+            }
+            ],
+            "returnpackage": {}
+        },
+        {
+            "modul": "delete_data",
+            "action": [
+            {
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_fasilitas_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_images_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_contact.json"
             }
             ],
             "returnpackage": {}

@@ -1,0 +1,198 @@
+{
+    "title": "Hapus Data Image Hotel",
+    "subtitle": "Form Hapus Data Image Hotel",
+    "frame": "adminpage",
+    "id": "delete_images_hotel",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_hotel",
+            "title": "Form Data Image Hotel",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_hotel",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+                      {
+                          "type": "image",
+                          "id": "foto",
+                          "label": "Foto Hotel",
+                          "variable": "isian_foto",
+                          "class": "form-control",
+                          "theme": "normal",
+                          "attribute": {},
+                          "src": {
+                              "type": "variable",
+                              "var_type": "variable",
+                              "var_name": "data_image",
+                              "index": [
+                                  "foto"
+                              ],
+                              "returnpackage": {}
+                          },
+                          "listeners": [],
+                          "validation": [],
+                          "returnpackage": {}
+                      },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_hotel",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_hotel",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_hotel",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "delete_data",
+                                                            "action": "delete_images_hotel",
+                                                            "param": [
+                                                              {
+                                                                  "index": "foto_id",
+                                                                  "slash": "",
+                                                                  "value": "catch_image_id",
+                                                                  "returnpackage": {}
+                                                              }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataHotel",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [{"index":"id"
+                                                                                    ,"value":"catch_hotel_id"
+                                                                                  ,"value_type":"variable"}],
+                                                                                    "func_param": [
+                                                                                        "\"tabel_hotel\"",
+                                                                                        "\"edit_hotel\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
+                                                                    ],
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "returnpackage": {}
+                                                        }
+                                                    ],
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [
+        {
+            "from_engine": false,
+            "runifnotnull": [],
+            "type": "url_catcher",
+            "catch": "image_id",
+            "variable": "image_id",
+            "returnpackage": {}
+        },{
+            "from_engine": false,
+            "runifnotnull": [],
+            "type": "url_catcher",
+            "catch": "hotel_id",
+            "variable": "hotel_id",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_images_hotel",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "image_id",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                "id",
+                "idh",
+                "foto"
+            ],
+            "where": [
+                {
+                    "index": "id",
+                    "operator": "=",
+                    "value": {
+                        "var_type": "variable",
+                        "var_name": "image_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "execute": "one",
+            "outputVariable": "data_image",
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "returnpackage": {}
+}

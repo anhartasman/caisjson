@@ -56,7 +56,7 @@
             "field": "param_api_fotoprofil",
             "file_name": "foto_profil_siswa_{param_api_nama}",
             "extension": "jpg",
-            "returnpackage": {},
+            
             "param": []
         },
         {

@@ -20,7 +20,147 @@
                         "method": "POST"
                     },
                     "field": [
+                      {
+                          "type": "select2",
+                          "id": "input_negara_hotel",
+                          "label": "Negara",
+                          "variable": "pilihan_negarakota_hotel",
+                          "class": "",
+                          "theme": "normal",
+                          "first_option_label": "- select -",
+                          "first_option_value": "-1",
+                          "value": {
+                              "type": "variable",
+                              "var_type": "variable",
+                              "var_name": "daftar_negara",
+                              "index": [],
+                              "returnpackage": {}
+                          },
+                          "attribute": {},
+                          "listeners": [
+                              {
+                                  "listen": "onchange",
+                                  "functions": [
+                                      {
+                                          "func_name": "get_pilihan_kota",
+                                          "func_type": "api_shooter",
+                                          "type": "api_shooter",
+                                          "content_generate": "auto",
+                                          "modul": "retrieve_data",
+                                          "action": "get_cities",
+                                          "param": [
+                                              {
+                                                  "index": "country_code",
+                                                  "slash": "",
+                                                  "value": "pilihan_negarakota_hotel",
+                                                  "returnpackage": {}
+                                              }
+                                          ],
+                                          "onAPIReturn": [
+                                              {
+                                                  "func_type": "json_extracter",
+                                                  "func_name": "extractJSONKota",
+                                                  "type": "json_extracter",
+                                                  "func_param": [
+                                                      "this_html_response",
+                                                      "\"response_data\""
+                                                  ],
+                                                  "variable": "hasilExtractJSONKota",
+                                                  "returnpackage": {}
+                                              },
+                                              {
+                                                  "func_name": "set_dropdown_pilihan_kota",
+                                                  "func_type": "setter_dropdown",
+                                                  "type": "setter_dropdown",
+                                                  "func_param": [
+                                                      "hasilExtractJSONKota"
+                                                  ],
+                                                  "dropdown_id": "input_kota_hotel",
+                                                  "returnpackage": {}
+                                              }
+                                          ],
+                                          "returnpackage": {}
+                                      }
+                                  ]
+                              }
+                          ],
+                          "validation": [],
+                          "returnpackage": {}
+                      }
+                      ,{
+                            "type": "select2",
+                            "id": "input_kota_hotel",
+                            "label": "Kota",
+                            "variable": "pilihan_kota_hotel",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onchange",
+                                    "functions": [
+                                        {
+                                            "func_name": "get_pilihan_lokasi",
+                                            "func_type": "api_shooter",
+                                            "type": "api_shooter",
+                                            "content_generate": "auto",
+                                            "modul": "retrieve_data",
+                                            "action": "get_locations",
+                                            "param": [
+                                                {
+                                                    "index": "city_code",
+                                                    "slash": "",
+                                                    "value": "pilihan_kota_hotel",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "onAPIReturn": [
+                                                {
+                                                    "func_type": "json_extracter",
+                                                    "func_name": "extractJSONLokasi",
+                                                    "type": "json_extracter",
+                                                    "func_param": [
+                                                        "this_html_response",
+                                                        "\"response_data\""
+                                                    ],
+                                                    "variable": "hasilExtractJSONLokasi",
+                                                    "returnpackage": {}
+                                                },
+                                                {
+                                                    "func_name": "set_dropdown_pilihan_lokasi",
+                                                    "func_type": "setter_dropdown",
+                                                    "type": "setter_dropdown",
+                                                    "func_param": [
+                                                        "hasilExtractJSONLokasi"
+                                                    ],
+                                                    "dropdown_id": "input_lokasi_hotel",
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
                         {
+                            "type": "select2",
+                            "id": "input_lokasi_hotel",
+                            "label": "Lokasi",
+                            "variable": "pilihan_lokasi_hotel",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },{
                             "type": "select",
                             "id": "pilihan_bintang",
                             "label": "Bintang",
@@ -125,6 +265,23 @@
                             "returnpackage": {}
                         },
                         {
+                            "type": "image_upload",
+                            "id": "fotohotel",
+                            "label": "Foto Hotel",
+                            "variable": "isian_fotohotel",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onchange",
+                                    "functions": []
+                                }
+                            ],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
                             "type": "button",
                             "id": "buttonSubmitForm",
                             "label": "Submit Form",
@@ -171,12 +328,6 @@
                                                                     "returnpackage": {}
                                                                 },
                                                                 {
-                                                                    "index": "hotelcode",
-                                                                    "slash": "",
-                                                                    "value": "isian_hotelcode",
-                                                                    "returnpackage": {}
-                                                                },
-                                                                {
                                                                     "index": "hoteldescription",
                                                                     "slash": "",
                                                                     "value": "isian_hoteldescription",
@@ -192,6 +343,30 @@
                                                                     "index": "hoteladdress",
                                                                     "slash": "",
                                                                     "value": "isian_address",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "country_code",
+                                                                    "slash": "",
+                                                                    "value": "pilihan_negarakota_hotel",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "city_code",
+                                                                    "slash": "",
+                                                                    "value": "pilihan_kota_hotel",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "location_code",
+                                                                    "slash": "",
+                                                                    "value": "pilihan_lokasi_hotel",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "fotohotel",
+                                                                    "slash": "",
+                                                                    "value": "isian_fotohotel_file_content",
                                                                     "returnpackage": {}
                                                                 }
                                                             ],
@@ -250,27 +425,7 @@
     ],
     "functions": [],
     "process": [
-        {
-            "type": "table",
-            "from_engine": false,
-            "runifnotnull": [],
-            "table_name": "tb_tingkat",
-            "execute": "many",
-            "process_name": "select",
-            "output_generate": "auto",
-            "param": [],
-            "array_data": [
-                "id",
-                "nama"
-            ],
-            "where": [],
-            "to_array": {
-                "index": "id",
-                "value": "nama"
-            },
-            "outputVariable": "daftar_tingkat",
-            "returnpackage": {}
-        },
+
         {
             "type": "table",
             "from_engine": false,
@@ -290,6 +445,26 @@
                 "value": "fasilitas"
             },
             "outputVariable": "daftar_fasilitas",
+            "returnpackage": {}
+        },{
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_countries",
+            "execute": "many",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [],
+            "array_data": [
+                "CountryName",
+                "CountryCode"
+            ],
+            "where": [],
+            "to_array": {
+                "index": "CountryCode",
+                "value": "CountryName"
+            },
+            "outputVariable": "daftar_negara",
             "returnpackage": {}
         }
     ],

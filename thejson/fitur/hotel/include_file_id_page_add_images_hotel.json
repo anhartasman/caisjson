@@ -1,0 +1,156 @@
+{
+    "title": "Add Image Hotel",
+    "subtitle": "Form Add Image Hotel",
+    "frame": "adminpage",
+    "id": "add_images_hotel",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_hotel",
+            "title": "Form Image Hotel",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_hotel",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+
+                      {
+                          "type": "image_upload",
+                          "id": "foto",
+                          "label": "Foto",
+                          "variable": "isian_foto",
+                          "class": "form-control",
+                          "theme": "normal",
+                          "attribute": {},
+                          "listeners": [
+                              {
+                                  "listen": "onchange",
+                                  "functions": []
+                              }
+                          ],
+                          "validation": [],
+                          "returnpackage": {}
+                      },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_hotel",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_hotel",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_hotel",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "insert_data",
+                                                            "action": "insert_data_images_hotel",
+                                                            "param": [
+                                                                {
+                                                                    "index": "hotel_id",
+                                                                    "slash": "",
+                                                                    "value": "catch_hotel_id",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                    {
+                                                                        "index": "foto",
+                                                                        "slash": "",
+                                                                        "value": "isian_foto_file_content",
+                                                                        "returnpackage": {}
+                                                                    }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataHotel",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [
+                                                                                      {"index":"id"
+                                                                                      ,"value":"catch_hotel_id"
+                                                                                    ,"value_type":"variable"}
+                                                                                    ],
+                                                                                    "func_param": [
+                                                                                        "\"tabel_hotel\"",
+                                                                                        "\"edit_hotel\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
+                                                                    ],
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "returnpackage": {}
+                                                        }
+                                                    ],
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [{
+        "from_engine": false,
+        "runifnotnull": [],
+        "type": "url_catcher",
+        "catch": "hotel_id",
+        "variable": "hotel_id",
+        "returnpackage": {}
+    }],
+    "engine": [],
+    "returnpackage": {}
+}

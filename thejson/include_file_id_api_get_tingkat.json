@@ -18,7 +18,7 @@
             ],
             "where": [],
             "outputVariable": "hasil_get_tingkat",
-            "output": "<option value='v{'type':'variable','var_type':'variable','var_name':'qhasil_get_tingkat','index':['id'],'returnpackage':{}}v'>v{'type':'variable','var_type':'variable','var_name':'qhasil_get_tingkat','index':['nama'],'returnpackage':{}}v<\/option>",
+            "output": "<option value='v{'var_type':'variable','var_name':'qhasil_get_tingkat','index':['id']}v'>v{'var_type':'variable','var_name':'qhasil_get_tingkat','index':['nama']}v<\/option>",
             "output_divider": "",
             "process": [],
             "engine": [],

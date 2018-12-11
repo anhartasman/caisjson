@@ -473,15 +473,48 @@ function file_worker($package,$filedirection){
       $class_content=str_replace("{construct_content}","",$class_content);
       $class_content=str_replace("{model_name}","model_".$ar_files[$w]["file_id"],$class_content);
       $class_content=str_replace("{include}",$include_content,$class_content);
-      $class_content=str_replace("{cais_web_url}",$theconfig->web_url,$class_content);
-      $class_content=str_replace("{cais_web_folder}",$theconfig->web_folder,$class_content);
 
+      if(strpos("tes".$class_content."tes","{{")){
+
+        $ledakan= (explode("{{",$class_content));
+        for($l=1;$l<count($ledakan);$l++) {
+          $subledakan= (explode("}}",$ledakan[$l]));
+          $kontennya=$subledakan[0];
+          $jsonkon=json_decode("{".$kontennya."}");
+          if(isset($jsonkon->var_name)){
+            $bahanvar=create_variable_web($jsonkon);
+          //echo "Kontennya".$bahanvar;
+          $class_content=str_replace("{{".$subledakan[0]."}}","{{".$bahanvar."}}",$class_content);
+
+          }
+          //$class_content=str_replace("properties_".$subledakan[0]."\"".$subledakan[1]."\"","",$class_content);
+        }
+
+      }
+
+            if(strpos("tes".$class_content."tes","{cais_public_assets_")){
+
+              $ledakan= (explode("{cais_public_assets_",$class_content));
+              for($l=1;$l<count($ledakan);$l++) {
+                $subledakan= (explode("}",$ledakan[$l]));
+                $kontennya=$subledakan[0];
+                $isidirektori=get_public_assets_directory($kontennya);
+                $class_content=str_replace("{cais_public_assets_".$subledakan[0]."}",$isidirektori,$class_content);
+
+                //$class_content=str_replace("properties_".$subledakan[0]."\"".$subledakan[1]."\"","",$class_content);
+              }
+
+            }
                   $ledakan= (explode("properties_",$class_content));
 
                     for($l=1;$l<count($ledakan);$l++) {
                       $subledakan= (explode("\"",$ledakan[$l]));
                       $class_content=str_replace("properties_".$subledakan[0]."\"".$subledakan[1]."\"","",$class_content);
                     }
+                    
+      $class_content=str_replace("{cais_web_url}",$theconfig->web_url,$class_content);
+      $class_content=str_replace("{cais_web_folder}",$theconfig->web_folder,$class_content);
+
       //echo "<textarea style=\"width:500px; height:100px\" >".$class_content."</textarea><br><br>";
       //echo "<pre><code class=\"language-markup\" style=\"max-height: 15px;overflow: scroll;\">".$class_content."</code></pre><br>";
       //nonaktifkan komen untuk menulis ke file

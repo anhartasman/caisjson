@@ -326,6 +326,25 @@ function render_html_element_field($page_elemen){
       return $daf_url_catcher;
       //akhir rekursifcekurlcatcher
     }
+    function rekursifdafVariable($isiprocess){
+      $dafVariable=array();
+      foreach($isiprocess as $pro){
+        //echo "TERPANGGIL";
+        if(is_array($pro)){
+          //echo $key."<BR>";
+          //$dafVariable=array_merge($dafVariable,renderwhattodo($key,$category,$isitoproses));
+          $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+        }else if (is_object($pro)) {
+          //echo $key."<BR>";
+          if(isset($pro->outputVariable)){
+          $dafVariable[]=$pro->outputVariable;
+          }
+          $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+        }else{
+        }
+      }
+      return $dafVariable;
+    }
     function rekursifcekinclude($kodenya,$filedirection){
       $daf_stringinclude=array();
       //echo "DIPANGGIL";
@@ -846,6 +865,9 @@ function create_web_element_dropdown($dropdown){
               $tulisan_variable="";
               $isivalue="";
               //echo "valuenya ".var_dump($value)."\n";
+              if(!isset($value->var_type)){
+                $value->var_type="variable";
+              }
               switch($value->var_type){
                 case "variable":
                 $tulisan_variable='$'.$value->var_name;
@@ -1283,7 +1305,7 @@ function create_web_element_dropdown($dropdown){
                                     $param->value=$param->value;
                                     break;
                                     case "variable":
-                                    $param->value="<?php if(isset($".$param->value.")){ echo".$param->value.";} ?>";
+                                    $param->value="<?php if(isset($".$param->value.")){ echo $".$param->value.";} ?>";
                                     break;
                                   }
                                   switch($param->slash){
@@ -1627,6 +1649,16 @@ function create_web_element_dropdown($dropdown){
                                         }
 
                                       }
+                                      /**
+                                      if(isset($pro->process)){
+                                        $grupengine=render_grup_engine($pro);
+                                        $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
+                                        $content.=$grupengine->content;
+                                        $isideklarasi.=$grupengine->deklarasi;
+                                        echo "IYA ADA ".$grupengine->varphpawal;
+                                      }
+                                      **/
+
                                       $objreturn->content=$content;
                                       $objreturn->varjsawal=$varjsawal;
                                       $objreturn->deklarasi=$isideklarasi;

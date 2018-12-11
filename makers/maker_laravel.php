@@ -88,6 +88,105 @@ for($i=0; $i<count($manifest->moduls); $i++){
     $isiroute.="Route::get('".$urlroute."', ['uses'=>'model_controller_".$controller_name."@page_".$func_name."']);\n";
 }
 }
+$docsfilelocation="resources/views/mvc_view/system_information/documentation";
+
+$ar_worktodo[]=array("type"=>"makedirectory","work_id"=>"makedirectorydocumentation","directory_id"=>"folderdocumentation","location"=>$docsfilelocation);
+
+$copy_baseindexmodul=bacafile($filedirection."copy_base/frame_adminpage.php");
+$copy_basedocumentation=bacafile($filedirection."copy_base/documentation.php");
+
+$isidataspage="";
+$nomidx=1;
+for($i=0; $i<count($manifest->moduls); $i++){
+
+  $controller_name=$manifest->moduls[$i]->id;
+    for($j=0; $j<count($manifest->moduls[$i]->page); $j++){
+    $thepage=$manifest->moduls[$i]->page[$j];
+    $func_name=$thepage->id;
+    $urlroute="/admin/".$controller_name."/".$func_name;
+    $isiplace="";
+    for($pl=0;$pl<count($manifest->moduls[$i]->page[$j]->placement);$pl++){
+      $isiplace.=$manifest->moduls[$i]->page[$j]->placement[$pl]->place.",";
+    }
+    $isidataspage.="<tr>";
+    $isidataspage.="<td>".$nomidx."</td>";
+    $isidataspage.="<td>".$controller_name."</td>";
+    $isidataspage.="<td>".$func_name."</td>";
+    $isidataspage.="<td>".$isiplace."</td>";
+    $isidataspage.="</tr>";
+    $nomidx+=1;
+  }
+}
+$copy_basedocumentation=str_replace("{datas_page}",$isidataspage,$copy_basedocumentation);
+
+$isidatasapi="";
+$nomidx=1;
+for($d=0; $d<count($manifest->daf_api); $d++){
+  $manifest->daf_api[$d]->modul=$manifest->daf_api[$d]->modul;
+  $controller_name=$manifest->daf_api[$d]->modul;
+ for($act=0; $act<count($manifest->daf_api[$d]->action); $act++){
+    $action=$manifest->daf_api[$d]->action[$act];
+    $action->properties_modul=$controller_name;
+    $action->properties_page=$action->action;
+    //echo "properties_page : ".$action->properties_page."<BR>";
+    $func_name=$action->action;
+    $isiparam="";
+    for($f=0; $f<count($action->param); $f++){
+      if(!isset($action->param[$f]->mandatory)){
+        $action->param[$f]->mandatory=false;
+      }
+
+      $isiparam.=$action->param[$f]->name."(".(int)$action->param[$f]->mandatory.")".",";
+    }
+    $isidatasapi.="<tr>";
+    $isidatasapi.="<td>".$nomidx."</td>";
+    $isidatasapi.="<td>".$controller_name."</td>";
+    $isidatasapi.="<td>".$func_name."</td>";
+    $isidatasapi.="<td>".$isiparam."</td>";
+    $isidatasapi.="<td>"."{cais_web_url}/API"."</td>";
+    $isidatasapi.="</tr>";
+    $nomidx+=1;
+  }
+}
+
+$copy_basedocumentation=str_replace("{datas_api}",$isidatasapi,$copy_basedocumentation);
+
+$bahancopy_baseindexmodul=$copy_baseindexmodul;
+$bahanpagecontent="";
+$bahanreplacemasal=array(
+
+  "{modul_id_page_id}"=>""
+  ,"{modul_id}"=>""
+  ,"{page_name}"=>"Documentation | System Information"
+  //,"{copy_basecss}"=>$isicopy_basecss
+  ,"{page_title}"=>"Documentation"
+  ,"{page_subtitle}"=>"Documentation"
+  ,"{page_content}"=>$copy_basedocumentation
+  ,"{footer_js}"=>""
+  ,"{copy_js}"=>""
+  ,"{modul_title}"=>""
+  ,"<br />"=>""
+
+);
+
+$bahancopy_baseindexmodul=replacemasal($bahanreplacemasal,$bahancopy_baseindexmodul);
+$bahanreplacemasal=array();
+for($lib=0; $lib<count($libraries_warehouse); $lib++){
+  $bahanreplacemasal["{copy_base_language_".$libraries_warehouse[$lib]."}"]="";
+}
+$bahancopy_baseindexmodul=replacemasal($bahanreplacemasal,$bahancopy_baseindexmodul);
+
+//file_put_contents($foldermvcviewpage."/index.php",$bahancopy_baseindexmodul);
+$ar_worktodo[]=array("type"=>"addfile","work_id"=>"writefileto".$docsfilelocation."/index.blade.php","file_id"=>$docsfilelocation."/index.blade.php","location"=>$docsfilelocation."/index.blade.php","content_from"=>"string","content"=>$bahancopy_baseindexmodul);
+
+
+//$ar_worktodo[]=array("type"=>"addfile","work_id"=>"makefiledocumentation","directory_id"=>"filedocumentation","location"=>$docsfilelocation."/index.blade.php","content_from"=>"string","content"=>"tes tertulis");
+
+$config_system_content=bacafile($filedirection."copy_base/routes_web.php");
+$config_system_content=str_replace("<br />","",$config_system_content);
+$config_system_content=str_replace("{write}",$isiroute,$config_system_content);
+$ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfileconfig_routes_web","file_id"=>"config_routes_web","location"=>"routes/web.php","content_from"=>"string","content"=>$config_system_content);
+
 
 $config_system_content=bacafile($filedirection."copy_base/routes_web.php");
 $config_system_content=str_replace("<br />","",$config_system_content);
@@ -240,6 +339,20 @@ for($i=0; $i<count($manifest->moduls); $i++){
 
 
                                     $dafVariable=array();
+                                    foreach($action->process as $pro){
+                                      if(is_array($pro)){
+                                        //echo $key."<BR>";
+                                        //$dafVariable=array_merge($dafVariable,renderwhattodo($key,$category,$isitoproses));
+                                        $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+                                      }else if (is_object($pro)) {
+                                        //echo $key."<BR>";
+                                        if(isset($pro->outputVariable)){
+                                        $dafVariable[]=$pro->outputVariable;
+                                        }
+                                        $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+                                      }else{
+                                      }
+                                    }
 
                                     if(isset($action->process)){
 

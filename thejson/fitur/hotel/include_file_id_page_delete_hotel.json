@@ -1,5 +1,5 @@
 {
-    "title": "Hapus Data Hotel SMP",
+    "title": "Hapus Data Hotel",
     "subtitle": "Form Hapus Data Hotel",
     "frame": "adminpage",
     "id": "delete_hotel",
@@ -9,7 +9,7 @@
         {
             "type": "form",
             "id": "form_hotel",
-            "title": "Form Hapus Data Hotel",
+            "title": "Form Data Hotel",
             "link": {},
             "listeners": [],
             "forms": [
@@ -20,107 +20,105 @@
                         "method": "POST"
                     },
                     "field": [
-                        {
-                            "type": "text_view",
-                            "id": "pilihan_tingkat",
-                            "label": "Tingkat",
-                            "variable": "pilihan_tingkat_hotel",
-                            "class": "form-control",
+                      {
+                          "type": "image",
+                          "id": "foto",
+                          "label": "Foto Hotel",
+                          "variable": "isian_foto",
+                          "class": "form-control",
+                          "theme": "normal",
+                          "attribute": {},
+                          "src": {
+                              "type": "variable",
+                              "var_type": "variable",
+                              "var_name": "data_diri_hotel",
+                              "index": [
+                                  "foto"
+                              ],
+                              "returnpackage": {}
+                          },
+                          "listeners": [],
+                          "validation": [],
+                          "returnpackage": {}
+                      },{
+                          "type": "select2",
+                          "id": "input_negara_hotel",
+                          "label": "Negara",
+                          "variable": "pilihan_negarakota_hotel",
+                          "class": "",
+                          "theme": "normal",
+                          "first_option_label": "- select -",
+                          "first_option_value": "-1",
+                          "value": {
+                              "type": "variable",
+                              "var_type": "variable",
+                              "var_name": "daftar_negara",
+                              "index": [],
+                              "returnpackage": {}
+                          },
+                          "attribute": {
+                            "disabled":"disabled"
+                          },
+                          "search": {
+                              "if": {
+                                  "type": "variable",
+                                  "var_type": "variable",
+                                  "var_name": "keydaftar_negara",
+                                  "index": [],
+                                  "returnpackage": {}
+                              },
+                              "operator": "==",
+                              "value": {
+                                  "type": "variable",
+                                  "var_type": "variable",
+                                  "var_name": "data_diri_hotel",
+                                  "index": [
+                                      "countrycode"
+                                  ],
+                                  "returnpackage": {}
+                              }
+                          },
+                          "listeners": [],
+                          "validation": [],
+                          "returnpackage": {}
+                      }
+                      ,{
+                            "type": "select2",
+                            "id": "input_kota_hotel",
+                            "label": "Kota",
+                            "variable": "pilihan_kota_hotel",
+                            "class": "",
                             "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "city_list",
+                                "index": [],
+                                "returnpackage": {}
+                            },
                             "attribute": {
-                                "disabled": "disabled"
+                              "disabled":"disabled"
                             },
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "daftar_tingkat",
-                                "index": [
-                                    {
-                                        "type": "variable",
-                                        "var_type": "variable",
-                                        "var_name": "data_diri_hotel",
-                                        "index": [
-                                            "tingkat_id"
-                                        ],
-                                        "returnpackage": {}
-                                    }
-                                ],
-                                "returnpackage": {}
-                            },
-                            "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "text_view",
-                            "id": "pilihan_kelas",
-                            "label": "Kelas",
-                            "variable": "pilihan_kelas_hotel",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {
-                                "disabled": "disabled"
-                            },
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "daftar_kelas",
-                                "index": [
-                                    {
-                                        "type": "variable",
-                                        "var_type": "variable",
-                                        "var_name": "data_diri_hotel",
-                                        "index": [
-                                            "kelas_id"
-                                        ],
-                                        "returnpackage": {}
-                                    }
-                                ],
-                                "returnpackage": {}
-                            },
-                            "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "text_view",
-                            "id": "nama",
-                            "label": "Nama",
-                            "variable": "isian_nama",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {},
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "data_diri_hotel",
-                                "index": [
-                                    "nama"
-                                ],
-                                "returnpackage": {}
-                            },
-                            "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "text_view",
-                            "id": "email",
-                            "label": "Email",
-                            "variable": "isian_email",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {
-                                "disabled": "disabled"
-                            },
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "data_diri_hotel",
-                                "index": [
-                                    "email"
-                                ],
-                                "returnpackage": {}
+                            "search": {
+                                "if": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "keycity_list",
+                                    "index": [],
+                                    "returnpackage": {}
+                                },
+                                "operator": "==",
+                                "value": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "data_diri_hotel",
+                                    "index": [
+                                        "citycode"
+                                    ],
+                                    "returnpackage": {}
+                                }
                             },
                             "listeners": [],
                             "validation": [],
@@ -128,8 +126,146 @@
                         },
                         {
                             "type": "select2",
-                            "id": "pelajaranfavorit",
-                            "label": "Pelajaran Favorit",
+                            "id": "input_lokasi_hotel",
+                            "label": "Lokasi",
+                            "variable": "pilihan_lokasi_hotel",
+                            "class": "",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "location_list",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {"disabled":"disabled"},
+                            "search": {
+                                "if": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "keylocation_list",
+                                    "index": [],
+                                    "returnpackage": {}
+                                },
+                                "operator": "==",
+                                "value": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "data_diri_hotel",
+                                    "index": [
+                                        "locationcode"
+                                    ],
+                                    "returnpackage": {}
+                                }
+                            },
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },{
+                            "type": "select",
+                            "id": "pilihan_bintang",
+                            "label": "Bintang",
+                            "variable": "pilihan_bintang_hotel",
+                            "class": "form-control",
+                            "theme": "admin",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "bintang_hotel",
+                                "index": [],
+                                "returnpackage": {}
+                            },
+                            "attribute": {"disabled":"disabled"},
+                            "search": {
+                                "if": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "keybintang_hotel",
+                                    "index": [],
+                                    "returnpackage": {}
+                                },
+                                "operator": "==",
+                                "value": {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "data_diri_hotel",
+                                    "index": [
+                                        "star"
+                                    ],
+                                    "returnpackage": {}
+                                }
+                            },
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "hotelname",
+                            "label": "Nama",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "disabled":"disabled"
+                            },
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "data_diri_hotel",
+                                "index": [
+                                    "hotelname"
+                                ],
+                                "returnpackage": {}
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan nama hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "address",
+                            "label": "Address",
+                            "variable": "isian_address",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "disabled":"disabled"
+                            },
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "data_diri_hotel",
+                                "index": [
+                                    "address"
+                                ],
+                                "returnpackage": {}
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan alamat hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "select2",
+                            "id": "fasilitas",
+                            "label": "Fasilitas Hotel",
                             "class": "form-control",
                             "theme": "normal",
                             "first_option_label": "- select -",
@@ -137,12 +273,9 @@
                             "value": {
                                 "type": "variable",
                                 "var_type": "variable",
-                                "var_name": "daftar_pelajaran",
+                                "var_name": "daftar_fasilitas",
                                 "index": [],
                                 "returnpackage": {}
-                            },
-                            "attribute": {
-                                "disabled": "disabled"
                             },
                             "search": {
                                 "foreach": {
@@ -155,7 +288,7 @@
                                 "if": {
                                     "type": "variable",
                                     "var_type": "variable",
-                                    "var_name": "keydaftar_pelajaran",
+                                    "var_name": "keydaftar_fasilitas",
                                     "index": [],
                                     "returnpackage": {}
                                 },
@@ -168,27 +301,9 @@
                                     "returnpackage": {}
                                 }
                             },
-                            "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "text_view",
-                            "id": "handphone",
-                            "label": "Handphone",
-                            "class": "form-control",
-                            "theme": "normal",
                             "attribute": {
-                                "disabled": "disabled"
-                            },
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "data_diri_hotel",
-                                "index": [
-                                    "handphone"
-                                ],
-                                "returnpackage": {}
+                                "multiple": "multiple"
+                                ,"disabled":"disabled"
                             },
                             "listeners": [],
                             "validation": [],
@@ -196,73 +311,37 @@
                         },
                         {
                             "type": "textarea",
-                            "id": "alamat",
-                            "label": "Alamat",
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "data_diri_hotel",
-                                "index": [
-                                    "alamat"
-                                ],
-                                "returnpackage": {}
-                            },
+                            "id": "hoteldescription",
+                            "label": "Description",
                             "class": "form-control",
                             "theme": "normal",
                             "attribute": {
-                                "disabled": "disabled"
-                            },
-                            "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "richtext",
-                            "id": "sertifikat",
-                            "label": "Sertifikat",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {
-                                "disabled": "disabled"
+                                "disabled":"disabled"
                             },
                             "value": {
                                 "type": "variable",
                                 "var_type": "variable",
                                 "var_name": "data_diri_hotel",
                                 "index": [
-                                    "sertifikat"
+                                    "hoteldescription"
                                 ],
                                 "returnpackage": {}
                             },
                             "listeners": [],
-                            "validation": [],
-                            "returnpackage": {}
-                        },
-                        {
-                            "type": "image",
-                            "id": "fotoprofil",
-                            "label": "Foto Profil",
-                            "variable": "isian_fotoprofil",
-                            "class": "form-control",
-                            "theme": "normal",
-                            "attribute": {},
-                            "src": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "data_diri_hotel",
-                                "index": [
-                                    "fotoprofil"
-                                ],
-                                "returnpackage": {}
-                            },
-                            "listeners": [],
-                            "validation": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan deskripsi hotel",
+                                    "returnpackage": {}
+                                }
+                            ],
                             "returnpackage": {}
                         },
                         {
                             "type": "button",
                             "id": "buttonSubmitForm",
-                            "label": "Hapus Data",
+                            "label": "Submit Form",
                             "class": "btn btn-primary",
                             "theme": "normal",
                             "attribute": {},
@@ -271,43 +350,64 @@
                                     "listen": "onclick",
                                     "functions": [
                                         {
-                                            "func_name": "delete_data_hotel",
-                                            "func_type": "api_shooter",
-                                            "type": "api_shooter",
-                                            "content_generate": "auto",
-                                            "modul": "report",
-                                            "action": "delete_data_hotel",
-                                            "param": [
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_hotel",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_hotel",
+                                            "param": [],
+                                            "checkReturn": [
                                                 {
-                                                    "index": "hotel_id",
-                                                    "slash": "",
-                                                    "value": "catch_hotel_id",
-                                                    "returnpackage": {}
-                                                }
-                                            ],
-                                            "onAPIReturn": [
-                                                {
-                                                    "func_type": "json_extracter",
-                                                    "func_name": "ekstrakHasilDelete",
-                                                    "type": "json_extracter",
-                                                    "func_param": [
-                                                        "this_html_response",
-                                                        "\"response_data\""
-                                                    ],
-                                                    "variable": "hasilEkstrakDelete",
-                                                    "checkReturn": [
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
                                                         {
-                                                            "condition": "==",
-                                                            "if": "1",
-                                                            "then": [
+                                                            "func_name": "upload_data_hotel",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "delete_data",
+                                                            "action": "delete_data_hotel",
+                                                            "param": [
+                                                              {
+                                                                  "index": "hotel_id",
+                                                                  "slash": "",
+                                                                  "value": "catch_hotel_id",
+                                                                  "returnpackage": {}
+                                                              }
+                                                            ],
+                                                            "onAPIReturn": [
                                                                 {
-                                                                    "func_name": "pindahHalaman",
-                                                                    "func_type": "page_jumper",
-                                                                    "type": "page_jumper",
-                                                                    "page_jumper_package": [],
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
                                                                     "func_param": [
-                                                                        "\"tabel_hotel\"",
-                                                                        "\"daftar_hotel\""
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataHotel",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [],
+                                                                                    "func_param": [
+                                                                                        "\"tabel_hotel\"",
+                                                                                        "\"daftar_hotel\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
                                                                     ],
                                                                     "returnpackage": {}
                                                                 }
@@ -360,14 +460,14 @@
             ],
             "array_data": [
                 "id",
-                "nama",
-                "email",
-                "handphone",
-                "alamat",
-                "sertifikat",
-                "tingkat_id",
-                "kelas_id",
-                "fotoprofil"
+                "hotelname",
+                "countrycode",
+                "locationcode",
+                "citycode",
+                "address",
+                "star",
+                "hoteldescription",
+                "foto"
             ],
             "where": [
                 {
@@ -391,72 +491,28 @@
             "type": "table",
             "from_engine": false,
             "runifnotnull": [],
-            "table_name": "tb_tingkat",
-            "execute": "many",
-            "process_name": "select",
-            "output_generate": "auto",
-            "param": [
-                {
-                    "type": "variable",
-                    "var_type": "variable",
-                    "var_name": "data_diri_hotel",
-                    "index": [],
-                    "returnpackage": {}
-                }
-            ],
-            "array_data": [
-                "id",
-                "nama"
-            ],
-            "where": [
-                {
-                    "index": "id",
-                    "operator": "=",
-                    "value": {
-                        "type": "variable",
-                        "var_type": "variable",
-                        "var_name": "data_diri_hotel",
-                        "index": [
-                            "tingkat_id"
-                        ],
-                        "returnpackage": {}
-                    },
-                    "returnpackage": {}
-                }
-            ],
-            "to_array": {
-                "index": "id",
-                "value": "nama"
-            },
-            "outputVariable": "daftar_tingkat",
-            "returnpackage": {}
-        },
-        {
-            "type": "table",
-            "from_engine": false,
-            "runifnotnull": [],
-            "table_name": "tb_pelajaran",
+            "table_name": "tb_fasilitas",
             "execute": "many",
             "process_name": "select",
             "output_generate": "auto",
             "param": [],
             "array_data": [
                 "id",
-                "nama"
+                "fasilitas"
             ],
             "where": [],
             "to_array": {
                 "index": "id",
-                "value": "nama"
+                "value": "fasilitas"
             },
-            "outputVariable": "daftar_pelajaran",
+            "outputVariable": "daftar_fasilitas",
             "returnpackage": {}
         },
         {
             "type": "table",
             "from_engine": false,
             "runifnotnull": [],
-            "table_name": "tb_jem_pelajaran",
+            "table_name": "tb_jem_fasilitas_hotel",
             "execute": "many",
             "process_name": "select",
             "output_generate": "auto",
@@ -471,12 +527,12 @@
             ],
             "array_data": [
                 "id",
-                "idp",
-                "ids"
+                "idh",
+                "idf"
             ],
             "where": [
                 {
-                    "index": "ids",
+                    "index": "idh",
                     "operator": "=",
                     "value": {
                         "type": "variable",
@@ -491,8 +547,8 @@
                 }
             ],
             "to_array": {
-                "index": "idp",
-                "value": "idp"
+                "index": "idf",
+                "value": "idf"
             },
             "outputVariable": "hasilbridge",
             "returnpackage": {}
@@ -501,7 +557,28 @@
             "type": "table",
             "from_engine": false,
             "runifnotnull": [],
-            "table_name": "tb_kelas",
+            "table_name": "tb_location_countries",
+            "execute": "many",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [],
+            "array_data": [
+                "CountryName",
+                "CountryCode"
+            ],
+            "where": [],
+            "to_array": {
+                "index": "CountryCode",
+                "value": "CountryName"
+            },
+            "outputVariable": "daftar_negara",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_cities",
             "execute": "many",
             "process_name": "select",
             "output_generate": "auto",
@@ -510,35 +587,79 @@
                     "type": "variable",
                     "var_type": "variable",
                     "var_name": "data_diri_hotel",
-                    "index": [],
+                    "index": [
+                        "countrycode"
+                    ],
                     "returnpackage": {}
                 }
             ],
             "array_data": [
-                "id",
-                "nama"
+                "CityCode",
+                "CityName"
             ],
             "where": [
                 {
-                    "index": "id",
+                    "index": "CountryCode",
                     "operator": "=",
                     "value": {
                         "type": "variable",
                         "var_type": "variable",
-                        "var_name": "data_diri_hotel",
-                        "index": [
-                            "kelas_id"
-                        ],
+                        "var_name": "data_diri_hotel_countrycode",
+                        "index": [],
                         "returnpackage": {}
                     },
                     "returnpackage": {}
                 }
             ],
             "to_array": {
-                "index": "id",
-                "value": "nama"
+                "index": "CityCode",
+                "value": "CityName"
             },
-            "outputVariable": "daftar_kelas",
+            "outputVariable": "city_list",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_code",
+            "execute": "many",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_diri_hotel",
+                    "index": [
+                        "citycode"
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                "LocationCode",
+                "LocationName"
+            ],
+            "where": [
+                {
+                    "index": "CityCode",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "data_diri_hotel_citycode",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "to_array": {
+                "index": "LocationCode",
+                "value": "LocationName"
+            },
+            "outputVariable": "location_list",
             "returnpackage": {}
         }
     ],

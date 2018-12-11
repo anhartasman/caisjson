@@ -1,0 +1,165 @@
+{
+    "action": "delete_data_hotel",
+    "param": [
+        {
+            "name": "hotel_id",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+      {
+          "type": "table",
+          "from_engine": false,
+          "runifnotnull": [],
+          "table_name": "tb_hotel",
+          "process_name": "select",
+          "output_generate": "auto",
+          "param": [
+              {
+                  "type": "variable",
+                  "var_type": "variable",
+                  "var_name": "param_api_hotel_id",
+                  "index": [],
+                  "returnpackage": {}
+              }
+          ],
+          "array_data": [
+              "id",
+              "hotelname",
+              "countrycode",
+              "locationcode",
+              "citycode",
+              "address",
+              "star",
+              "hoteldescription",
+              "foto"
+          ],
+          "where": [
+              {
+                  "index": "id",
+                  "operator": "=",
+                  "value": {
+                      "var_type": "variable",
+                      "var_name": "param_api_hotel_id",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  "returnpackage": {}
+              }
+          ],
+          "execute": "one",
+          "outputVariable": "data_diri_hotel",
+          "returnpackage": {}
+      },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_diri_hotel",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "table_name": "tb_hotel",
+            "execute": "execute",
+            "process_name": "delete",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_hotel_id",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "where": [
+                {
+                    "index": "id",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_hotel_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "outputVariable": "hasil_deletedata_hotel",
+            "returnpackage": {}
+        },
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "data_diri_hotel",
+                      "index": [],
+                      "returnpackage": {}
+                  }
+              ],
+              "table_name": "tb_jem_fasilitas_hotel",
+              "execute": "execute",
+              "process_name": "delete",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hotel_id",
+                      "index": [],
+                      "returnpackage": {}
+                  }
+              ],
+              "where": [
+                  {
+                      "index": "idh",
+                      "operator": "=",
+                      "value": {
+                          "type": "variable",
+                          "var_type": "variable",
+                          "var_name": "param_api_hotel_id",
+                          "index": [],
+                          "returnpackage": {}
+                      },
+                      "returnpackage": {}
+                  }
+              ],
+              "outputVariable": "hasil_deletefasilitas_hotel",
+              "returnpackage": {}
+          },
+          {
+              "from_engine": false,
+              "runifnotnull": [
+                  {
+                      "var_name": "data_diri_hotel",
+                      "index": [
+                          "foto"
+                      ]
+                  }
+              ],
+              "type": "file_delete",
+              "file_name": {
+                  "type": "variable",
+                  "var_type": "variable",
+                  "var_name": "data_diri_hotel",
+                  "index": [
+                      "foto"
+                  ],
+                  "returnpackage": {}
+              },
+
+              "param": []
+          }
+    ],
+    "engine": [],
+    "response_output": "{hasil_deletedata_hotel}",
+    "response_type": "text",
+    "returnpackage": {}
+}

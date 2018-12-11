@@ -86,7 +86,7 @@
                 }
             ],
             "outputVariable": "hasil_get_students",
-            "output": "[\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['nama'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['email'],'returnpackage':{}}v\",\"v{'type':'variable','var_type':'variable','var_name':'hasilbridge','index':[],'returnpackage':{}}v\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/edit_siswa\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v>Edit ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/delete_siswa\/id\/v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v>Delete ID v{'type':'variable','var_type':'variable','var_name':'qhasil_get_students','index':['id'],'returnpackage':{}}v<\/a>\"]",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_students','index':['id']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_students','index':['nama']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_students','index':['email']}v\",\"v{'var_type':'variable','var_name':'hasilbridge','index':[]}v\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/edit_siswa\/id\/v{'var_type':'variable','var_name':'qhasil_get_students','index':['id']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_students','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_siswa\/delete_siswa\/id\/v{'var_type':'variable','var_name':'qhasil_get_students','index':['id']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_students','index':['id']}v<\/a>\"]",
             "output_divider": ",",
             "process": [
                 {
@@ -135,7 +135,7 @@
                         }
                     ],
                     "outputVariable": "hasilbridge",
-                    "output": "v{'type':'variable','var_type':'variable','var_name':'hasilpelajaran','index':[],'returnpackage':{}}v",
+                    "output": "v{'var_type':'variable','var_name':'hasilpelajaran','index':[]}v",
                     "output_divider": ",",
                     "process": [
                         {
@@ -176,7 +176,7 @@
                                 }
                             ],
                             "outputVariable": "hasilpelajaran",
-                            "output": "v{'type':'variable','var_type':'variable','var_name':'qhasilpelajaran','index':['nama'],'returnpackage':{}}v",
+                            "output": "v{'var_type':'variable','var_name':'qhasilpelajaran','index':['nama']}v",
                             "output_divider": ",",
                             "process": [],
                             "engine": [],

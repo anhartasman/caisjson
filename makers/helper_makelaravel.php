@@ -520,7 +520,18 @@ function create_web_loop($param){
 
 
                                                           }
+                                                          /**
+                                                          if(isset($pro->process)){
 
+                                                                  foreach($pro->process as $ps){
+                                                                    $ps->properties_modul=$properties_modul;
+                                                                      $ps->properties_page=$properties_page;
+
+                                                                    $ar_worktodo=array_merge($ar_worktodo,render_self_engine($ps->type,[],$ps,$pro));
+
+                                                                  }
+                                                          }
+                                                          **/
 
                                                           $objreturn->content=$content;
                                                           $objreturn->varjsawal=$varjsawal;
@@ -528,6 +539,8 @@ function create_web_loop($param){
                                                           $objreturn->varphpawal=$varphpawal;
                                                           $objreturn->include=$include;
                                                           $objreturn->ar_worktodo=$ar_worktodo;
+
+
                                                           //echo "kerja nyata ".count($objreturn->ar_worktodo)."<BR>";
                                                           //akhir render_self_engine
                                                           return $objreturn;

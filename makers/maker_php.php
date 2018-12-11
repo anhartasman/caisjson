@@ -216,6 +216,20 @@ for($i=0; $i<count($manifest->moduls); $i++){
 
 
                                     $dafVariable=array();
+                                    foreach($action->process as $pro){
+                                      if(is_array($pro)){
+                                        //echo $key."<BR>";
+                                        //$dafVariable=array_merge($dafVariable,renderwhattodo($key,$category,$isitoproses));
+                                        $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+                                      }else if (is_object($pro)) {
+                                        //echo $key."<BR>";
+                                        if(isset($pro->outputVariable)){
+                                        $dafVariable[]=$pro->outputVariable;
+                                        }
+                                        $dafVariable=array_merge($dafVariable,rekursifdafVariable($pro));
+                                      }else{
+                                      }
+                                    }
 
                                     if(isset($action->process)){
 
