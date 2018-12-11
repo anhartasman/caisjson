@@ -1,0 +1,99 @@
+{
+    "action": "insert_data_contact_hotel",
+    "param": [
+        {
+            "name": "contact_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },{
+            "name": "hotel_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+            {
+                "name": "keterangan",
+                "mandatory": true,
+                "returnpackage": {}
+            }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_contact_id"
+            ,"index":[]},"operator":"!=","value":{
+            "var_type":"hardcode"
+            ,"var_name": "null"
+            ,"index":[]}
+          }
+        ]
+        ,"ontrue":{
+          "process": [
+            {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_jem_contact_hotel",
+              "execute": "execute",
+              "id": null,
+              "process_name": "insert",
+              "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_contact_id",
+                    "index": [],
+                    "returnpackage": {}
+                },{
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_hotel_id",
+                    "index": [],
+                    "returnpackage": {}
+                },{
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_keterangan"
+                  }
+              ],
+              "array_data": [
+                {
+                    "index": "idc",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_contact_id"
+                    }
+                }
+                ,{
+                    "index": "idh",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_hotel_id"
+                    }
+                }
+                ,{
+                    "index": "keterangan",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_keterangan"
+                    }
+                }
+              ],
+              "where": [],
+              "outputVariable": "hasil_insert_contact_hotel",
+              "returnpackage": {}
+          }
+          ]}
+        ,"runifnotnull": []
+      }
+
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_contact_hotel}",
+    "response_type": "text",
+    "returnpackage": {}
+}

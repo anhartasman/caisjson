@@ -117,6 +117,14 @@
                 {
                     "type": "include_file",
                     "include": "thejson/fitur/hotel/include_file_id_page_add_contact_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_edit_contact_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_delete_contact_hotel.json"
                 }
             ],
             "returnpackage": {}
@@ -512,6 +520,10 @@
                   "type": "include_file",
                   "include": "thejson\/include_file_id_api_insert_data_contact.json"
               }
+              ,{
+                  "type": "include_file",
+                  "include": "thejson\/include_file_id_api_insert_data_contact_hotel.json"
+              }
             ]
         },
         {
@@ -532,6 +544,10 @@
             ,{
                 "type": "include_file",
                 "include": "thejson\/include_file_id_api_update_data_contact.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_contact_hotel.json"
             }
             ],
             "returnpackage": {}
@@ -554,6 +570,10 @@
             ,{
                 "type": "include_file",
                 "include": "thejson\/include_file_id_api_delete_data_contact.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_contact_hotel.json"
             }
             ],
             "returnpackage": {}
