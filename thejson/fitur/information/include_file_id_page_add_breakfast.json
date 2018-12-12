@@ -1,0 +1,141 @@
+{
+    "title": "Add Breakfast",
+    "subtitle": "Form Add Breakfast",
+    "frame": "adminpage",
+    "id": "add_breakfast",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_breakfast",
+            "title": "Form Data Breakfast",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_breakfast",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+                      {
+                            "type": "text",
+                            "id": "breakfast",
+                            "label": "Breakfast",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter jenis breakfast"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan breakfast",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_breakfast",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_breakfast",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_breakfast",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "insert_data",
+                                                            "action": "insert_data_breakfast",
+                                                            "param": [
+                                                                {
+                                                                    "index": "breakfast",
+                                                                    "slash": "",
+                                                                    "value": "isian_breakfast",
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataHotel",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [],
+                                                                                    "func_param": [
+                                                                                        "\"information\"",
+                                                                                        "\"daftar_breakfast\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
+                                                                    ],
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "returnpackage": {}
+                                                        }
+                                                    ],
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [],
+    "engine": [],
+    "returnpackage": {}
+}

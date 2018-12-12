@@ -1,0 +1,142 @@
+{
+    "action": "get_roomtype",
+    "param": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_roomtype",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [{
+                "type": "variable",
+                "var_type": "variable",
+                "var_name": "obj_table_tb_jem_breakfast_roomtype",
+                "index": [],
+                "returnpackage": {}
+            },
+            {
+                "type": "variable",
+                "var_type": "variable",
+                "var_name": "obj_table_tb_breakfast",
+                "index": [],
+                "returnpackage": {}
+            }],
+            "array_data": [
+                "id",
+                "type",
+                "description"
+            ],
+            "where": [],
+            "outputVariable": "hasil_get_roomtype",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['id']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['type']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['description']}v\",\"v{'var_type':'variable','var_name':'hasilbridge','index':[]}v\",\"<a href={cais_web_url}\/admin\/information\/edit_roomtype\/id\/v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['id']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/information\/delete_roomtype\/id\/v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['id']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_roomtype','index':['id']}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [
+                {
+                    "type": "table",
+                    "from_engine": false,
+                    "runifnotnull": [],
+                    "table_name": "tb_jem_breakfast_roomtype",
+                    "process_name": "select",
+                    "execute": "many",
+                    "output_generate": "manual",
+                    "param": [
+                        {
+                            "type": "variable",
+                            "var_type": "variable",
+                            "var_name": "qhasil_get_roomtype",
+                            "index": [],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "variable",
+                            "var_type": "variable",
+                            "var_name": "obj_table_tb_breakfast",
+                            "index": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "array_data": [
+                        "id",
+                        "idr",
+                        "idb"
+                    ],
+                    "where": [
+                        {
+                            "index": "idr",
+                            "operator": "=",
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "qhasil_get_roomtype",
+                                "index": [
+                                    "id"
+                                ],
+                                "returnpackage": {}
+                            },
+                            "returnpackage": {}
+                        }
+                    ],
+                    "outputVariable": "hasilbridge",
+                    "output": "v{'var_type':'variable','var_name':'hasilbreakfast','index':[]}v",
+                    "output_divider": ",",
+                    "process": [
+                        {
+                            "type": "table",
+                            "from_engine": false,
+                            "runifnotnull": [],
+                            "table_name": "tb_breakfast",
+                            "process_name": "select",
+                            "execute": "many",
+                            "output_generate": "manual",
+                            "param": [
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "qhasilbridge",
+                                    "index": [],
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "array_data": [
+                                "id",
+                                "breakfast"
+                            ],
+                            "where": [
+                                {
+                                    "index": "id",
+                                    "operator": "=",
+                                    "value": {
+                                        "type": "variable",
+                                        "var_type": "variable",
+                                        "var_name": "qhasilbridge",
+                                        "index": [
+                                            "idb"
+                                        ],
+                                        "returnpackage": {}
+                                    },
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "outputVariable": "hasilbreakfast",
+                            "output": "v{'var_type':'variable','var_name':'qhasilbreakfast','index':['breakfast']}v",
+                            "output_divider": ",",
+                            "process": [],
+                            "engine": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "engine": [],
+                    "returnpackage": {}
+                }
+            ],
+            "engine": []
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_roomtype}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

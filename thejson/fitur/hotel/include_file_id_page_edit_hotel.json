@@ -727,6 +727,81 @@
                     ],
                     "returnpackage": {}
                 }
+                ,{
+                    "type": "tabel",
+                    "id": "tabel_room_hotel",
+                    "title": "Daftar Room Hotel",
+                    "columns": [
+                        "ID",
+                        "Room",
+                        "Jumlah",
+                        "",
+                        ""
+                    ],
+                    "link": {
+                        "head": [{
+                            "position": "head",
+                            "type": "modul_page",
+                            "modul": "tabel_hotel",
+                            "page": "setting_roomtype_hotel",
+                            "param": [{"index":"hotel_id"
+                            ,"value":"hotel_id"
+                          ,"value_type":"variable"}]
+                            ,"label": "Setting",
+                            "returnpackage": {}
+                        }]
+                    },
+                    "listeners": [
+                        {
+                            "listen": "onload",
+                            "functions": [
+                                {
+                                    "func_name": "get_data_hotel_rooms",
+                                    "func_type": "api_shooter",
+                                    "type": "api_shooter",
+                                    "content_generate": "auto",
+                                    "modul": "retrieve_data",
+                                    "action": "get_hotel_rooms",
+                                    "param": [{
+                                        "index": "hotel_id",
+                                        "slash": "",
+                                        "value": "catch_hotel_id",
+                                        "returnpackage": {}
+                                    }],
+                                    "onAPIReturn": [
+                                        {
+                                            "func_type": "json_extracter",
+                                            "func_name": "ekstrakDataRoomHotel",
+                                            "type": "json_extracter",
+                                            "func_param": [
+                                                "this_html_response",
+                                                "\"response_data\""
+                                            ],
+                                            "variable": "hasilEkstrakJSONRoom",
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "change_datatable_by_json",
+                                            "func_name": "setTabelRoomHotel",
+                                            "type": "change_datatable_by_json",
+                                            "func_param": [
+                                                "hasilEkstrakJSONRoom"
+                                            ],
+                                            "content_generate": "auto",
+                                            "table_id": "tabel_room_hotel",
+                                            "returnpackage": {}
+                                        }
+                                    ],
+                                    "returnpackage": {}
+                                }
+                            ]
+                        }
+                    ],
+                    "forms": [
+                    ],
+                    "returnpackage": {}
+                }
+
     ],
     "functions": [],
     "process": [

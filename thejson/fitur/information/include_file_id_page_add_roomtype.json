@@ -1,0 +1,210 @@
+{
+    "title": "Add Room Type",
+    "subtitle": "Form Add Room Type",
+    "frame": "adminpage",
+    "id": "add_roomtype",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_roomtype",
+            "title": "Form Data Room Type",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_roomtype",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+                      {
+                            "type": "text",
+                            "id": "roomtype",
+                            "label": "Room Type",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter jenis room"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Harap isikan jenis room",
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "returnpackage": {}
+                        },{
+                            "type": "select2",
+                            "id": "breakfast",
+                            "label": "Breakfast",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "var_name": "breakfast_list"
+                            },
+                            "attribute": {
+                                "multiple": "multiple"
+                            },
+                            "listeners": [],
+                            "validation": [],
+                            "returnpackage": {}
+                        },
+                          {
+                                "type": "text",
+                                "id": "description",
+                                "label": "Description",
+                                "class": "form-control",
+                                "theme": "normal",
+                                "attribute": {
+                                    "placeholder": "Enter Description"
+                                },
+                                "listeners": [],
+                                "validation": [
+                                    {
+                                        "type": "minlength",
+                                        "length": "1",
+                                        "message": "Harap isikan room description",
+                                        "returnpackage": {}
+                                    }
+                                ],
+                                "returnpackage": {}
+                            },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_roomtype",
+                                            "param": [],
+                                            "returnpackage": {}
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_roomtype",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_roomtype",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "insert_data",
+                                                            "action": "insert_data_roomtype",
+                                                            "param": [
+                                                                {
+                                                                    "index": "roomtype",
+                                                                    "slash": "",
+                                                                    "value": "isian_roomtype",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "roombreakfast",
+                                                                    "slash": "",
+                                                                    "value": "isian_breakfast",
+                                                                    "returnpackage": {}
+                                                                },
+                                                                {
+                                                                    "index": "description",
+                                                                    "slash": "",
+                                                                    "value": "isian_description",
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpdate",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataRoomType",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [],
+                                                                                    "func_param": [
+                                                                                        "\"information\"",
+                                                                                        "\"daftar_roomtype\""
+                                                                                    ],
+                                                                                    "returnpackage": {}
+                                                                                }
+                                                                            ],
+                                                                            "returnpackage": {}
+                                                                        }
+                                                                    ],
+                                                                    "returnpackage": {}
+                                                                }
+                                                            ],
+                                                            "returnpackage": {}
+                                                        }
+                                                    ],
+                                                    "returnpackage": {}
+                                                }
+                                            ],
+                                            "returnpackage": {}
+                                        }
+                                    ]
+                                }
+                            ],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "functions": [],
+    "process": [{
+        "type": "table",
+        "from_engine": false,
+        "runifnotnull": [],
+        "table_name": "tb_breakfast",
+        "execute": "many",
+        "process_name": "select",
+        "output_generate": "auto",
+        "param": [],
+        "array_data": [
+            "id",
+            "breakfast"
+        ],
+        "where": [],
+        "to_array": {
+            "index": "id",
+            "value": "breakfast"
+        },
+        "outputVariable": "breakfast_list",
+        "returnpackage": {}
+    }],
+    "engine": [],
+    "returnpackage": {}
+}

@@ -125,6 +125,18 @@
                 {
                     "type": "include_file",
                     "include": "thejson/fitur/hotel/include_file_id_page_delete_contact_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_edit_roomtype_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_delete_roomtype_hotel.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/fitur/hotel/include_file_id_page_setting_roomtype_hotel.json"
                 }
             ],
             "returnpackage": {}
@@ -153,6 +165,30 @@
                 },{
                     "type": "include_file",
                     "include": "thejson/fitur/information/include_file_id_page_delete_contact.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_daftar_breakfast.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_add_breakfast.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_edit_breakfast.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_delete_breakfast.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_daftar_roomtype.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_add_roomtype.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_edit_roomtype.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/fitur/information/include_file_id_page_delete_roomtype.json"
                 }
             ]
         }
@@ -497,6 +533,18 @@
                 {
                     "type": "include_file",
                     "include": "thejson\/include_file_id_api_get_hotel_contacts.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_breakfast.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_roomtype.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_hotel_rooms.json"
                 }
             ],
             "returnpackage": {}
@@ -524,6 +572,14 @@
                   "type": "include_file",
                   "include": "thejson\/include_file_id_api_insert_data_contact_hotel.json"
               }
+              ,{
+                  "type": "include_file",
+                  "include": "thejson\/include_file_id_api_insert_data_breakfast.json"
+              }
+              ,{
+                  "type": "include_file",
+                  "include": "thejson\/include_file_id_api_insert_data_roomtype.json"
+              }
             ]
         },
         {
@@ -548,6 +604,22 @@
             ,{
                 "type": "include_file",
                 "include": "thejson\/include_file_id_api_update_data_contact_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_breakfast.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_roomtype.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_roomtype_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_update_data_daftar_roomtype_hotel.json"
             }
             ],
             "returnpackage": {}
@@ -574,6 +646,18 @@
             ,{
                 "type": "include_file",
                 "include": "thejson\/include_file_id_api_delete_data_contact_hotel.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_breakfast.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_roomtype.json"
+            }
+            ,{
+                "type": "include_file",
+                "include": "thejson\/include_file_id_api_delete_data_roomtype_hotel.json"
             }
             ],
             "returnpackage": {}

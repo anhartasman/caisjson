@@ -1,0 +1,82 @@
+{
+    "action": "get_hotel_rooms",
+    "param": [{
+        "name": "hotel_id",
+        "mandatory": true,
+        "returnpackage": {}
+    }],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_jem_roomtype_hotel",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [{
+                "var_name": "param_api_hotel_id"
+            },{
+                "var_name": "obj_table_tb_roomtype"
+            }],
+            "array_data": [
+                "id",
+                "idr",
+                "idh",
+                "jumlah"
+            ],
+            "where": [
+              {
+                  "index": "idh",
+                  "operator": "=",
+                  "value": {
+                      "var_name": "param_api_hotel_id",
+                      "index": [],
+                      "returnpackage": {}
+                  },
+                  "returnpackage": {}
+              }
+            ],
+            "process":[{
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_roomtype",
+              "process_name": "select",
+              "execute": "one",
+              "output_generate": "auto",
+              "param": [{
+                  "var_name": "qhasil_get_hotel_roomtypes",
+                  "index": [
+                      "idr"
+                  ]
+              }],
+              "array_data": [
+                  "id",
+                  "type",
+                  "description"
+              ],
+              "where": [
+                  {
+                      "index": "id",
+                      "operator": "=",
+                      "value": {
+                          "var_name": "qhasil_get_hotel_roomtypes_idr"
+                      },
+                      "returnpackage": {}
+                  }
+              ],
+              "outputVariable": "hasilbridgeroomtype"
+              }]
+            ,"outputVariable": "hasil_get_hotel_roomtypes",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['id']}v\",\"v{'var_type':'variable','var_name':'hasilbridgeroomtype','index':['type']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['jumlah']}v\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/edit_roomtype_hotel\/roomtype_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['id']}v\/hotel_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['idh']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/delete_roomtype_hotel\/roomtype_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['id']}v\/hotel_id\/v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['idh']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_hotel_roomtypes','index':['id']}v<\/a>\"]",
+            "output_divider": ",",
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_hotel_roomtypes}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

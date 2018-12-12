@@ -1,15 +1,15 @@
 {
-    "title": "Delete Data Contact Hotel",
-    "subtitle": "Form Delete Data Contact Hotel",
+    "title": "Edit Data Room Type Hotel",
+    "subtitle": "Form Edit Data Room Type Hotel",
     "frame": "adminpage",
-    "id": "delete_contact_hotel",
+    "id": "edit_roomtype_hotel",
     "ignore": false,
     "placement": [],
     "elemen": [
         {
             "type": "form",
             "id": "form_contact",
-            "title": "Form Delete Contact Hotel",
+            "title": "Form Data Room Type Hotel",
             "link": {},
             "listeners": [],
             "forms": [
@@ -21,55 +21,9 @@
                     },
                     "field": [
                       {
-                            "type": "select2",
-                            "id": "input_contact_hotel",
-                            "label": "Kontak",
-                            "variable": "pilihan_contact_hotel",
-                            "class": "",
-                            "theme": "normal",
-                            "first_option_label": "- select -",
-                            "first_option_value": "-1",
-                            "value": {
-                                "type": "variable",
-                                "var_type": "variable",
-                                "var_name": "contact_list",
-                                "index": [],
-                                "returnpackage": {}
-                            },
-                            "attribute": {
-                              "disabled":"disabled"
-                            },
-                            "search": {
-                                "if": {
-                                    "type": "variable",
-                                    "var_type": "variable",
-                                    "var_name": "keycontact_list",
-                                    "index": [],
-                                    "returnpackage": {}
-                                },
-                                "operator": "==",
-                                "value": {
-                                    "type": "variable",
-                                    "var_type": "variable",
-                                    "var_name": "data_diri_contact_hotel",
-                                    "index": [
-                                        "idc"
-                                    ],
-                                    "returnpackage": {}
-                                }
-                            },
-                            "listeners": [
-                                {
-                                    "listen": "onchange",
-                                    "functions": []
-                                }
-                            ],
-                            "validation": [],
-                            "returnpackage": {}
-                        },{
                             "type": "text",
-                            "id": "keterangan",
-                            "label": "Keterangan",
+                            "id": "roomtype",
+                            "label": "Room Type",
                             "class": "form-control",
                             "theme": "normal",
                             "attribute": {
@@ -78,22 +32,35 @@
                             "value": {
                                 "type": "variable",
                                 "var_type": "variable",
-                                "var_name": "data_diri_contact_hotel",
+                                "var_name": "data_diri_roomtype",
                                 "index": [
-                                    "keterangan"
+                                    "type"
                                 ],
                                 "returnpackage": {}
                             },
                             "listeners": [],
-                            "validation": [
-                                {
-                                    "type": "minlength",
-                                    "length": "1",
-                                    "message": "Harap isikan keterangan kontak",
-                                    "returnpackage": {}
-                                }
-                            ],
-                            "returnpackage": {}
+                            "validation": []
+                        }
+                        ,{
+                            "type": "text",
+                            "id": "jumlah",
+                            "label": "Jumlah",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter Jumlah"
+                            },
+                            "value": {
+                                "type": "variable",
+                                "var_type": "variable",
+                                "var_name": "data_diri_roomtype_hotel",
+                                "index": [
+                                    "jumlah"
+                                ],
+                                "returnpackage": {}
+                            },
+                            "listeners": [],
+                            "validation": []
                         },
                         {
                             "type": "button",
@@ -122,19 +89,25 @@
                                                     "if": "true",
                                                     "then": [
                                                         {
-                                                            "func_name": "delete_data_contact_hotel",
+                                                            "func_name": "upload_data_roomtype_hotel",
                                                             "func_type": "api_shooter",
                                                             "type": "api_shooter",
                                                             "content_generate": "auto",
-                                                            "modul": "delete_data",
-                                                            "action": "delete_data_contact_hotel",
+                                                            "modul": "update_data",
+                                                            "action": "update_data_roomtype_hotel",
                                                             "param": [
                                                               {
-                                                                  "index": "contact_id",
+                                                                  "index": "roomtype_id",
                                                                   "slash": "",
-                                                                  "value": "catch_contact_id",
+                                                                  "value": "catch_roomtype_id",
                                                                   "returnpackage": {}
-                                                              }
+                                                              },
+                                                                  {
+                                                                      "index": "jumlah",
+                                                                      "slash": "",
+                                                                      "value": "isian_jumlah",
+                                                                      "returnpackage": {}
+                                                                  }
                                                             ],
                                                             "onAPIReturn": [
                                                                 {
@@ -145,7 +118,7 @@
                                                                         "this_html_response",
                                                                         "\"response_data\""
                                                                     ],
-                                                                    "variable": "hasilDeleteContactHotel",
+                                                                    "variable": "hasilInsertDataHotel",
                                                                     "checkReturn": [
                                                                         {
                                                                             "condition": "==",
@@ -197,8 +170,8 @@
             "from_engine": false,
             "runifnotnull": [],
             "type": "url_catcher",
-            "catch": "contact_id",
-            "variable": "contact_id",
+            "catch": "roomtype_id",
+            "variable": "roomtype_id",
             "returnpackage": {}
         },{
             "from_engine": false,
@@ -212,53 +185,63 @@
             "type": "table",
             "from_engine": false,
             "runifnotnull": [],
-            "table_name": "tb_contact",
-            "execute": "many",
-            "process_name": "select",
-            "output_generate": "auto",
-            "param": [],
-            "array_data": [
-                "id",
-                "contact"
-            ],
-            "where": [],
-            "to_array": {
-                "index": "id",
-                "value": "contact"
-            },
-            "outputVariable": "contact_list",
-            "returnpackage": {}
-        },
-        {
-            "type": "table",
-            "from_engine": false,
-            "runifnotnull": [],
-            "table_name": "tb_jem_contact_hotel",
+            "table_name": "tb_jem_roomtype_hotel",
             "process_name": "select",
             "output_generate": "auto",
             "param": [
                 {
-                    "var_name": "contact_id"
+                    "var_name": "roomtype_id"
                 }
             ],
             "array_data": [
                 "id",
-                "idc",
+                "idr",
                 "idh",
-                "keterangan"
+                "jumlah"
             ],
             "where": [
                 {
                     "index": "id",
                     "operator": "=",
                     "value": {
-                        "var_name": "contact_id"
+                        "var_name": "roomtype_id"
+                    }
+                }
+            ],
+            "execute": "one",
+            "outputVariable": "data_diri_roomtype_hotel",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_roomtype",
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [
+                {
+                    "var_name": "data_diri_roomtype_hotel"
+                }
+            ],
+            "array_data": [
+                "id",
+                "type",
+                "description"
+            ],
+            "where": [
+                {
+                    "index": "id",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "data_diri_roomtype_hotel"
+                        ,"index":["idr"]
                     },
                     "returnpackage": {}
                 }
             ],
             "execute": "one",
-            "outputVariable": "data_diri_contact_hotel",
+            "outputVariable": "data_diri_roomtype",
             "returnpackage": {}
         }
     ],

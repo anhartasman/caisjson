@@ -135,7 +135,7 @@
                                                               },{
                                                                   "index": "pilihan_contact_id",
                                                                   "slash": "",
-                                                                  "value": "pilihan_jenis_kontak",
+                                                                  "value": "pilihan_contact_hotel",
                                                                   "returnpackage": {}
                                                               },
                                                                   {
@@ -206,7 +206,7 @@
             "from_engine": false,
             "runifnotnull": [],
             "type": "url_catcher",
-            "catch": "image_id",
+            "catch": "contact_id",
             "variable": "contact_id",
             "returnpackage": {}
         },{
