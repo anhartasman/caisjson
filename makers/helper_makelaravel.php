@@ -274,6 +274,13 @@ function create_web_loop($param){
                   $content.='$'.$table->outputVariable.' = $'.$table->outputVariable."_array;"."\n";
                 }else{
                   $content.='$'.$table->outputVariable.' = $result_for_'.$table->outputVariable.";"."\n";
+                  if(isset($table->process_name)){
+                    if($table->process_name=="insert"){
+                      $content.='$'.$table->outputVariable.'_last_id = DB::getPdo()->lastInsertId();'."\n";
+                      $content.='$this->last_id = $'.$table->outputVariable.'_last_id;'."\n";
+                    }
+                  }
+
                 }
                 if ($table->process_name=="bridge"){
                   $content.='$jum_bridge_'.$table->outputVariable.' = count($'.$table->outputVariable.");"."\n";
@@ -431,6 +438,9 @@ function create_web_loop($param){
                                                       $table_name=$table_action->table_name;
                                                       $include[]=create_text_include_model('model_tabel_'.$table_name);
                                                       $ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfile_tabel_".$table_name,"file_id"=>"tabel_".$table_name,"location"=>create_text_model_file_location("model_tabel_".$table_name),"content_from"=>"file","content"=>"file_template/language_php_template_class.php");
+                                                      $ar_worktodo[]=array("type"=>"addfunction","starter"=>"function","work_id"=>"add_function_getlastid".$table_name,"function_id"=>"function_getlastid".$table_name,"function_name"=>"getLastId","param"=>[],"file_id"=>"tabel_".$table_name);
+                                                      $ar_worktodo[]=array("type"=>"add_to_function","work_id"=>"add_function_getlastid".$table_name."_content","function_id"=>"function_getlastid".$table_name,"content"=>'$the_id=0;if(isset($this->last_id)){$the_id=$this->last_id;} return $the_id;'."\n");
+
                                                       if(!isset($engine->need)){
                                                         $engine->need="caller";
                                                       }
@@ -499,6 +509,12 @@ function create_web_loop($param){
                                                           $content.='$'.$table_action->outputVariable.' = $obj_table_'.$table_name.'->'.$model_func_name;
                                                           $content.="($isiparam);\n";
                                                           $content.="\n";
+                                                          if(isset($table_action->process_name)){
+                                                          if($table_action->process_name=="insert"){
+                                                            $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_last_id_".$table_action->outputVariable."_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>'$'.$table_action->outputVariable.'_last_id = null;'."\n");
+                                                            $content.='$'.$table_action->outputVariable.'_last_id = $obj_table_'.$table_name.'->getLastId();'."\n";
+                                                          }
+                                                          }
                                                           $content.='$variables[\''.$table_action->outputVariable.'\'] = $'.$table_action->outputVariable.";"."\n";
 
                                                           $dafVariable[]=$table_action->outputVariable;
@@ -507,6 +523,11 @@ function create_web_loop($param){
                                                         $bahandeklarasifunctiontabel='$variables=$this->variables;'."\n";
                                                         $bahandeklarasifunctiontabel.='extract($variables);'."\n";
                                                         $bahandeklarasifunctiontabel.='$'.$table_action->outputVariable.' = null;'."\n";
+                                                        if(isset($table_action->process_name)){
+                                                        if($table_action->process_name=="insert"){
+                                                        $bahandeklarasifunctiontabel.='$'.$table_action->outputVariable.'_last_id = null;'."\n";
+                                                        }
+                                                        }
                                                         $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_outputtabelcaller_".$table_action->outputVariable."_".$table_name."_in_".$page_nickname.$controller_nickname."_function_".$model_func_name,"function_id"=>"function_".$model_func_name,"content"=>$bahandeklarasifunctiontabel."\n");
                                                         $ar_worktodo[]=array("type"=>"add_to_function","work_id"=>"add_table_process_".$table_name."_withoutput_".$table_action->outputVariable."_to_function_".$model_func_name,"function_id"=>"function_".$model_func_name,"content"=>$objproses->content."\n");
                                                         $ar_worktodo[]=array("type"=>"add_footer_to_function","work_id"=>"deklarasipreparefooter_themodelof_".$model_func_name,"function_id"=>"function_".$model_func_name,"content"=>'return $'.$table_action->outputVariable.';'."\n");

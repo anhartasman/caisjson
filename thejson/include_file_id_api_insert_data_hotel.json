@@ -448,7 +448,26 @@
                 }
             }],
             "outputVariable": "hasil_update_foto_hotel"
-        }
+        },
+        {
+          "type": "generate_unique_code",
+          "from_engine": false,
+          "runifnotnull": [],
+          "divider": "_",
+          "minnumber":1,
+          "maxnumber":10,
+          "names": [
+            {
+                  "var_name": "hasil_insert_hotel_last_id"
+              }
+              ,{
+                    "var_name": "param_api_country_code"
+                }
+          ],
+          "where": [],
+          "outputVariable": "kode_hotel",
+          "returnpackage": {}
+      }
           ]}
         ,"runifnotnull": []
       }

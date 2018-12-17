@@ -1598,6 +1598,16 @@ function create_web_element_dropdown($dropdown){
                                               $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
                                             }
                                             break;
+                                            default:
+                                            $dapetmesin=1;
+                                            $getengine=render_engine($pro->type,$pro,$pro,null);
+                                            if(isset($pro->from_engine) && $pro->from_engine==true){
+                                              "ADA AJA";
+                                            }
+                                            echo "BEDAA ".$pro->type;
+                                            $newcontent.=$getengine->content."\n";
+                                            $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
+                                            break;
 
                                           }
 
@@ -1832,6 +1842,30 @@ function create_web_element_dropdown($dropdown){
                                                   break;
                                               case "change_page":
                                               $content.='echo "lalalar";'."\n";
+                                              break;
+                                              case "generate_unique_code":
+                                              echo "HAHAHAR";
+                                              if(!isset($engine->names)){
+                                                $engine->names=array();
+                                              }
+                                              if(!isset($engine->minnumber)){
+                                                $engine->minnumber=1;
+                                              }
+                                              if(!isset($engine->maxnumber)){
+                                                $engine->maxnumber=1000000;
+                                              }
+
+                                              $content.='$acak'.$engine->outputVariable.' = rand('.$engine->minnumber.','.$engine->maxnumber.');'."\n";
+                                              $content.='$'.$engine->outputVariable.' = ';
+                                              for($i=0; $i<count($engine->names);$i++){
+                                                $bahanvar=create_variable_web($engine->names[$i]);
+                                                $content.=$bahanvar;
+                                                if(($i+1)<count($engine->names)){
+                                                  $content.='."'.$engine->divider.'".';
+                                                }
+                                              }
+                                              $content.='."'.$engine->divider.'".$acak'.$engine->outputVariable.';'."\n";
+
                                               break;
                                               default:
                                               $objrender=render_self_engine($type,$engine,$pro,$action);
