@@ -88,8 +88,15 @@ $paket=array();
 
              for($w=0; $w<count($ar_worktodo);$w++){
               // echo "work_id : ".$ar_worktodo[$w]["work_id"]." type : ".$ar_worktodo[$w]["type"]."<br>";
-               if((!in_array($ar_worktodo[$w]["work_id"],$finished_work_id)) && (!in_array($ar_worktodo[$w]["work_id"],$ar_canceled_work_id))){
-
+               if((!in_array($ar_worktodo[$w]["work_id"],$finished_work_id))
+               && (!in_array($ar_worktodo[$w]["work_id"],$ar_canceled_work_id))){
+                 $lanjutwork=1;
+                 if(isset($ar_worktodo[$w]["ignore"])){
+                   if($ar_worktodo[$w]["ignore"]==true){
+                     $lanjutwork=0;
+                   }
+                 }
+                if($lanjutwork==1){
                  switch($ar_worktodo[$w]["type"]){
                    case "addfile":
                    if(!in_array($ar_worktodo[$w]["file_id"],$exists_files_id)){
@@ -148,6 +155,7 @@ $paket=array();
                  }
 
                  $finished_work_id[]=$ar_worktodo[$w]["work_id"];
+               }
                }
              }
 
@@ -511,7 +519,7 @@ function file_worker($package,$filedirection){
                       $subledakan= (explode("\"",$ledakan[$l]));
                       $class_content=str_replace("properties_".$subledakan[0]."\"".$subledakan[1]."\"","",$class_content);
                     }
-                    
+
       $class_content=str_replace("{cais_web_url}",$theconfig->web_url,$class_content);
       $class_content=str_replace("{cais_web_folder}",$theconfig->web_folder,$class_content);
 

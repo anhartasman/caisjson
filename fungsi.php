@@ -460,23 +460,29 @@ function render_html_element_field($page_elemen){
         //var_dump($bodyawal)."<BR>";
         $grupengine=render_grup_engine((object)$bodyawal);
         for($iw=0;$iw<count($grupengine->ar_worktodo);$iw++){
-          if(isset($grupengine->ar_worktodo[$iw]["untukatas"])){
-            //echo "ADAATAS";
+          if(isset($grupengine->ar_worktodo[$iw]["fortop"])){
+            switch($grupengine->ar_worktodo[$iw]["fortop"]){
+              case "untukatas":
               if(isset($bodyawal->func_name)){
+              $grupengine->ar_worktodo[$iw]["ignore"]=false;
               echo "ADAATAS".$bodyawal->func_name;
               $grupengine->ar_worktodo[$iw]["function_id"]="function_".$bodyawal->func_name;
               //$ar_worktodo[$iw]["content"]="ASDASD";
               }
-          }else if(isset($grupengine->ar_worktodo[$iw]["fileatas"])){
-            //echo "ADAATAS";
+              break;
+              case "fileatas":
               if(isset($bodyawal->table_name)){
+              $grupengine->ar_worktodo[$iw]["ignore"]=false;
               echo "fileatas".$bodyawal->table_name;
               $grupengine->ar_worktodo[$iw]["file_id"]="tabel_".$bodyawal->table_name;
               $grupengine->ar_worktodo[$iw]["work_id"]="includes_".$bodyawal->table_name."_to_".$grupengine->ar_worktodo[$iw]["namatabel"];
               //$grupengine->ar_worktodo[$iw]["content"]=create_text_include_model("model_tabel_".$bodyawal->table_name);
               //$ar_worktodo[$iw]["content"]="ASDASD";
               }
+              break;
+            }
           }
+
         }
         $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
         //print($grupengine->deklarasi)."<BR>";
