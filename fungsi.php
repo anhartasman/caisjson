@@ -454,9 +454,30 @@ function render_html_element_field($page_elemen){
       $ar_worktodo=array();
       $key=(string)$key;
       if($key=="process"){
-        //echo "key ".$key."<BR>";
+        if(isset($bodyawal->func_name)){
+        echo "key ".$bodyawal->func_name."<BR>";
+        }
         //var_dump($bodyawal)."<BR>";
         $grupengine=render_grup_engine((object)$bodyawal);
+        for($iw=0;$iw<count($grupengine->ar_worktodo);$iw++){
+          if(isset($grupengine->ar_worktodo[$iw]["untukatas"])){
+            //echo "ADAATAS";
+              if(isset($bodyawal->func_name)){
+              echo "ADAATAS".$bodyawal->func_name;
+              $grupengine->ar_worktodo[$iw]["function_id"]="function_".$bodyawal->func_name;
+              //$ar_worktodo[$iw]["content"]="ASDASD";
+              }
+          }else if(isset($grupengine->ar_worktodo[$iw]["fileatas"])){
+            //echo "ADAATAS";
+              if(isset($bodyawal->table_name)){
+              echo "fileatas".$bodyawal->table_name;
+              $grupengine->ar_worktodo[$iw]["file_id"]="tabel_".$bodyawal->table_name;
+              $grupengine->ar_worktodo[$iw]["work_id"]="includes_".$bodyawal->table_name."_to_".$grupengine->ar_worktodo[$iw]["namatabel"];
+              //$grupengine->ar_worktodo[$iw]["content"]=create_text_include_model("model_tabel_".$bodyawal->table_name);
+              //$ar_worktodo[$iw]["content"]="ASDASD";
+              }
+          }
+        }
         $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
         //print($grupengine->deklarasi)."<BR>";
         //echo $obj->title;
@@ -1844,7 +1865,9 @@ function create_web_element_dropdown($dropdown){
                                               $content.='echo "lalalar";'."\n";
                                               break;
                                               case "generate_unique_code":
-                                              echo "HAHAHAR";
+                                              if(!isset($engine->withautonumber)){
+                                                $engine->withautonumber=true;
+                                              }
                                               if(!isset($engine->names)){
                                                 $engine->names=array();
                                               }
@@ -1855,6 +1878,10 @@ function create_web_element_dropdown($dropdown){
                                                 $engine->maxnumber=1000000;
                                               }
 
+                                              $bahandeklarasi="";
+                                              $bahandeklarasi.='$'.$engine->outputVariable.' = null;';
+                                              $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_uniqcode_".$engine->outputVariable."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>$bahandeklarasi."\n");
+
                                               $content.='$acak'.$engine->outputVariable.' = rand('.$engine->minnumber.','.$engine->maxnumber.');'."\n";
                                               $content.='$'.$engine->outputVariable.' = ';
                                               for($i=0; $i<count($engine->names);$i++){
@@ -1864,8 +1891,9 @@ function create_web_element_dropdown($dropdown){
                                                   $content.='."'.$engine->divider.'".';
                                                 }
                                               }
-                                              $content.='."'.$engine->divider.'".$acak'.$engine->outputVariable.';'."\n";
-
+                                              if($engine->withautonumber){
+                                                $content.='."'.$engine->divider.'".$acak'.$engine->outputVariable.';'."\n";
+                                              }
                                               break;
                                               default:
                                               $objrender=render_self_engine($type,$engine,$pro,$action);
@@ -1878,6 +1906,7 @@ function create_web_element_dropdown($dropdown){
                                               break;
 
                                             }
+
 
 
                                             $objreturn->content=$content;

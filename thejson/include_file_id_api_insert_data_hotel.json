@@ -467,7 +467,41 @@
           "where": [],
           "outputVariable": "kode_hotel",
           "returnpackage": {}
-      }
+      },{
+        "type": "table",
+        "from_engine": false,
+        "runifnotnull": [{
+            "var_name": "kode_hotel"
+        }],
+        "table_name": "tb_hotel",
+        "execute": "execute",
+        "id": null,
+        "process_name": "update",
+        "param": [
+            {
+                "var_name": "hasil_insert_hotel_last_id"
+            },{
+                "var_name": "kode_hotel"
+            }
+        ],
+        "array_data": [
+          {
+              "index": "hotelcode",
+              "operator": "=",
+              "value": {
+                  "var_name": "kode_hotel"
+              }
+          }
+        ],
+        "where": [{
+            "index": "id",
+            "operator": "=",
+            "value": {
+                "var_name": "hasil_insert_hotel_last_id"
+            }
+        }],
+        "outputVariable": "hasil_update_kode_hotel"
+    }
           ]}
         ,"runifnotnull": []
       }

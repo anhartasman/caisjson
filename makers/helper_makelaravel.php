@@ -35,6 +35,7 @@ function create_web_loop($param){
     $content.='$data'.$table->outputVariable.'=array();'."\n";
     $varphpawal=array();
     $varphpawal[]='$'.$table->outputVariable.';'."\n";
+    $ar_worktodo=array();
     switch($table->process_name){
       case "insert":
       foreach($table->array_data as $a) {
@@ -193,6 +194,7 @@ function create_web_loop($param){
           if(isset($table->bridge)){
             $objproses=create_database_proses($table->bridge,$table->bridge->table);
 
+            $ar_worktodo=array_merge($ar_worktodo,$objproses->ar_worktodo);
             $content.=$objproses->content;
             $content.='foreach($result_for_'.$table->outputVariable.' as $q'.$table->outputVariable.'){'."\n";
               $content.='}'."\n";
@@ -221,6 +223,7 @@ function create_web_loop($param){
               }
               $grupengine=render_grup_engine($table);
               $varphpawal[]=$grupengine->varphpawal;
+              $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
               $content.=$grupengine->content;
             }
 
@@ -329,6 +332,7 @@ function create_web_loop($param){
                                 }
                                 $objreturn->content=$content;
                                 $objreturn->varphpawal=$varphpawal;
+                                $objreturn->ar_worktodo=$ar_worktodo;
                                 return $objreturn;
                                 //end of create_database_proses
                               }
@@ -446,6 +450,7 @@ function create_web_loop($param){
                                                       }
                                                       // echo $engine->need;
                                                       $objproses=create_database_proses($table_action,$table_action->table_name);
+
                                                       for($v=0; $v<count($objproses->varphpawal);$v++){
                                                         $varphpawal[]=$objproses->varphpawal[$v];
                                                       }
@@ -503,12 +508,15 @@ function create_web_loop($param){
                                                           $bahandeklarasi.='$obj_table_'.$table_name.'->variables=$variables;'."\n";
                                                           $bahandeklarasi.="\n";
                                                           $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_tabelcaller_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>$bahandeklarasi."\n");
+                                                          $ar_worktodo[]=array("type"=>"add_declaration_to_function","untukatas"=>true,"work_id"=>"deklarasi_tabelcallers_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_","content"=>$bahandeklarasi."\n");
                                                           $ar_worktodo[]=array("type"=>"addinclude","work_id"=>"include_".$table_name."_to_".$controller_nickname,"file_id"=>$controller_nickname,"include_id"=>$table_name."_in_".$controller_nickname,"content"=>create_text_include_model("model_tabel_".$table_name));
+                                                          $ar_worktodo[]=array("type"=>"addinclude","fileatas"=>true,"namatabel"=>$table_name,"work_id"=>"","file_id"=>"tabel_".$table_name,"include_id"=>$table_name."_in_".$controller_nickname,"content"=>create_text_include_model("model_tabel_".$table_name));
                                                           //echo "deklarasi "."deklarasi_tabelcaller_".$table_name."_in_".$page_nickname.$controller_nickname."<BR>";
                                                           $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_outputtabelcaller_".$table_action->outputVariable."_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>'$'.$table_action->outputVariable.' = null;'."\n");
-                                                          $content.='$'.$table_action->outputVariable.' = $obj_table_'.$table_name.'->'.$model_func_name;
-                                                          $content.="($isiparam);\n";
-                                                          $content.="\n";
+                                                          $calldbfunction='$'.$table_action->outputVariable.' = $obj_table_'.$table_name.'->'.$model_func_name;
+                                                          $calldbfunction.="($isiparam);\n";
+                                                          $calldbfunction.="\n";
+                                                          $content.=$calldbfunction;
                                                           if(isset($table_action->process_name)){
                                                           if($table_action->process_name=="insert"){
                                                             $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_last_id_".$table_action->outputVariable."_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>'$'.$table_action->outputVariable.'_last_id = null;'."\n");
