@@ -6,11 +6,5 @@ relative_links:
   collections: true
 include:
   - index.md
-defaults:
-  # _docs
-  - scope:
-      path: ""
-      type: docs
-    values:
-      sidebar:
-        nav: "docs"
+sidebar:
+        nav: "resources"
