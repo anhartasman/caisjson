@@ -1,6 +1,6 @@
 theme: jekyll-theme-architect
 title: Your awesome title hehe
-Sidebar:
+sidebar:
   - title: "Title"
     image: http://placehold.it/350x250
     image_alt: "image"
