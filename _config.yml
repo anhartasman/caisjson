@@ -1,21 +1,21 @@
 ### Site info:
-title: Freshman21
-tagline: Another Jekyll theme, Freshman twenty-first
-author: Lijia Yu
-email: yu@lijiayu.net
-description: "Freshman21 is a Jekyll blog theme." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
-keywords: "Jekyll, theme, Freshman21"
+title: CAIS JSON
+tagline: Create Admin In Seconds with JSON
+author: Anhar Tasman
+email: anhar_tasman@yahoo.com
+description: "Create Admin In Seconds with JSON." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
+keywords: "CRUD Generator, CRUD Creator, Laravel, PHP"
 baseurl: "/caisjson" # the subpath of your site, e.g. /blog/
 url: "https://anhartasman.github.io/caisjson/" # the base hostname & protocol for your site
 locale: en_US
 
 ### Personal info and site tools info:
-twitter_username: yulijia
-github_username:  yulijia
+twitter_username: Anhar_Tasman
+github_username:  anhartasman
 disqus_shortname: freshman21
 favicon:     "/images/favicon.ico"
-aboutme: Hi, this is Lijia Yu. I made the Freshman21 theme. Please enjoy it. # these are shown on aboutme-sidebar.
-aboutme_photo: https://i.imgur.com/Mdc4szJl.jpg# your photo.
+aboutme: Hi, this is Anhar. I made the CAIS JSON. Please enjoy it. # these are shown on aboutme-sidebar.
+aboutme_photo: https://i.imgur.com/OaYUElZ.jpg# your photo.
 google_analytics_key: UA-57979084-1 # put YOUR key here to enable tracking! (blank to disable)
 
 
@@ -26,7 +26,7 @@ default_locale: "en" # blog sidebar language set, only include: English (en), Ch
 
 locales:
     en:
-      Aboutme: "About Me"
+      Aboutme: "About Author"
       Archives: "Archives"
       Blogroll: "Blogroll"
       Categories: "Categories"
@@ -173,12 +173,12 @@ locales:
 ### your Blogroll info, only name can shown on the page.
 
 Blogroll:
-      - name: Freshman
-        href: http://yulijia.net/freshman
-        title: Another Jekyll blog theme
+      - name: Anhar Tasman
+        href: https://github.com/anhartasman
+        title: My Github
       - name: author's website
-        href: http://yulijia.net/
-        title: Lijia Yu's website
+        href: http://bahaskomputer.blogspot.com
+        title: My Blog
 
 
 ### Build settings
