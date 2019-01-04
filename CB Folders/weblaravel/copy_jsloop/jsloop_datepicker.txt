@@ -1,5 +1,0 @@
-
-    //Date picker
-    $('#{elemen_id}').datepicker({
-      autoclose: true
-    })
