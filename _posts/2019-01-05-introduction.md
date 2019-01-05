@@ -12,13 +12,13 @@ comments: true
 ## Create Admin In Seconds
 ### Open source tool for web programmer to compile JSON into : html files, php files, APIs and documentations
 
-![caisjsonexplain1](/images/caisjsonexplain1.png)
+![caisjsonexplain1](/caisjson/images/caisjsonexplain1.png)
 
-![caisjsonexplain2](/images/caisjsonexplain2.png)
+![caisjsonexplain2](/caisjson/images/caisjsonexplain2.png)
 
-![caisjsonexplain3](/images/caisjsonexplain3.png)
+![caisjsonexplain3](/caisjson/images/caisjsonexplain3.png)
 
-![caisjsonexplain4](/images/caisjsonexplain4.png)
+![caisjsonexplain4](/caisjson/images/caisjsonexplain4.png)
 
 # Installation
 
