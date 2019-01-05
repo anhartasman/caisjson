@@ -3,7 +3,7 @@ layout: post
 title: Introduction
 excerpt: "The introduction of this tool"
 categories: articles
-tags: [caisjson]
+tags: [documentation]
 comments: true
 ---
 
