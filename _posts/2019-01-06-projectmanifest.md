@@ -91,3 +91,28 @@ comments: true
 "engine": []
 }
 ```
+## API
+```json
+{
+           "modul": "account",
+           "action": [
+               {
+                   "action": "login",
+                   "param": [
+                       {
+                           "name": "email",
+                           "mandatory": true
+                       },
+                       {
+                           "name": "password",
+                           "mandatory": true
+                       }
+                   ],
+"process": [],
+                    "engine": [],
+                    "response_output": "{hasil_get_auth}",
+                    "response_type": "text"
+}
+]
+}
+```
