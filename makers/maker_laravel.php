@@ -501,6 +501,7 @@ for($i=0; $i<count($manifest->moduls); $i++){
           //  if (in_array($myObj, $manifest->moduls[$i]->placement)){
               //echo "modul_title ".$manifest->moduls[$i]->title."<BR>";
               //echo "CETAAK".var_dump($manifest->moduls[$i]->page[$j]->placement)."<BR>";
+              $adagotplace=0;
               for($j=0; $j<count($manifest->moduls[$i]->page); $j++){
               //  echo "CETAAK".$manifest->moduls[$i]->page[$j]->id."<BR>";
               //    var_dump($manifest->moduls[$i]->page[$j]->placement)."<BR>";
@@ -510,6 +511,7 @@ for($i=0; $i<count($manifest->moduls); $i++){
                     echo "place ".$manifest->moduls[$i]->page[$j]->placement[$pl]->place."\n";
                     if($manifest->moduls[$i]->page[$j]->placement[$pl]->place=="sidemenu"){
                       $gotplace=1;
+                      $adagotplace=1;
                     }
                   }
                 if ($gotplace==1){
@@ -526,7 +528,9 @@ for($i=0; $i<count($manifest->moduls); $i++){
               $bahantreeview=str_replace("{modul_id}",$manifest->moduls[$i]->id,$bahantreeview);
               $bahantreeview=str_replace("{modul_title}",$manifest->moduls[$i]->title,$bahantreeview);
               $bahantreeview=str_replace("{li}",$bahanmenuli,$bahantreeview);
+              if($adagotplace==1){
               $bahansidemenu.="\n".$bahantreeview;
+              }
              //}
 
           for($j=0; $j<count($manifest->moduls[$i]->page); $j++){
