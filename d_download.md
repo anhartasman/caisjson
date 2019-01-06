@@ -9,7 +9,7 @@ permalink: /download/
 ### Download Samples
 
 ```bash
-caisjson-samples              # Your admin settings, the main file
+caisjson-samples              
 .
 |-- Student Management System # The first sample
 ```
