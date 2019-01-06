@@ -173,12 +173,12 @@ locales:
 ### your Blogroll info, only name can shown on the page.
 
 Blogroll:
-      - name: Anhar Tasman
+      - name: Anhar Tasman On Git
         href: https://github.com/anhartasman
         title: My Github
       - name: author's website
         href: http://bahaskomputer.blogspot.com
-        title: My Blog
+        title: Bahas Komputer
 
 
 ### Build settings
