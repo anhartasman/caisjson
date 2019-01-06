@@ -1,0 +1,310 @@
+{
+    "project_name": "Sistem Sekolahan",
+    "project_subtitle": "",
+    "project_config": [
+        {
+            "config_type": "web",
+            "database_host": "localhost",
+            "database_name": "belajarcrud2",
+            "database_username": "root",
+            "database_password": "",
+            "web_url": "http:\/\/localhost\/school_vanilla",
+            "web_localpath": "..\/school_vanilla\/",
+            "web_description": "Sistem Informasi Sekolahan",
+            "returnpackage": {}
+        },
+        {
+            "config_type": "weblaravel",
+            "database_host": "localhost",
+            "database_name": "belajarcrud2",
+            "database_username": "root",
+            "database_password": "",
+            "web_url": "http:\/\/localhost\/school_laravel",
+            "web_localpath": "..\/school_laravel\/",
+            "web_description": "Sistem Informasi Sekolahan",
+            "returnpackage": {}
+        }
+    ],
+    "auth": [],
+    "moduls": [
+        {
+            "id": "tabel_siswa",
+            "title": "Tabel Siswa",
+            "subtitle": "Pein Akatsuki",
+            "ignore": false,
+            "placement": [
+                {
+                    "place": "sidemenu",
+                    "returnpackage": {}
+                }
+            ],
+            "page": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/include_file_id_page_add_siswa.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_page_edit_siswa.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_page_delete_siswa.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_page_daftar_siswa.json"
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "global_variables": [
+        {
+            "name": "status_laporan",
+            "type": "array",
+            "content": [
+                {
+                    "index": "0",
+                    "value": "Belum dikonfirmasi",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "1",
+                    "value": "Sudah konfirmasi",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "2",
+                    "value": "Selesai",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "3",
+                    "value": "Dicancel",
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        },
+        {
+            "name": "status_siswa",
+            "type": "array",
+            "content": [
+                {
+                    "index": "0",
+                    "value": "Asli",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "1",
+                    "value": "Pindahan",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "2",
+                    "value": "Dikeluarkan",
+                    "returnpackage": {}
+                },
+                {
+                    "index": "3",
+                    "value": "Bermasalah",
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "libraries": [
+        {
+            "language": "library_web_css",
+            "libraries": [
+                {
+                    "language": "library_web_css",
+                    "type": "field_select2",
+                    "name": "select2",
+                    "path": "bower_components\/select2\/dist\/css\/select2.min.css",
+                    "returnpackage": {}
+                }
+            ]
+        }
+    ],
+    "daf_api": [
+        {
+            "modul": "account",
+            "action": [
+                {
+                    "action": "login",
+                    "param": [
+                        {
+                            "name": "email",
+                            "mandatory": true,
+                            "returnpackage": {}
+                        },
+                        {
+                            "name": "password",
+                            "mandatory": true,
+                            "returnpackage": {}
+                        }
+                    ],
+                    "process": [
+                        {
+                            "type": "table",
+                            "from_engine": false,
+                            "runifnotnull": [],
+                            "table_name": "tb_akun",
+                            "process_name": "select",
+                            "output_generate": "auto",
+                            "param": [
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "param_api_email",
+                                    "index": [],
+                                    "returnpackage": {}
+                                },
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "param_api_password",
+                                    "index": [],
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "array_data": [
+                                "id",
+                                "email",
+                                "password",
+                                "idauth"
+                            ],
+                            "where": [
+                                {
+                                    "index": "email",
+                                    "operator": "=",
+                                    "value": {
+                                        "type": "variable",
+                                        "var_type": "variable",
+                                        "var_name": "email",
+                                        "index": [],
+                                        "returnpackage": {}
+                                    },
+                                    "returnpackage": {}
+                                },
+                                {
+                                    "index": "password",
+                                    "operator": "=",
+                                    "value": {
+                                        "type": "variable",
+                                        "var_type": "variable",
+                                        "var_name": "password",
+                                        "index": [],
+                                        "returnpackage": {}
+                                    },
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "execute": "one",
+                            "outputVariable": "hasil_get_akun",
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "table",
+                            "from_engine": false,
+                            "runifnotnull": [
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "hasil_get_akun",
+                                    "index": [],
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "table_name": "tb_authlevel",
+                            "process_name": "select",
+                            "execute": "many",
+                            "output_generate": "manual",
+                            "param": [
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "hasil_get_akun",
+                                    "index": [
+                                        "idauth"
+                                    ],
+                                    "returnpackage": {}
+                                },
+                                {
+                                    "type": "variable",
+                                    "var_type": "variable",
+                                    "var_name": "hasil_get_akun",
+                                    "index": [],
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "array_data": [
+                                "id",
+                                "level"
+                            ],
+                            "where": [
+                                {
+                                    "index": "id",
+                                    "operator": "=",
+                                    "value": {
+                                        "type": "variable",
+                                        "var_type": "variable",
+                                        "var_name": "hasil_get_akun_id_auth",
+                                        "index": [],
+                                        "returnpackage": {}
+                                    },
+                                    "returnpackage": {}
+                                }
+                            ],
+                            "outputVariable": "hasil_get_auth",
+                            "output": "{\\\"id\\\":\\\"v{'var_type':'variable','var_name':'hasil_get_akun','index':['id']}v\\\",{\\\"email\\\":\\\"v{'var_type':'variable','var_name':'hasil_get_akun','index':['email']}v\\\",{\\\"level\\\":\\\"v{'var_type':'variable','var_name':'qhasil_get_auth','index':['level']}v\\\"",
+                            "output_divider": "",
+                            "process": [],
+                            "engine": [],
+                            "returnpackage": {}
+                        }
+                    ],
+                    "engine": [],
+                    "response_output": "{hasil_get_auth}",
+                    "response_type": "text",
+                    "returnpackage": {}
+                }
+            ],
+            "returnpackage": {}
+        },
+        {
+            "modul": "report",
+            "action": [
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_students.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_tingkat.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_get_kelas.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_insert_data_siswa.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_update_data_siswa.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson\/include_file_id_api_delete_data_siswa.json"
+                }
+            ],
+            "returnpackage": {}
+        }
+    ],
+    "returnpackage": {}
+}

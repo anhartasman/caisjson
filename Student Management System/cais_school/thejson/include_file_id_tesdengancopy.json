@@ -1,0 +1,59 @@
+{
+    "action": "get_kelas",
+    "param": [
+        {
+            "name": "tingkat_id",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_kelas",
+            "id": "tb_kelas",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_tingkat_id",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                "id",
+                "nama"
+            ],
+            "where": [
+                {
+                    "index": "tingkat_id",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_tingkat_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "outputVariable": "hasil_get_kelas",
+            "output": "<option value='v{'var_type':'variable','var_name':'qhasil_get_kelas','index':['id']}v'>v{'var_type':'variable','var_name':'qhasil_get_kelas','index':['nama']}v<\/option>",
+            "output_divider": "",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "<option value='-1'>- select -<\/option>{hasil_get_kelas}",
+    "response_type": "text",
+    "returnpackage": {}
+}

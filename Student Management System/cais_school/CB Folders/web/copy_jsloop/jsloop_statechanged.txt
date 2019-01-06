@@ -1,0 +1,10 @@
+function stateChangedjson_{id}(){
+  var this_html_response;
+   if (ajaxjson_{id}.readyState==4){
+     this_html_response=ajaxjson_{id}.responseText;
+     console.log("response from {id} : "+ajaxjson_{id}.responseText);
+     if(this_html_response.length>0){
+     {onAPIReturn}
+      }
+    }
+}
