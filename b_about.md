@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About CAIS JSON
+title: About
 comments: yes
 permalink: /about/
 ---
