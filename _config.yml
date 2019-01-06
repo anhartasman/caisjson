@@ -42,7 +42,7 @@ locales:
       Home: "Home"
       About: "About"
       Guestbook: "Guestbook"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Subscribe: "Subscribe"
     cn:
       Aboutme: "关于我"
@@ -60,7 +60,7 @@ locales:
       Google_search: "站内搜索"
       Home: "首页"
       About: "关于"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "留言"
       Subscribe: "订阅"
     jp:
@@ -79,7 +79,7 @@ locales:
       Google_search: "サイト内検索"
       Home: "ホーム"
       About: "このブログについて"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "メッセージ"
       Subscribe: "購読"
     pl:
@@ -98,7 +98,7 @@ locales:
       Google_search: "Wyszukiwarka"
       Home: "Strona główna"
       About: "O mnie"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "Księga gości"
       Subscribe: "Subskrypcja"
     kr:
@@ -117,7 +117,7 @@ locales:
       Google_search: "게시물 검색"
       Home: "홈"
       About: "소개"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "방명록"
       Subscribe: "구독하기"
     ru:
@@ -136,7 +136,7 @@ locales:
       Google_search: "Поиск на Google"
       Home: "Домой"
       About: "О блоге"            # = 'About blog'
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "Гостевая книга"
       Subscribe: "Подписаться"
     tr:
@@ -155,7 +155,7 @@ locales:
       Google_search: "Sitede Ara"
       Home: "Anasayfa"
       About: "Hakkında"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "Konuk Defteri"
       Subscribe: "Abone Ol"
     id:
@@ -174,7 +174,7 @@ locales:
       Google_search: "Pencarian Situs"
       Home: "Beranda"
       About: "Tentang"
-      Wiki: "Wiki"
+      Wiki: "Documentation"
       Guestbook: "Buku tamu"
       Subscribe: "Langganan"
 

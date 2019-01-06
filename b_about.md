@@ -19,4 +19,4 @@ permalink: /about/
 
 # Documentations
 
-For more documentations, read the wiki page :)
+For more documentations, read the documentation page :)
