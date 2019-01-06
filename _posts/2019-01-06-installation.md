@@ -7,7 +7,6 @@ tags: [documentation]
 comments: true
 ---
 
-# Installation
 
 ## Vanilla
 * Copy vanilla folder to your htdocs and rename as you like
