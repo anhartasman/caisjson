@@ -11,6 +11,7 @@ comments: true
 ## Vanilla
 * Copy vanilla folder to your htdocs and rename as you like
 * Copy contents of CB Folders/web to your vanilla folder
+* Change base_url in your vanilla folder/admin/index.php
 
 ## Laravel
 
