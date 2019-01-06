@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Project Manifests
+title: Project Manifest
 excerpt: "The structure of Project Manifest"
 categories: articles
 tags: [documentation]
