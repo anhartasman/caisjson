@@ -1,0 +1,1 @@
+Open http://localhost/school_laravel/admin/tabel_siswa/daftar_siswa
