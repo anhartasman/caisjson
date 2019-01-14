@@ -160,6 +160,7 @@ break;
 }
 
 
+
 $data_diri_siswa = $obj_table_tb_siswa->Go_table_for_modul_tabel_siswa_page_edit_siswa_select_tb_siswa($siswa_id);
 
 $variables['data_diri_siswa'] = $data_diri_siswa;
@@ -283,6 +284,7 @@ $variables['siswa_id'] = $siswa_id;
 break;
 }
 }
+
 
 
 $data_diri_siswa = $obj_table_tb_siswa->Go_table_for_modul_tabel_siswa_page_delete_siswa_select_tb_siswa($siswa_id);

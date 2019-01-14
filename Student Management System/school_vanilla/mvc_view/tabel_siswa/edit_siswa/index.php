@@ -3,7 +3,7 @@ $page_name="Edit Data Siswa SMP | Sistem Sekolahan";
 $modul_id="tabel_siswa";
 $modul_id_page_id="tabel_siswa_edit_siswa";
 $copy_base_language_library_web_css=array();
-$copy_base_language_library_web_css[]=array("name"=>"select2","path"=>"bower_components/select2/dist/css/select2.min.css");
+$copy_base_language_library_web_css[]=array("name"=>"select2","path"=>"bower_components\/select2\/dist\/css\/select2.min.css");
 
 include ("../inc_body_header.php");
 ?>

@@ -1,1 +1,0 @@
-Open http://localhost/school_vanilla/admin/tabel_siswa/daftar_siswa
