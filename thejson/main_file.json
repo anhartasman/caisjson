@@ -5,22 +5,22 @@
         {
             "config_type": "web",
             "database_host": "localhost",
-            "database_name": "belajarcrud",
+            "database_name": "belajarcrud2",
             "database_username": "root",
             "database_password": "",
-            "web_url": "http:\/\/localhost\/sistemsekolah",
-            "web_localpath": "..\/sistemsekolah\/",
+            "web_url": "http:\/\/localhost\/school_vanilla",
+            "web_localpath": "..\/school_vanilla\/",
             "web_description": "Sistem Informasi Sekolahan",
             "returnpackage": {}
         },
         {
             "config_type": "weblaravel",
             "database_host": "localhost",
-            "database_name": "belajarcrud",
+            "database_name": "belajarcrud2",
             "database_username": "root",
             "database_password": "",
-            "web_url": "http:\/\/localhost\/hargakamar",
-            "web_localpath": "..\/hargakamar\/",
+            "web_url": "http:\/\/localhost\/school_laravel",
+            "web_localpath": "..\/school_laravel\/",
             "web_description": "Sistem Informasi Sekolahan",
             "returnpackage": {}
         }
@@ -41,7 +41,7 @@
             "page": [
                 {
                     "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_add_siswa.json"
+                    "include": "thejson/include_file_id_page_add_siswa.json"
                 },
                 {
                     "type": "include_file",
@@ -57,140 +57,6 @@
                 }
             ],
             "returnpackage": {}
-        },
-        {
-            "id": "tabel_hotel",
-            "title": "Hotel",
-            "subtitle": "Manajemen Harga Hotel",
-            "ignore": false,
-            "placement": [
-                {
-                    "place": "sidemenu",
-                    "returnpackage": {}
-                }
-            ],
-            "page": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_add_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_edit_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_delete_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_daftar_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_daftar_fasilitas_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_add_fasilitas_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_edit_fasilitas_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_delete_fasilitas_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_add_images_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_edit_images_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_delete_images_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_add_contact_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_edit_contact_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_delete_contact_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_edit_roomtype_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_delete_roomtype_hotel.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/hotel/include_file_id_page_setting_roomtype_hotel.json"
-                }
-            ],
-            "returnpackage": {}
-        },
-        {
-            "id": "information",
-            "title": "Information",
-            "subtitle": "System Information",
-            "ignore": false,
-            "placement": [
-                {
-                    "place": "sidemenu",
-                    "returnpackage": {}
-                }
-            ],
-            "page": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_daftar_contact.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_add_contact.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_edit_contact.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_delete_contact.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_daftar_breakfast.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_add_breakfast.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_edit_breakfast.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_delete_breakfast.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_daftar_roomtype.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_add_roomtype.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_edit_roomtype.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/fitur/information/include_file_id_page_delete_roomtype.json"
-                }
-            ]
         }
     ],
     "global_variables": [
@@ -247,86 +113,9 @@
                 }
             ],
             "returnpackage": {}
-        },
-        {
-            "name": "status_hotel",
-            "type": "array",
-            "content": [
-                {
-                    "index": "0",
-                    "value": "Asli",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "1",
-                    "value": "Pindahan",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "2",
-                    "value": "Dikeluarkan",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "3",
-                    "value": "Bermasalah",
-                    "returnpackage": {}
-                }
-            ],
-            "returnpackage": {}
-        },
-        {
-            "name": "bintang_hotel",
-            "type": "array",
-            "content": [
-                {
-                    "index": "0",
-                    "value": "0",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "1",
-                    "value": "1",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "2",
-                    "value": "2",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "3",
-                    "value": "3",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "4",
-                    "value": "4",
-                    "returnpackage": {}
-                },
-                {
-                    "index": "5",
-                    "value": "5",
-                    "returnpackage": {}
-                }
-            ],
-            "returnpackage": {}
         }
     ],
-    "libraries": [
-        {
-            "language": "library_web_css",
-            "libraries": [
-                {
-                    "language": "library_web_css",
-                    "type": "field_select2",
-                    "name": "select2",
-                    "path": "bower_components\/select2\/dist\/css\/select2.min.css",
-                    "returnpackage": {}
-                }
-            ]
-        }
-    ],
+    "libraries": [],
     "daf_api": [
         {
             "modul": "account",
@@ -500,165 +289,6 @@
                     "type": "include_file",
                     "include": "thejson\/include_file_id_api_delete_data_siswa.json"
                 }
-            ],
-            "returnpackage": {}
-        },
-        {
-            "modul": "retrieve_data",
-            "action": [
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_hotels.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_cities.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_locations.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_hotel_facility.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_hotel_images.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_contact.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_hotel_contacts.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_breakfast.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_roomtype.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson\/include_file_id_api_get_hotel_rooms.json"
-                }
-            ],
-            "returnpackage": {}
-        },
-        {
-            "modul": "insert_data",
-            "action": [
-            {
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_insert_data_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_insert_data_fasilitas_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_insert_data_images_hotel.json"
-              }
-              ,{
-                  "type": "include_file",
-                  "include": "thejson\/include_file_id_api_insert_data_contact.json"
-              }
-              ,{
-                  "type": "include_file",
-                  "include": "thejson\/include_file_id_api_insert_data_contact_hotel.json"
-              }
-              ,{
-                  "type": "include_file",
-                  "include": "thejson\/include_file_id_api_insert_data_breakfast.json"
-              }
-              ,{
-                  "type": "include_file",
-                  "include": "thejson\/include_file_id_api_insert_data_roomtype.json"
-              }
-            ]
-        },
-        {
-            "modul": "update_data",
-            "action": [
-            {
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_fasilitas_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_images_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_contact.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_contact_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_breakfast.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_roomtype.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_roomtype_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_update_data_daftar_roomtype_hotel.json"
-            }
-            ],
-            "returnpackage": {}
-        },
-        {
-            "modul": "delete_data",
-            "action": [
-            {
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_fasilitas_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_images_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_contact.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_contact_hotel.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_breakfast.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_roomtype.json"
-            }
-            ,{
-                "type": "include_file",
-                "include": "thejson\/include_file_id_api_delete_data_roomtype_hotel.json"
-            }
             ],
             "returnpackage": {}
         }

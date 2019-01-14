@@ -13,6 +13,7 @@ $paket=array();
         $bahan_respon = "";
         $web_config=null;
         $generated_code="";
+
   for($j=0; $j<count($thejson->project_config); $j++){
     $theconfig=$thejson->project_config[$j];
 
@@ -35,10 +36,12 @@ $paket=array();
     include 'fungsi.php';
     switch($theconfig->config_type){
       case "web":
-      include 'makers/maker_php.php';
+      $path_pointer="makers/vanilla";
+      include $path_pointer.'/maker_php.php';
       break;
       case "weblaravel":
-      include 'makers/maker_laravel.php';
+      $path_pointer="makers/laravel";
+      include $path_pointer.'/maker_laravel.php';
       break;
     }
     $ar_worktodo=array();
@@ -189,12 +192,28 @@ $paket=array();
         $bahan_respon = "";
         $web_config=null;
         $generated_code="";
+
+
   for($j=0; $j<count($thejson->project_config); $j++){
     $theconfig=$thejson->project_config[$j];
+    if($theconfig->config_type==$compileto){
+
+    if(isset($thejson->compiler_info["teller_include"])){
+    for($j=0; $j<count($thejson->compiler_info["teller_include"]); $j++){
+
+      include "makers/".$thejson->compiler_info["makers_folder"].$thejson->compiler_info["teller_include"][$j]["file"];
+      $prop=$thejson->compiler_info["teller_include"][$j]["properties"];
+      $propvar=$thejson->compiler_info["teller_include"][$j]["properties_equal_var"];
+      if($thejson->compiler_info["teller_include"][$j]["for"]=="config"){
+      echo "added config properties from teller : ".$prop."<br>";
+      $theconfig->$prop=($$propvar);
+      }
+    }
+    }
 
     $_SESSION['config_type']=$compileto;
     $_SESSION['caisconfig_'.$_SESSION['config_type']]=$theconfig;
-    if($theconfig->config_type==$compileto){
+
     $filedirection=$theconfig->web_localpath;
     $pecahslash=explode('/',$theconfig->web_url);
     $folderakhir="";
@@ -215,13 +234,16 @@ $paket=array();
     require_once('fungsi.php');
     }
 
+
     switch($theconfig->config_type){
       case "web":
-      include 'makers/maker_php.php';
+      $path_pointer="makers/vanilla";
+      include $path_pointer.'/maker_php.php';
         $ar_worktodo=array_merge($ar_worktodo,makePHP($manifest));
       break;
       case "weblaravel":
-      include 'makers/maker_laravel.php';
+      $path_pointer="makers/laravel";
+      include $path_pointer.'/maker_laravel.php';
         $ar_worktodo=array_merge($ar_worktodo,makeLaravel($manifest));
       break;
     }
