@@ -23,42 +23,22 @@ function render_html_element_field($page_elemen){
       $namavariablefield=$page_elemen->field[$c]->variable;
     }
 
-    switch($page_elemen->field[$c]->type){
-      case "text":
-      $kontenvariabelform.=$namavariablefield." = document.getElementById(\"".$page_elemen->field[$c]->id."\").value;\n";
+$requested_html = $_SESSION['caisconfig_'.$_SESSION['config_type']]->requested_html;
+//    var_dump($requested_html);
+//echo $namafiletheme;
+$isicontent="";
+for($r=0; $r<count($requested_html);$r++){
+  if($requested_html[$r]["key"]=="form_field_get_value"){
+    if($requested_html[$r]["type"]==$page_elemen->field[$c]->type){
+      $kontenvariabelform.=$requested_html[$r]["get_value"];
       break;
-      case "select":
-      $kontenvariabelform.=$namavariablefield.'_textvalue = $("#'.$page_elemen->field[$c]->id.'option:selected").text();'."\n";
-      $kontenvariabelform.=$namavariablefield.' = $("#'.$page_elemen->field[$c]->id.'").val();'."\n";
-      break;
-      case "select2":
-      $kontenvariabelform.=$namavariablefield.' = $("#'.$page_elemen->field[$c]->id.'").val();'."\n";
-      break;
-      case "number":
-      $kontenvariabelform.=$namavariablefield." = document.getElementById(\"".$page_elemen->field[$c]->id."\").value;\n";
-      break;
-      case "email":
-      $kontenvariabelform.=$namavariablefield." = document.getElementById(\"".$page_elemen->field[$c]->id."\").value;\n";
-      break;
-      case "textarea":
-      $kontenvariabelform.=$namavariablefield." = document.getElementById(\"".$page_elemen->field[$c]->id."\").value;\n";
-      break;
-      case "file":
-      $kontenvariabelform.=$namavariablefield." = document.getElementById(\"".$page_elemen->field[$c]->id."\").value;\n";
-      $kontenvariabelform.=$namavariablefield."_file = document.getElementById(\"".$page_elemen->field[$c]->id."\").files[0];\n";
-      $kontenvariabelform.="if (".$namavariablefield."_file){\n";
-        $kontenvariabelform.="var r = new FileReader();\n";
-        $kontenvariabelform.="r.onload = function(e) {\n";
-          $kontenvariabelform.="var contents = e.target.result;\n";
-          $kontenvariabelform.=$namavariablefield."_file_content = contents;\n";
-          $kontenvariabelform.="}\n";
-          $kontenvariabelform.="r.readAsDataURL (".$namavariablefield."_file);\n";
-          $kontenvariabelform.="}\n";
-          break;
-          case "richtext":
-          $kontenvariabelform.=$namavariablefield." = CKEDITOR.instances.".$page_elemen->field[$c]->id.".getData();\n";
-          break;
-        }
+    }
+  }
+}
+$kontenvariabelform=str_replace("{field_variable}",$namavariablefield,$kontenvariabelform);
+$kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$kontenvariabelform);
+
+
 
       }
 
@@ -74,35 +54,47 @@ function render_html_element_field($page_elemen){
 
           foreach($page_elemen->field[$c]->validation as $validate) {
 
-            $bahanvalidation=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsvalidation/jsvalidation_".$validate->type.".html");
+            $bahanvalidation="";
 
             $bahandeklarasi="";
             $dataplace=".value";
-            switch($page_elemen->field[$c]->type){
-              case "richtext":
-              $bahandeklarasi='var field_tocheck_{field_id} = CKEDITOR.instances.{field_id}.getData();';
-              $dataplace="";
-              break;
-              default :
-              $bahandeklarasi='var field_tocheck_{field_id} = document.getElementById("{field_id}");';
-              break;
+            for($r=0; $r<count($requested_html);$r++){
+              if($requested_html[$r]["key"]=="form_field_validation"){
+                if($requested_html[$r]["type"]==$validate->type){
+                  $bahanvalidation=bacafile($requested_html[$r]["file"]);
+                  break;
+                }
+              }
             }
+
+            for($r=0; $r<count($requested_html);$r++){
+              if($requested_html[$r]["key"]=="form_field_get_value_validation"){
+                if($requested_html[$r]["type"]==$page_elemen->field[$c]->type){
+                  $bahandeklarasi=$requested_html[$r]["get_value"];
+                  $dataplace=$requested_html[$r]["dataplace"];
+                  break;
+                }
+              }
+            }
+
             $bahandeklarasi.="\n";
             $bahanvalidation=$bahandeklarasi.$bahanvalidation;
             $bahanvalidation=str_replace("{field_id}",$page_elemen->field[$c]->id,$bahanvalidation);
             $bahanvalidation=str_replace("{dataplace}",$dataplace,$bahanvalidation);
 
-            switch($validate->type){
-              case "minlength":
-              $minlength=$validate->length;
-              $validation_msg="";
-              if(isset($validate->message)){
-                $validation_msg=$validate->message;
-              }
-              $bahanvalidation=str_replace("{minlength}",$minlength,$bahanvalidation);
-              $bahanvalidation=str_replace("{validation_msg}",$validation_msg,$bahanvalidation);
 
-              break;
+            for($r=0; $r<count($requested_html);$r++){
+              if($requested_html[$r]["key"]=="form_field_validation"){
+                if($requested_html[$r]["type"]==$validate->type){
+
+                  for($rr=0; $rr<count($requested_html[$r]["replaces"]);$rr++){
+                    $bahanfrom=$requested_html[$r]["replaces"][$rr]["from"];
+                    $bahanvalidation=str_replace($requested_html[$r]["replaces"][$rr]["to"],$validate->$bahanfrom,$bahanvalidation);
+
+                  }
+                  break;
+                }
+              }
             }
 
             $kontenfungsivalidasi.=$bahanvalidation;
@@ -192,6 +184,8 @@ function render_html_element_field($page_elemen){
           $content.=fgets($file). "<br />";
         }
         fclose($file);
+      }else{
+        echo "tak ada file $file_address <br>";
       }
       $content=str_replace("<br />","",$content);
 
@@ -514,9 +508,23 @@ function render_html_element_field($page_elemen){
           $field->theme="normal";
         }
         $namafiletheme=$field->type."_theme_".$field->theme;
+            $requested_html = $_SESSION['caisconfig_'.$_SESSION['config_type']]->requested_html;
+        //    var_dump($requested_html);
         //echo $namafiletheme;
-        $isicontent=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_web_field/".$namafiletheme.".html");
+        $isicontent="";
+        for($r=0; $r<count($requested_html);$r++){
+          if($requested_html[$r]["key"]=="form_field"){
+            if($requested_html[$r]["name"]==$namafiletheme){
+              $isicontent=bacafile($requested_html[$r]["file"]);
 
+              if(strlen($isicontent)==0){
+              echo "kosong field ".$namafiletheme." ".$requested_html[$r]["file"]." ".$isicontent;
+              }
+              break;
+            }
+          }
+        }
+        
         $isijs="";
         $varjsawal="";
         $attribute="";
@@ -537,85 +545,40 @@ function render_html_element_field($page_elemen){
             $attribute.=$key."=\"".$value."\"";
           }
         }
-        switch($field->type){
-          case "select":
-          $dropdown_content=create_web_element_dropdown($field);
-          $isicontent=$dropdown_content->content;
-          $isijs=$dropdown_content->js_content;
-          $varjsawal.=$dropdown_content->varjsawal;
-          break;
-          case "datepicker":
-          $bahanjs=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsloop/jsloop_datepicker.txt");
-          $bahanjs=str_replace("{elemen_id}",$field->id,$bahanjs);
-
-          $isijs.=$bahanjs."\n";
-          break;
-          case "richtext":
-          $bahanjs=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsloop/jsloop_richtext.txt");
-          $bahanjs=str_replace("{elemen_id}",$field->id,$bahanjs);
-
-          $isijs.=$bahanjs."\n";
-          break;
-          case "file":
-          $varjsawal.="var ".$namavariablefield."_file = null;\n";
-          $varjsawal.="var ".$namavariablefield."_file_content = null;\n";
-          break;
-          case "image_upload":
-          $varjsawal.="var ".$namavariablefield."_file = null;\n";
-          $varjsawal.="var ".$namavariablefield."_file_content = null;\n";
-          break;
-          case "select2":
-          $bahanjs=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsloop/jsloop_select2.txt");
-          $bahanjs=str_replace("{elemen_id}",$field->id,$bahanjs);
-
-          $isijs=$bahanjs."\n";
-          if(isset($dropdown->option_label_from)){
-            switch($field->option_label_from){
-              case "hardcoded_array":
-
+        $requested_html = $_SESSION['caisconfig_'.$_SESSION['config_type']]->requested_html;
+        //    var_dump($requested_html);
+        //echo $namafiletheme;
+        $dapetreq=false;
+        for($r=0; $r<count($requested_html);$r++){
+          if($requested_html[$r]["key"]=="form_field_js"){
+            if($requested_html[$r]["type"]==$field->type){
+              if (file_exists($requested_html[$r]["file"])) {
+                $dapetreq=true;
+              include($requested_html[$r]["file"]);
+              }
               break;
             }
           }
-
-          $dropdown_content=create_web_element_dropdown($field);
-          $isicontent=$dropdown_content->content;
-          $isijs.=$dropdown_content->js_content;
-          $varjsawal.=$dropdown_content->varjsawal;
-          break;
         }
+
+
 
         if(isset($field->listeners)){
           for ($lis=0; $lis<count($field->listeners); $lis++){
             $tolisten=$field->listeners[$lis];
-            switch($tolisten->listen){
-              case "onclick":
-              $isijs.=create_web_onclick_listener($field,$tolisten);
-              break;
-              case "onload":
-              $isijs.=create_web_onload_listener($field,$tolisten);
-              break;
-              case "onchange":
-              $isijs.=create_web_onchange_listener($field,$tolisten);
-              break;
+
+            for($r=0; $r<count($requested_html);$r++){
+              if($requested_html[$r]["key"]=="form_field_listener"){
+                if($requested_html[$r]["listen"]==$tolisten->listen){
+                  $isijs.=call_user_func($requested_html[$r]["func_name"],$field,$tolisten);
+                  break;
+                }
+              }
             }
+
           }
         }
-        /**
-        if(isset($field->listeners->onclick)){
-        $isijs.=create_web_onclick_listener($field);
-      }
 
-      if(isset($field->listeners->onload)){
-      $isijs.=create_web_onload_listener($field);
-    }
-
-    if(!isset($field->listeners->onchange)){
-    $field->listeners->onchange=array();
-  }
-  if(isset($field->listeners->onchange)){
-  $isijs.=create_web_onchange_listener($field);
-}
-**/
 $isivalue="";
 if(isset($field->value)){
   $tulisanvariable=create_variable_web($field->value);
@@ -653,7 +616,21 @@ function create_web_element_dropdown($dropdown){
     $dropdown->theme="normal";
   }
   $namafiletheme=$dropdown->type."_theme_".$dropdown->theme;
-  $select_content=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_web_field/".$namafiletheme.".html");
+  $select_content="";
+  $requested_html = $_SESSION['caisconfig_'.$_SESSION['config_type']]->requested_html;
+
+  $alamatselect="";
+  for($r=0; $r<count($requested_html);$r++){
+    if($requested_html[$r]["key"]=="form_field"){
+      if($requested_html[$r]["name"]==$namafiletheme){
+        $alamatselect=$requested_html[$r]["file"];
+
+        break;
+      }
+    }
+  }
+
+  $select_content=bacafile($alamatselect);
 
   $option_list="";
   if(isset($dropdown->first_option_value) && isset($dropdown->first_option_label)){
@@ -1027,103 +1004,39 @@ function create_web_element_dropdown($dropdown){
                       $tipe=$func->type;
                     }
                     $copy_base_jsvoid="";
-                    $tobaca=$_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsvoid/".$tipe.".html";
-                    if (file_exists($tobaca)) {
-                    $copy_base_jsvoid=bacafile($tobaca);
-                    }
-                    $copy_base_jsvoid=str_replace("{func_name}",$func->func_name,$copy_base_jsvoid);
+                    $requested_html = $_SESSION['caisconfig_'.$_SESSION['config_type']]->requested_html;
 
-                    switch($tipe){
-                      case "api_shooter":
-                      $func_param=[];
+                    for($r=0; $r<count($requested_html);$r++){
+                      if($requested_html[$r]["key"]=="void_script"){
+                        if($requested_html[$r]["name"]==$tipe){
+                          if (file_exists($requested_html[$r]["file"])) {
+                            $copy_base_jsvoid=bacafile($requested_html[$r]["file"]);
+                            $copy_base_jsvoid=str_replace("{func_name}",$func->func_name,$copy_base_jsvoid);
 
-                      $content.="var ajaxjson_".$func->func_name.";"."\n";
-
-
-                      $api_param=array();
-                      $api_param["modul"]=$func->modul;
-                      $api_param["action"]=$func->action;
-                      for($p=0; $p<count($func->param); $p++){
-                        $api_param_obj=array();
-                        $api_param[$func->param[$p]->index]=$func->param[$p]->value;
-                        //$api_param[]=$func->param[$p];
-                      }
-                      $encoded_param=json_encode($api_param);
-                      $encoded_param2=json_encode($api_param);
-                      $encoded_param = preg_replace('/\s*:"([^"]+)"\s*/', ':$1', $encoded_param);
-                      $encoded_param=str_replace($func->modul,"\"$func->modul\"",$encoded_param);
-                      $encoded_param=str_replace($func->action,"\"$func->action\"",$encoded_param);
-
-                      $nilaiparam="";
-                      $nomurutapi=0;
-                      foreach($api_param as $k=>$v){
-                        if($k=="modul"){
-                          $nilaiparam.="\"$k\":\"$v\"";
-                        }else if($k=="action"){
-                          $nilaiparam.="\"$k\":\"$v\"";
-                        }else {
-                          $nilaiparam.="\"$k\":$v";
+                          }
+                          break;
                         }
-
-                        if(($nomurutapi+1)<count($api_param)){
-                          $nilaiparam.=",";
-                        }
-                        $nomurutapi+=1;
                       }
-
-                      echo "nilaiparam : ".$nilaiparam."<BR>";
-
-                      $copy_base_jsvoid=str_replace("{api_param}",'{'.$nilaiparam.'}',$copy_base_jsvoid);
-                      $func_body.=$copy_base_jsvoid;
-
-                      $copy_base_statechanged="";
-                      $copy_base_statechanged=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_jsloop/jsloop_statechanged.txt");
-                      $copy_base_statechanged=str_replace("<br />","",$copy_base_statechanged);
-
-                      $func_change=$copy_base_statechanged;
-                      $func_change=str_replace("{id}",$func->func_name,$func_change);
-                      $func_change=str_replace("{onAPIReturn}",create_web_onapireturn_listener($func->onAPIReturn),$func_change);
-                      $content.=$func_change."\n";
-                      /**
-                      if($func->func_name=="get_pilihan_kelas"){
-                      echo "ADANIH!!!!\n\n\n\n".$func_change."\n\n\n";
                     }
-                    **/
-                    break;
-                    case "change_datatable_by_json":
-                    $func_param=array(array("name"=>"data_content"));
-                      $copy_base_jsvoid=str_replace("{table_id}",$func->table_id,$copy_base_jsvoid);
-                      $func_body.=$copy_base_jsvoid;
-                      break;
-                      case "json_extracter":
-                      //echo "ADA FUNC_NAME ".$func->func_name;
-                      $contentname="content_of_".$func->func_name;
-                      $func_param=array(array("name"=>"data".$func->func_name),array("name"=>"target".$func->func_name));
-                      $func_body.=$copy_base_jsvoid;
-                      if(isset($func->variable)){
-                        $func_body.="$func->variable = ".$contentname.";"."\n";
+
+
+                    $dapetreq=false;
+                    for($r=0; $r<count($requested_html);$r++){
+                      if($requested_html[$r]["key"]=="void_calculator"){
+                        if($requested_html[$r]["name"]==$tipe){
+                          if (file_exists($requested_html[$r]["file"])) {
+                            $dapetreq=true;
+                          include($requested_html[$r]["file"]);
+                          }
+                          break;
+                        }
                       }
-                      $func_footer.="return ".$contentname.";"."\n";;
-                      break;
-                      case "setter_dropdown":
-                      $func_param=array(array("name"=>"data_content".$func->func_name));
-                        $copy_base_jsvoid=str_replace("{dropdown_id}",$func->dropdown_id,$copy_base_jsvoid);
-                        $func_body.=$copy_base_jsvoid;
-                        break;
-                        case "link_jumper":
-                        $func_param=array(array("name"=>"link".$func->func_name));
-                        $func_body.="window.location.href = link".$func->func_name.";"."\n";
-                        break;
-                        case "page_jumper":
-                        $func_param=array(array("name"=>"modul".$func->func_name),array("name"=>"page".$func->func_name));
-                        $thelink=get_project_url_js("modul".$func->func_name,"page".$func->func_name,$func->page_jumper_package);
-                        $copy_base_jsvoid=str_replace("{thelink}",$thelink,$copy_base_jsvoid);
-                        $func_body.=$copy_base_jsvoid;
-                        break;
-                        default:
-                        $func_body.=$copy_base_jsvoid;
-                        break;
-                      }
+                    }
+                    if(!$dapetreq){
+                      $func_body.=$copy_base_jsvoid;
+                    }
+
+
                       $func_content=$func_body."\n".$func_footer;
                       $content=str_replace("{content}",$func_content,$content);
                     }
@@ -1155,88 +1068,8 @@ function create_web_element_dropdown($dropdown){
                     //akhir create_web_function
                   }
 
-                  function create_web_onclick_listener($elemen,$tolisten){
-                    $content='$("#{field_id}").on( \'click\', function () {'."\n";
-                      $content.="{content}"."\n";
-                      $content.="});"."\n";
 
-                      $listener=str_replace("{field_id}",$elemen->id,$content);
-                      $listener_content="";
-                      for ($o=0; $o<count($tolisten->functions); $o++){
-                        $bahanlistener="";
-                        $namavarreturn="";
-                        $bahanlistener=create_web_function_caller($tolisten->functions[$o]);
 
-                        $listener_content.=$bahanlistener."\n";
-                      }
-                      $listener=str_replace("{content}",$listener_content,$listener);
-
-                      return $listener;
-                    }
-                    function create_web_onchange_listener($elemen,$tolisten){
-                      $bahanreturn="";
-                      $namavariablefield="";
-                      if(!isset($elemen->variable)){
-                        $namavariablefield="isian_".$elemen->id;
-                        $elemen->variable=$namavariablefield;
-                      }else{
-                        $namavariablefield=$elemen->variable;
-                      }
-                      if($elemen->type!="image"){
-                        $content='$("#{elemen_id}").on( \'change\', function () {'."\n";
-                          $content.="{content}"."\n";
-                          $content.="});"."\n";
-
-                          $listener=str_replace("{elemen_id}",$elemen->id,$content);
-                          $listener_content="";
-
-                          if(!isset($elemen->type)){
-                            $elemen->type="select";
-                          }
-                          switch($elemen->type){
-                            case "select":
-                            $listener_content.=$namavariablefield."_textvalue = $(\"#".$elemen->id." option:selected\").text();"."\n";
-                            $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
-                            break;
-                            case "file":
-                            $listener_content.=$namavariablefield."_file = document.getElementById(\"".$elemen->id."\").files[0];\n";
-                            $listener_content.="if (".$namavariablefield."_file){\n";
-                              $listener_content.="var r = new FileReader();\n";
-                              $listener_content.="r.onload = function(e) {\n";
-                                $listener_content.="var contents = e.target.result;\n";
-                                $listener_content.=$namavariablefield."_file_content = contents;\n";
-                                $listener_content.="}\n";
-                                $listener_content.="r.readAsDataURL (".$namavariablefield."_file);\n";
-                                $listener_content.="}\n";
-                                break;
-                                case "image_upload":
-                                $listener_content.=$namavariablefield."_file = document.getElementById(\"".$elemen->id."\").files[0];\n";
-                                $listener_content.="if (".$namavariablefield."_file){\n";
-                                  $listener_content.="var r = new FileReader();\n";
-                                  $listener_content.="r.onload = function(e) {\n";
-                                    $listener_content.="var contents = e.target.result;\n";
-                                    $listener_content.="$('#img_of_".$elemen->id."').attr('src', e.target.result);\n";
-                                    $listener_content.=$namavariablefield."_file_content = contents;\n";
-                                    $listener_content.="}\n";
-                                    $listener_content.="r.readAsDataURL (".$namavariablefield."_file);\n";
-                                    $listener_content.="}\n";
-                                    break;
-                                    default:
-                                    $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
-                                    break;
-                                  }
-
-                                  for ($o=0; $o<count($tolisten->functions); $o++){
-
-                                    $bahanlistener=create_web_function_caller($tolisten->functions[$o]);
-                                    $listener_content.=$bahanlistener."\n";
-
-                                  }
-                                  $listener=str_replace("{content}",$listener_content,$listener);
-                                  $bahanreturn=$listener;
-                                }
-                                return $bahanreturn;
-                              }
                               function create_web_onapireturn_listener($onapireturn){
                                 $content="";
 
@@ -1249,18 +1082,7 @@ function create_web_element_dropdown($dropdown){
 
                                 return $content;
                               }
-                              function create_web_onload_listener($elemen,$tolisten){
-                                $content="";
 
-                                for ($o=0; $o<count($tolisten->functions); $o++){
-
-                                  $bahanlistener=create_web_function_caller($tolisten->functions[$o]);
-                                  $content.=$bahanlistener."\n";
-
-                                }
-
-                                return $content;
-                              }
                               function create_unique_content($file_address,$content_to_add){
                                 $konten="";
                                 $ada=false;
@@ -1401,242 +1223,14 @@ function create_web_element_dropdown($dropdown){
                                         }
                                       }
 
-                                      switch($pro->type){
-                                        case "url_catcher":
-                                        $dapetmesin=1;
-                                        if(isset($pro->from_engine) && $pro->from_engine==true){
-                                          if(isset($thepage->engine)){
-                                            for($eng=0;$eng<count($thepage->engine);$eng++){
-                                              if($thepage->engine[$eng]->type=="url_catcher"){
-                                                $idxcatch=-1;
-                                                for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                  if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
+                                      $dapetmesin=1;
+                                      $getengine=render_engine($pro->type,$pro,$pro,null);
+                                      $newcontent.=$getengine->content."\n";
+                                      if(isset($getengine->varjsawal)){
+                                      $varjsawal.=$getengine->varjsawal;
+                                      }
+                                      $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
 
-                                                    $getengine=render_engine("url_catcher",$thepage->engine[$eng]->content[$ca],$pro,null);
-                                                    $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                                    $varjsawal.=$getengine->varjsawal;
-                                                    $newcontent.=$getengine->content;
-                                                    //echo "bahan catcher ".$getengine->content."akhir bahan<BR>";
-                                                    break;
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }else{
-                                          $getengine=render_engine("url_catcher",$pro,$pro,null);
-                                          $newcontent.=$getengine->content;
-                                          $varjsawal.=$getengine->varjsawal;
-                                          $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                        }
-                                        break;
-                                        case "json_to_array":
-                                        $dapetmesin=1;
-                                        if(isset($pro->from_engine) && $pro->from_engine==true){
-                                          if(isset($thepage->engine)){
-                                            for($eng=0;$eng<count($thepage->engine);$eng++){
-                                              if($thepage->engine[$eng]->type=="json_to_array"){
-                                                for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                  if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-
-                                                    $theconverter=$thepage->engine[$eng]->content[$ca];
-                                                    $newcontent.='$'.$theconverter->variable.'=array();'."\n";
-                                                    $newcontent.='foreach($'.$theconverter->from.' as $key) {'."\n";
-                                                      $newcontent.='$'.$theconverter->variable.'[$key[\''.$theconverter->index.'\']]=$key[\''.$theconverter->value.'\'];'."\n";
-                                                      $newcontent.='}'."\n";
-                                                      $newcontent.='$variables[\''.$theconverter->variable.'\'] = $'.$theconverter->variable.";"."\n";
-                                                      break;
-
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }else{
-                                            $theconverter=$pro;
-                                            $newcontent.='$'.$theconverter->variable.'=array();'."\n";
-                                            $newcontent.='foreach($'.$theconverter->from.' as $key) {'."\n";
-                                              $newcontent.='$'.$theconverter->variable.'[$key[\''.$theconverter->index.'\']]=$key[\''.$theconverter->value.'\'];'."\n";
-                                              $newcontent.='}'."\n";
-                                              $newcontent.='$variables[\''.$theconverter->variable.'\'] = $'.$theconverter->variable.";"."\n";
-
-                                            }
-                                            break;
-                                            case "fileupload":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="fileupload"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("fileupload",$f,$pro,$thepage);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-
-                                                        for($v=0;$v<count($getengine->varphpawal);$v++){
-                                                          $varphpawal[]=$getengine->varphpawal[$v]."\n";
-                                                        }
-                                                        $newcontent.=$getengine->content."\n";
-
-                                                        break;
-
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("fileupload",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            case "file_delete":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="file_delete"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("file_delete",$f,$pro,null);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                                        $newcontent.=$getengine->content."\n";
-                                                        break;
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("file_delete",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            case "session":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="session"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("session",$f,$pro,null);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-
-                                                        $newcontent.=$getengine->content."\n";
-                                                        break;
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("session",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            case "change_page":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="change_page"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("change_page",$f,$pro,null);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                                        $newcontent.=$getengine->content."\n";
-                                                        break;
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("change_page",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            case "condition":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="condition"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("condition",$f,$pro,null);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                                        $newcontent.=$getengine->content."\n";
-                                                        break;
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("condition",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            case "table":
-                                            $dapetmesin=1;
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              if(isset($thepage->engine)){
-                                                for($eng=0;$eng<count($thepage->engine);$eng++){
-                                                  if($thepage->engine[$eng]->type=="table"){
-                                                    for($ca=0; $ca<count($thepage->engine[$eng]->content); $ca++){
-                                                      if($thepage->engine[$eng]->content[$ca]->id==$pro->id){
-                                                        $f=$thepage->engine[$eng]->content[$ca];
-                                                        $getengine=render_engine("table",$f,$pro,null);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                                        for($v=0;$v<count($getengine->include);$v++){
-                                                          if(!in_array($getengine->include[$v],$include)){
-                                                            $include[]=$getengine->include[$v];
-                                                          }
-                                                        }
-                                                        for($v=0;$v<count($getengine->varphpawal);$v++){
-                                                          $varphpawal[]=$getengine->varphpawal[$v]."\n";
-                                                        }
-                                                        for($v=0;$v<count($getengine->deklarasi);$v++){
-                                                          $deklarasi[]=$getengine->deklarasi[$v]."\n";
-                                                        }
-                                                        $newcontent.=$getengine->content."\n";
-
-                                                        break;
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }else{
-                                              $getengine=render_engine("table",$pro,$pro,null);
-                                              $newcontent.=$getengine->content."\n";
-                                              $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            }
-                                            break;
-                                            default:
-                                            $dapetmesin=1;
-                                            $getengine=render_engine($pro->type,$pro,$pro,null);
-                                            if(isset($pro->from_engine) && $pro->from_engine==true){
-                                              "ADA AJA";
-                                            }
-                                            echo "BEDAA ".$pro->type;
-                                            $newcontent.=$getengine->content."\n";
-                                            $ar_worktodo=array_merge($ar_worktodo,$getengine->ar_worktodo);
-                                            break;
-
-                                          }
 
                                           if(isset($pro->runifnotnull)){
                                             if(count($pro->runifnotnull)>0){
@@ -1650,9 +1244,6 @@ function create_web_element_dropdown($dropdown){
                                             //  echo $content."<BR>";
                                           }
 
-                                          if($pro->type=="url_catcher"){
-                                            //echo "catch for function_".$page_name_controller."\n";
-                                          }
 
                                         }
                                         //echo "tipe ".$pro->type.$content."<BR>";
@@ -1721,197 +1312,15 @@ function create_web_element_dropdown($dropdown){
                                 $page_nickname="page_".$properties_page;
                                 $page_name_controller=$page_nickname.$controller_nickname;
                                 $work_id="";
+
                                 //echo "prop ".$pro->properties_modul." page ".$pro->properties_page."<BR>";
-                                switch($type){
-                                  case "url_catcher":
-                                  $thecatcher=$engine;
-                                  $work_id="add_url_catcher_".$thecatcher->variable."_to_function_".$properties_page."_in_".$properties_modul;
-                                  $thecontent="";
-                                  $thecontent.='$'.$engine->variable.' = null;'."\n";
-                                  $thecontent.='for($i=0; $i<count($url_catch); $i++){'."\n";
-                                    $thecontent.='if($url_catch[$i]=="'.$thecatcher->catch.'"){'."\n";
-                                      $thecontent.='if($i+1<=count($url_catch)){'."\n";
-                                        $thecontent.='$'.$thecatcher->variable.' = $url_catch[$i+1];'."\n";
-                                        $thecontent.='$variables[\''.$thecatcher->variable.'\'] = $'.$thecatcher->variable.';'."\n";
-                                        $thecontent.='}'."\n";
-                                        $thecontent.='break;'."\n";
-                                        $thecontent.='}'."\n";
-                                        $thecontent.='}'."\n";
-
-                                        $content.=$thecontent."\n";
-
-                                        $varjsawal.='var catch_'.$engine->variable.'=<?php print($'.$engine->variable.'); ?>;'."\n";
-
-                                        $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>$work_id,"function_id"=>"function_".$page_name_controller,"content"=>'$url_catch = explode("/",$_SERVER["REQUEST_URI"]);'."\n");
-
-                                        break;
-                                        case "file_delete":
-                                        $content.='if (file_exists('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).')) {'."\n";
-                                          $content.='unlink('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).');'."\n";
-                                          $content.='}'."\n";
-                                          break;
-                                          case "fileupload":
-                                          $varphpawal[]='$data_file_'.$engine->field.'_content = null; '."\n";
-                                          $varphpawal[]='$data_file_'.$engine->field.'_filename = null; '."\n";
-
-                                          $bahandeklarasi="";
-                                          $bahandeklarasi.='$data_file_'.$engine->field.'_content = null; '."\n";
-                                          $bahandeklarasi.='$data_file_'.$engine->field.'_filename = null; '."\n";
-                                          $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_fileupload_".$engine->field."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>$bahandeklarasi."\n");
-
-                                          $content.='$data_file_'.$engine->field."_content = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', \$".$engine->field."));"."\n";
-                                          $filename='$data_file_'.$engine->field."_filename = \"".$engine->file_name."_\".\$base_number_random.\"_\".\$base_date_time.\".$engine->extension\";"."\n";
-                                          $content.=$filename;
-                                          if(isset($pro->param)){
-                                            for ($s=0; $s<count($pro->param); $s++){
-                                              echo "ADA ".get_variable_name($pro->param[$s])." \n";
-                                              if(strpos("tes".$filename."tes", '{'.get_variable_name($pro->param[$s])."}")){
-                                                $content.='$data_file_'.$engine->field.'_filename = str_replace("{'.get_variable_name($pro->param[$s]).'}",$'.get_variable_name($pro->param[$s]).',$data_file_'.$engine->field.'_filename);'."\n";
-                                              }
-                                            }
-                                          }else{
-                                            //var_dump($action);
-                                          }
-                                          $content.='$data_file_'.$engine->field.'_filename = str_replace(" ","_",$data_file_'.$engine->field.'_filename);'."\n";
-                                          $content.='$data_file_'.$engine->field.'_filename = str_replace(":","_",$data_file_'.$engine->field.'_filename);'."\n";
-                                          $content.='$data_file_'.$engine->field.'_filename = str_replace("-","_",$data_file_'.$engine->field.'_filename);'."\n";
-
-                                          $content.='file_put_contents('.create_text_upload_directory().'.$data_file_'.$engine->field.'_filename, $data_file_'.$engine->field.'_content);'."\n";
-                                          $content.='$variables[\'data_file_'.$engine->field.'_filename\'] = $data_file_'.$engine->field.'_filename;'."\n";
-
-                                          break;
-                                          case "session":
-
-
-                                          if(isset($engine->set_session)){
-                                            for ($s=0; $s<count($engine->set_session); $s++){
-                                              if(!isset($engine->set_session[$s]->value->var_type)){
-                                                $engine->set_session[$s]->value->var_type="variable";
-                                              }
-                                              $content.='$_SESSION[\''.$engine->set_session[$s]->session.'\'] = '.create_variable_web($engine->set_session[$s]->value).';'."\n";
-                                            }
-                                          }
-
-                                          if(isset($engine->destroy_session) && $engine->destroy_session==true){
-
-                                            $content.='if ( isset( $_COOKIE[session_name()] ) ){'."\n";
-                                              $content.='setcookie( session_name(), “”, time()-3600, “/” );'."\n";
-                                              $content.='//clear session from globals'."\n";
-                                              $content.='$_SESSION = array();'."\n";
-                                              $content.='//clear session from disk'."\n";
-                                              $content.=' session_destroy();'."\n";
-                                              $content.='}'."\n";
-
-                                            }
-
-                                            //terusin. check session diganti ke cek variabel biasa
-                                            if(isset($engine->check_session) && count($engine->check_session)>0){
-
-                                              $objchecksession=new \stdClass();
-                                              $objchecksession->type="group";
-                                              $objchecksession->operator="and";
-                                              $objchecksession->content=$engine->check_session;
-                                              $thegroup=create_booleancheck_web($objchecksession);
-                                              $content.="if (".$thegroup->comparing_content."){"."\n";
-                                                if(isset($engine->ontrue)){
-
-                                                  if(isset($engine->ontrue->process)){
-                                                    $grupengine=render_grup_engine($engine->ontrue);
-                                                    $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
-                                                    $content.=$grupengine->content;
-                                                    $current_function="function_page_".$engine->properties_page."controller_".$engine->properties_modul;
-                                                    //    echo $current_function."<BR>";
-                                                    for($w=0; $w<count($ar_worktodo);$w++){
-                                                      if($ar_worktodo[$w]["type"]=="add_to_function" && $ar_worktodo[$w]["function_id"]==$current_function){
-                                                        //echo "cancel ".$ar_worktodo[$w]["function_id"]."<BR>";
-                                                        $ar_worktodo[]=array("type"=>"cancelwork","work_id"=>"cancelwork".$ar_worktodo[$w]["work_id"],"cancel_work_id"=>$ar_worktodo[$w]["work_id"]);
-                                                      }
-                                                    }
-
-                                                  }
-                                                }
-                                                $content.='}'."\n";
-                                              }
-                                              //render_engine
-                                              break;
-                                              case "condition":
-
-
-                                                //terusin. check session diganti ke cek variabel biasa
-                                                if(isset($engine->check_condition) && count($engine->check_condition)>0){
-
-                                                  $objchecksession=new \stdClass();
-                                                  $objchecksession->type="group";
-                                                  $objchecksession->operator="and";
-                                                  $objchecksession->content=$engine->check_condition;
-                                                  $thegroup=create_booleancheck_web($objchecksession);
-                                                  $content.="if (".$thegroup->comparing_content."){"."\n";
-                                                    if(isset($engine->ontrue)){
-
-                                                      if(isset($engine->ontrue->process)){
-                                                        $grupengine=render_grup_engine($engine->ontrue);
-                                                        $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
-                                                        $content.=$grupengine->content;
-                                                        $current_function="function_page_".$engine->properties_page."controller_".$engine->properties_modul;
-                                                        //    echo $current_function."<BR>";
-                                                        for($w=0; $w<count($ar_worktodo);$w++){
-                                                          if($ar_worktodo[$w]["type"]=="add_to_function" && $ar_worktodo[$w]["function_id"]==$current_function){
-                                                            //echo "cancel ".$ar_worktodo[$w]["function_id"]."<BR>";
-                                                            $ar_worktodo[]=array("type"=>"cancelwork","work_id"=>"cancelwork".$ar_worktodo[$w]["work_id"],"cancel_work_id"=>$ar_worktodo[$w]["work_id"]);
-                                                          }
-                                                        }
-
-                                                      }
-                                                    }
-                                                    $content.='}'."\n";
-                                                  }
-                                                  //condition
-                                                  break;
-                                              case "change_page":
-                                              $content.='echo "lalalar";'."\n";
-                                              break;
-                                              case "generate_unique_code":
-                                              if(!isset($engine->withautonumber)){
-                                                $engine->withautonumber=true;
-                                              }
-                                              if(!isset($engine->names)){
-                                                $engine->names=array();
-                                              }
-                                              if(!isset($engine->minnumber)){
-                                                $engine->minnumber=1;
-                                              }
-                                              if(!isset($engine->maxnumber)){
-                                                $engine->maxnumber=1000000;
-                                              }
-
-                                              $bahandeklarasi="";
-                                              $bahandeklarasi.='$'.$engine->outputVariable.' = null;';
-                                              $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_uniqcode_".$engine->outputVariable."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>$bahandeklarasi."\n");
-
-                                              $content.='$acak'.$engine->outputVariable.' = rand('.$engine->minnumber.','.$engine->maxnumber.');'."\n";
-                                              $content.='$'.$engine->outputVariable.' = ';
-                                              for($i=0; $i<count($engine->names);$i++){
-                                                $bahanvar=create_variable_web($engine->names[$i]);
-                                                $content.=$bahanvar;
-                                                if(($i+1)<count($engine->names)){
-                                                  $content.='."'.$engine->divider.'".';
-                                                }
-                                              }
-                                              if($engine->withautonumber){
-                                                $content.='."'.$engine->divider.'".$acak'.$engine->outputVariable.';'."\n";
-                                              }
-                                              break;
-                                              default:
-                                              $objrender=render_self_engine($type,$engine,$pro,$action);
-                                              $content=$objrender->content;
-                                              $varjsawal=$objrender->varjsawal;
-                                              $deklarasi=$objrender->deklarasi;
-                                              $varphpawal=$objrender->varphpawal;
-                                              $include=$objrender->include;
-                                              $ar_worktodo=$objrender->ar_worktodo;
-                                              break;
-
-                                            }
+                                $objrender=call_user_func("func_process_".$type,$engine,$pro,$action);
+                                $content=$objrender->content;
+                                $varjsawal=$objrender->varjsawal;
+                                $deklarasi=$objrender->deklarasi;
+                                $varphpawal=$objrender->varphpawal;
+                                $include=$objrender->include;
+                                $ar_worktodo=$objrender->ar_worktodo;
 
 
 
