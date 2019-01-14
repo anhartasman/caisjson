@@ -262,7 +262,7 @@ return $hasil_updatedata_siswa;
 
 }
 
-function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa120($param_api_siswa_id,$data_file_param_api_fotoprofil_filename){
+function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa520($param_api_siswa_id,$data_file_param_api_fotoprofil_filename){
 $variables=$this->variables;
 extract($variables);
 $hasil_updatefoto_siswa = null;
@@ -281,7 +281,7 @@ $hasil_updatefoto_siswa = $result_for_hasil_updatefoto_siswa;
 return $hasil_updatefoto_siswa;
 
 
-//end of function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa120
+//end of function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa520
 
 }
 

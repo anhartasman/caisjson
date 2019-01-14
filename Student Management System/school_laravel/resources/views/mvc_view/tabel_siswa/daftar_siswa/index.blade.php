@@ -164,7 +164,6 @@ print("<option value='".$keystatus_siswa."' >".$valuestatus_siswa."</option>");
 <!-- DataTables -->
 <script src="{{ asset('public/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
- 
 
 
 <script>

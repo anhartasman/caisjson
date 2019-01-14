@@ -8,7 +8,7 @@ $page_name="Add Data Siswa SMP | Sistem Sekolahan";
 $modul_id="tabel_siswa";
 $modul_id_page_id="tabel_siswa_add_siswa";
 $copy_base_language_library_web_css=array();
-$copy_base_language_library_web_css[]=array("name"=>"select2","path"=>"public/"."bower_components/select2/dist/css/select2.min.css");
+$copy_base_language_library_web_css[]=array("name"=>"select2","path"=>"public/bower_components/select2/dist/css/select2.min.css");
 
 ?>
 @endsection
