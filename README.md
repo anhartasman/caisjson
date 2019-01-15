@@ -23,6 +23,7 @@
 * Create helper file with name helpers.php in app folder (app/helpers.php)
 * Remove public from your url so it is become localhost/yourweb/admin and not localhost/yourweb/public/admin
 * Copy contents of CB Folders/weblaraver to your laravel folder
+* Copy bower_components folder to (your laravel folder)/public
 
 # How to use it
 
