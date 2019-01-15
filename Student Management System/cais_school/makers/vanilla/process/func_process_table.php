@@ -84,7 +84,9 @@ function func_process_table($engine,$pro,$action){
       $bahandeklarasi.='$obj_table_'.$table_name.'->variables=$variables;'."\n";
       $bahandeklarasi.="\n";
       $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_tabelcaller_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>$bahandeklarasi."\n");
+      $ar_worktodo[]=array("type"=>"add_declaration_to_function","fortop"=>"untukatas","ignore"=>true,"work_id"=>"deklarasi_tabelcallers_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_","content"=>$bahandeklarasi."\n");
       $ar_worktodo[]=array("type"=>"addinclude","work_id"=>"include_".$table_name."_to_".$controller_nickname,"file_id"=>$controller_nickname,"include_id"=>$table_name."_in_".$controller_nickname,"content"=>create_text_include_model("model_tabel_".$table_name));
+      $ar_worktodo[]=array("type"=>"addinclude","ignore"=>true,"fortop"=>"fileatas","namatabel"=>$table_name,"work_id"=>"","file_id"=>"tabel_".$table_name,"include_id"=>$table_name."_in_".$controller_nickname,"content"=>create_text_include_model("model_tabel_".$table_name));
       //echo "deklarasi "."deklarasi_tabelcaller_".$table_name."_in_".$page_nickname.$controller_nickname."<BR>";
       $ar_worktodo[]=array("type"=>"add_declaration_to_function","work_id"=>"deklarasi_outputtabelcaller_".$table_action->outputVariable."_".$table_name."_in_".$page_nickname.$controller_nickname,"function_id"=>"function_".$page_name_controller,"content"=>'$'.$table_action->outputVariable.' = null;'."\n");
       $content.='$'.$table_action->outputVariable.' = $obj_table_'.$table_name.'->'.$model_func_name;

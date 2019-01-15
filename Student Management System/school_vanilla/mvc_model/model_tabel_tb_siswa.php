@@ -1,4 +1,5 @@
 <?php
+include "../mvc_model/model_tabel_tb_jem_pelajaran.php";
 
 class model_tabel_tb_siswa {
 
@@ -77,6 +78,13 @@ $variables=$this->variables;
 $db=$this->db;
 extract($variables);
 $hasil_get_students = null;
+
+
+
+$obj_table_tb_jem_pelajaran = new model_tabel_tb_jem_pelajaran();
+$obj_table_tb_jem_pelajaran->db=$this->db;
+$obj_table_tb_jem_pelajaran->variables=$variables;
+
 
 
 
@@ -238,7 +246,7 @@ return $hasil_updatedata_siswa;
 
 }
 
-function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa169($param_api_siswa_id,$data_file_param_api_fotoprofil_filename){
+function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa265($param_api_siswa_id,$data_file_param_api_fotoprofil_filename){
 $variables=$this->variables;
 $db=$this->db;
 extract($variables);
@@ -259,7 +267,7 @@ $hasil_updatefoto_siswa = $result_for_hasil_updatefoto_siswa;
 return $hasil_updatefoto_siswa;
 
 
-//end of function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa169
+//end of function Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa265
 
 }
 

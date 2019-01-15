@@ -1,4 +1,5 @@
 <?php
+include "../mvc_model/model_tabel_tb_pelajaran.php";
 
 class model_tabel_tb_jem_pelajaran {
 
@@ -73,6 +74,13 @@ $variables=$this->variables;
 $db=$this->db;
 extract($variables);
 $hasilbridge = null;
+
+
+
+$obj_table_tb_pelajaran = new model_tabel_tb_pelajaran();
+$obj_table_tb_pelajaran->db=$this->db;
+$obj_table_tb_pelajaran->variables=$variables;
+
 
 
 

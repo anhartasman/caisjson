@@ -1,4 +1,5 @@
 <?php
+include "../mvc_model/model_tabel_tb_tingkat.php";
 
 class model_tabel_tb_tingkat {
 

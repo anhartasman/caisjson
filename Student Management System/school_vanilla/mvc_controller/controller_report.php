@@ -684,7 +684,7 @@ $variables['hasil_updatedata_siswa'] = $hasil_updatedata_siswa;
 
 if ( $data_file_param_api_fotoprofil_filename!=null){
 
-$hasil_updatefoto_siswa = $obj_table_tb_siswa->Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa169($param_api_siswa_id,$data_file_param_api_fotoprofil_filename);
+$hasil_updatefoto_siswa = $obj_table_tb_siswa->Go_table_for_modul_report_page_update_data_siswa_update_tb_siswa265($param_api_siswa_id,$data_file_param_api_fotoprofil_filename);
 
 $variables['hasil_updatefoto_siswa'] = $hasil_updatefoto_siswa;
 
