@@ -1,0 +1,155 @@
+{
+  "title": "Login",
+  "subtitle": "Halaman Login",
+  "id": "menu_login",
+  "placement": [{
+    "place": "sidemenu"
+  }],
+  "daf_var": [],
+  "frame":"adminlogin"
+  ,"elemen": [
+    {
+      "type": "form",
+      "id": "form_akun_login",
+      "title": "",
+      "columns": [
+        "id",
+        "Nama",
+        "Email",
+        ""
+      ],
+      "link": {
+        "head": []
+      },
+      "onload": [],
+      "forms": [
+        {
+          "id": "form_siswa",
+          "div_class": "box-body",
+          "attribute": {
+            "method": "POST"
+          },
+          "field": [
+
+            {
+              "id": "email",
+              "type": "email",
+              "label": "Email",
+              "variable": "isian_email",
+              "class": "form-control",
+              "option_label_from": "onload",
+              "onload": [],
+              "attribute": {
+                "placeholder": "Enter email"
+              },
+              "validation": [
+                {
+                  "type": "minlength",
+                  "length": 1,
+                  "message": "Harap isikan email"
+                },
+                {
+                  "type": "email",
+                  "message": "Format email tidak valid"
+                }
+              ]
+            },
+            {
+              "id": "password",
+              "type": "password",
+              "label": "Password",
+              "variable": "isian_password",
+              "class": "form-control",
+              "option_label_from": "onload",
+              "onload": [],
+              "attribute": {
+                "placeholder": "Enter password"
+              },
+              "validation": [
+                {
+                  "type": "minlength",
+                  "length": 1,
+                  "message": "Harap isikan password"
+                }
+              ]
+            },
+            {
+              "id": "buttonSubmitForm",
+              "type": "button",
+              "label": "Sign In",
+              "class": "btn btn-primary",
+              "onload": [],
+              "onclick": [
+                {
+                  "func_name": "get_variable_of_form_form_siswa"
+                },
+                {
+                  "func_name": "check_validation_form_form_siswa",
+                  "param": [],
+                  "checkReturn": [
+                    {
+                      "condition": "==",
+                      "if": "true",
+                      "then": [
+                        {
+                          "func_name": "login_data_siswa",
+                          "param": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "attribute": {}
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "type": "api_shooter",
+      "content_generate": "auto",
+      "func_name": "login_data_siswa",
+      "modul": "account",
+      "action": "login",
+      "param": [
+        {
+          "index": "email",
+          "value": "isian_email"
+        },
+        {
+          "index": "password",
+          "value": "isian_password"
+        }
+      ],
+      "onAPIReturn": [
+        {
+          "func_type": "json_extracter",
+          "param": [
+            "this_html_response",
+            "\"error_code\""
+          ],
+          "checkReturn": [
+            {
+              "condition": "==",
+              "if": "0001",
+              "then": [
+                {
+                  "func_type": "page_jumper",
+                  "param": [
+                    "tabel_siswa",
+                    "daftar_siswa",
+                    []
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+}

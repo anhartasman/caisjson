@@ -1,0 +1,654 @@
+{
+  "project_name": "ELearning",
+  "project_subtitle": "Belajar Mengajar Online",
+  "moduls": [
+    {
+      "id": "tabel_siswa",
+      "title": "Daftar Siswa",
+      "subtitle": "",
+      "placement": [
+        {
+          "place": "sidemenu"
+        }
+      ],
+      "page": [
+        {
+          "title": "Tabel Siswa",
+          "subtitle": "Daftar Siswa",
+          "id": "daftar_siswa",
+          "placement": [
+            {
+              "place": "sidemenu"
+            }
+          ],
+          "daf_var": [
+            {
+              "name": "status_from_get",
+              "default": 0,
+              "onload": [
+                {
+                  "type": "catch_packet",
+                  "packet_index": "status",
+                  "default_return": 0
+                }
+              ]
+            }
+          ],
+          "elemen": [
+            {
+              "type": "tabel",
+              "id": "tabel_siswa",
+              "title": "Daftar Siswa",
+              "columns": [
+                "id",
+                "Nama",
+                "Email",
+                ""
+              ],
+              "link": {
+                "head": [
+                  {
+                    "href": "http://localhost/nativecreator/admin/tabel_siswa/add_siswa",
+                    "label": "Tambah"
+                  }
+                ]
+              },
+              "onload": [
+                {
+                  "func_name": "set_tabel_siswa",
+                  "param": []
+                }
+              ],
+              "dropdown": [
+                {
+                  "id": "tingkat_kelas",
+                  "label": "Tingkat",
+                  "theme":"select_normal",
+                  "attribute":{},
+                  "variable": "pilihan_tingkat",
+                  "default": "1",
+                  "option_label_from": "onload",
+                  "onload": [
+                    {
+                      "func_name": "get_tingkat_kelas",
+                      "param": []
+                    }
+                  ],
+                  "onchange": [
+                    {
+                      "func_name": "set_idx_select_pilih_kelas",
+                      "param": [
+                        0
+                      ]
+                    },
+                    {
+                      "func_name": "get_pilihan_kelas",
+                      "param": []
+                    },
+                    {
+                      "func_name": "set_tabel_siswa",
+                      "param": []
+                    }
+                  ]
+                },
+                {
+                  "id": "pilih_kelas",
+                  "label": "Kelas",
+                  "default": "0",
+                  "theme":"select_normal",
+                  "variable": "pilihan_kelas",
+                  "attribute":{},
+                  "option_label_from": "onload",
+                  "onload": [
+                    {
+                      "func_name": "get_pilihan_kelas",
+                      "param": []
+                    }
+                  ],
+                  "onchange": [
+                    {
+                      "func_name": "set_tabel_siswa",
+                      "param": []
+                    }
+                  ]
+                },
+                {
+                  "id": "pilih_status",
+                  "label": "Status",
+                  "default": "0",
+                  "theme":"select_normal",
+                  "variable": "pilihan_status",
+                  "attribute":{},
+                  "option_label_from": "hardcoded_array",
+                  "array_name": "status_siswa",
+                  "onload": [],
+                  "onchange": [
+                    {
+                      "func_name": "set_tabel_siswa",
+                      "param": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "type": "api_shooter",
+              "content_generate": "auto",
+              "func_name": "set_tabel_siswa",
+              "modul": "report",
+              "action": "get_siswa",
+              "param": [
+                {
+                  "index": "tingkat_id",
+                  "value": "pilihan_tingkat"
+                },
+                {
+                  "index": "kelas_id",
+                  "value": "pilihan_kelas"
+                }
+              ],
+              "onAPIReturn": [
+                {
+                  "func_name": "extractJSONIsiTable",
+                  "param": [
+                    "this_html_response",
+                    "\"response_data\""
+                  ]
+                },
+                {
+                  "func_name": "set_isi_tabel_siswa",
+                  "param": [
+                    "hasilExtractJSON"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "api_shooter",
+              "content_generate": "auto",
+              "func_name": "get_tingkat_kelas",
+              "modul": "report",
+              "action": "get_tingkat",
+              "param": [],
+              "onAPIReturn": [
+                {
+                  "func_name": "extractJSONTingkat",
+                  "param": [
+                    "this_html_response",
+                    "\"response_data\""
+                  ]
+                },
+                {
+                  "func_name": "set_dropdown_tingkat",
+                  "param": [
+                    "hasilExtractJSONTingkat"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "api_shooter",
+              "content_generate": "auto",
+              "func_name": "get_pilihan_kelas",
+              "modul": "report",
+              "action": "get_kelas",
+              "param": [
+                {
+                  "index": "tingkat_id",
+                  "value": "pilihan_tingkat"
+                }
+              ],
+              "onAPIReturn": [
+                {
+                  "func_name": "extractJSONKelas",
+                  "param": [
+                    "this_html_response",
+                    "\"response_data\""
+                  ]
+                },
+                {
+                  "func_name": "set_dropdown_pilihan_kelas",
+                  "param": [
+                    "hasilExtractJSONKelas"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "change_datatable_by_json",
+              "content_generate": "auto",
+              "func_name": "set_isi_tabel_siswa",
+              "table_id": "tabel_siswa",
+              "action": "get_tingkat"
+            },
+            {
+              "type": "json_extracter",
+              "content_generate": "auto",
+              "func_name": "extractJSONIsiTable",
+              "variable": "hasilExtractJSON"
+            },
+            {
+              "type": "json_extracter",
+              "content_generate": "auto",
+              "func_name": "extractJSONTingkat",
+              "variable": "hasilExtractJSONTingkat"
+            },
+            {
+              "type": "json_extracter",
+              "content_generate": "auto",
+              "func_name": "extractJSONKelas",
+              "variable": "hasilExtractJSONKelas"
+            },
+            {
+              "type": "setter_dropdown",
+              "content_generate": "auto",
+              "func_name": "set_dropdown_tingkat",
+              "dropdown_id": "tingkat_kelas"
+            },
+            {
+              "type": "setter_dropdown",
+              "content_generate": "auto",
+              "func_name": "set_dropdown_pilihan_kelas",
+              "dropdown_id": "pilih_kelas"
+            }
+          ]
+        },
+        {
+          "title": "Tambah Data Siswa",
+          "subtitle": "Form Tambah Data Siswa",
+          "id": "add_siswa",
+          "placement": [],
+          "daf_var": [
+            {
+              "name": "status_from_get",
+              "default": 0,
+              "onload": [
+                {
+                  "type": "catch_packet",
+                  "packet_index": "status",
+                  "default_return": 0
+                }
+              ]
+            }
+          ],
+          "elemen": [
+            {
+              "type": "form",
+              "id": "form_siswa",
+              "title": "Form Data Siswa",
+              "columns": [
+                "id",
+                "Nama",
+                "Email",
+                ""
+              ],
+              "link": {
+                "head": [
+                ]
+              },
+              "onload": [
+              ],
+              "field": [
+
+                {
+                  "id": "pilihan_tingkat",
+                  "label": "Tingkat",
+                  "type":"select",
+                  "class": "form-control",
+                  "variable": "pilihan_tingkat_siswa",
+                  "option_label_from": "onload",
+                  "theme":"select_admin",
+                  "onload": [{
+                    "func_name": "get_tingkat_kelas",
+                    "param": []
+                  }],
+                  "attribute":{},
+                  "onchange": [{
+                    "func_name": "set_idx_select_pilihan_kelas",
+                    "param": [
+                      0
+                    ]
+                  },
+                  {
+                    "func_name": "get_pilihan_kelas",
+                    "param": []
+                  }]
+                },{
+                  "id": "pilihan_kelas",
+                  "label": "Kelas",
+                  "type":"select",
+                  "class": "form-control",
+                  "variable": "pilihan_kelas_siswa",
+                  "option_label_from": "onload",
+                  "theme":"select_admin",
+                  "onload": [],
+                  "attribute":{},
+                  "onchange": []
+                },
+                {
+                  "id": "nama",
+                  "type":"text",
+                  "label": "Nama",
+                  "variable": "isian_nama",
+                  "class": "form-control",
+                  "option_label_from": "onload",
+                  "onload": [],
+                  "onchange": [],
+                  "attribute":{"placeholder":"Enter nama"}
+                },
+                {
+                  "id": "email",
+                  "type":"email",
+                  "label": "Email",
+                  "variable": "isian_email",
+                  "class": "form-control",
+                  "option_label_from": "onload",
+                  "onload": [],
+                  "onchange": [],
+                  "attribute":{"placeholder":"Enter email"}
+                },
+                {
+                  "id": "status_siswa",
+                  "label": "Status",
+                  "type":"select",
+                  "class": "form-control",
+                  "variable": "pilihan_status_siswa",
+                  "option_label_from": "hardcoded_array",
+                  "array_name": "status_siswa",
+                  "theme":"select_admin",
+                  "onload": [],
+                  "attribute":{},
+                  "onchange": [
+                    {
+                      "func_name": "set_tabel_siswa",
+                      "param": []
+                    }
+                  ]
+                },
+                {
+                  "id": "handphone",
+                  "type":"number",
+                  "label": "Handphone",
+                  "variable": "isian_handphone",
+                  "class": "form-control",
+                  "onload": [],
+                  "onchange": [],
+                  "attribute":{"placeholder":"Enter nomor handphone"}
+                },
+                {
+                  "id": "alamat",
+                  "type":"textarea",
+                  "label": "Alamat",
+                  "variable": "isian_alamat",
+                  "class": "form-control",
+                  "onload": [],
+                  "onchange": [],
+                  "attribute":{"placeholder":"Isikan alamat"}
+                },
+                {
+                  "id": "sertifikat",
+                  "type":"richtext",
+                  "label": "Sertifikat",
+                  "variable": "isian_sertifikat",
+                  "class": "form-control",
+                  "onload": [],
+                  "onchange": [],
+                  "attribute":{"placeholder":"Isikan Sertifikat"}
+                }
+              ]
+            }
+          ],
+          "functions": [
+            {
+              "type": "api_shooter",
+              "content_generate": "auto",
+              "func_name": "get_tingkat_kelas",
+              "modul": "report",
+              "action": "get_tingkat",
+              "param": [],
+              "onAPIReturn": [
+                {
+                  "func_name": "extractJSONTingkat",
+                  "param": [
+                    "this_html_response",
+                    "\"response_data\""
+                  ]
+                },
+                {
+                  "func_name": "set_dropdown_pilihan_tingkat",
+                  "param": [
+                    "hasilExtractJSONTingkat"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "api_shooter",
+              "content_generate": "auto",
+              "func_name": "get_pilihan_kelas",
+              "modul": "report",
+              "action": "get_kelas",
+              "param": [
+                {
+                  "index": "tingkat_id",
+                  "value": "pilihan_tingkat_siswa"
+                }
+              ],
+              "onAPIReturn": [
+                {
+                  "func_name": "extractJSONKelas",
+                  "param": [
+                    "this_html_response",
+                    "\"response_data\""
+                  ]
+                },
+                {
+                  "func_name": "set_dropdown_pilihan_kelas",
+                  "param": [
+                    "hasilExtractJSONKelas"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "json_extracter",
+              "content_generate": "auto",
+              "func_name": "extractJSONTingkat",
+              "variable": "hasilExtractJSONTingkat"
+            },
+            {
+              "type": "json_extracter",
+              "content_generate": "auto",
+              "func_name": "extractJSONKelas",
+              "variable": "hasilExtractJSONKelas"
+            },
+            {
+              "type": "setter_dropdown",
+              "content_generate": "auto",
+              "func_name": "set_dropdown_pilihan_tingkat",
+              "dropdown_id": "pilihan_tingkat"
+            },
+            {
+              "type": "setter_dropdown",
+              "content_generate": "auto",
+              "func_name": "set_dropdown_pilihan_kelas",
+              "dropdown_id": "pilihan_kelas"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "global_variables": [
+    {
+      "name": "status_laporan",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Belum dikonfirmasi"
+        },
+        {
+          "index": "1",
+          "value": "Sudah konfirmasi"
+        },
+        {
+          "index": "2",
+          "value": "Selesai"
+        },
+        {
+          "index": "3",
+          "value": "Dicancel"
+        }
+      ]
+    },
+    {
+      "name": "status_siswa",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Asli"
+        },
+        {
+          "index": "1",
+          "value": "Pindahan"
+        },
+        {
+          "index": "2",
+          "value": "Dikeluarkan"
+        },
+        {
+          "index": "3",
+          "value": "Bermasalah"
+        }
+      ]
+    }
+  ],
+  "daf_api": [
+    {
+      "modul": "report",
+      "action": [
+        {
+          "type": "read_table",
+          "action": "get_siswa",
+          "special": "table_content",
+          "param": [
+            "kelas_id",
+            "tingkat_id"
+          ],
+          "table": {
+            "from": "tb_siswa",
+            "select": [
+              "id",
+              "nama",
+              "email"
+            ],
+            "fetch": "many",
+            "where": [
+              {
+                "index": "tb_siswa.kelas_id",
+                "operator": "=",
+                "value": "$param_api_kelas_id"
+              },
+              {
+                "index": "tb_siswa.tingkat_id",
+                "operator": "=",
+                "value": "$param_api_tingkat_id"
+              }
+            ],
+            "output": [
+              {
+                "value": "{id}",
+                "type": "normal"
+              },
+              {
+                "value": "{nama}",
+                "type": "normal"
+              },
+              {
+                "value": "{email}",
+                "type": "normal"
+              },
+              {
+                "value": "http://localhost/nativecreator/admin/tabel_siswa/edit_siswa/{id}",
+                "type": "link",
+                "label": "Edit"
+              }
+            ],
+            "join": ""
+          }
+        },
+        {
+          "type": "read_table",
+          "action": "get_tingkat",
+          "special": "dropdown_content",
+          "param": [],
+          "table": {
+            "from": "tb_tingkat",
+            "select": [
+              "id",
+              "nama"
+            ],
+            "fetch": "many",
+            "where": [],
+            "output": [
+              {
+                "value": "{id}",
+                "type": "normal"
+              },
+              {
+                "value": "{nama}",
+                "type": "normal"
+              }
+            ],
+            "join": ""
+          }
+        },
+        {
+          "type": "read_table",
+          "action": "get_kelas",
+          "special": "dropdown_content",
+          "param": [
+            "tingkat_id"
+          ],
+          "table": {
+            "from": "tb_kelas",
+            "select": [
+              "id",
+              "nama"
+            ],
+            "fetch": "many",
+            "where": [
+              {
+                "index": "tb_kelas.tingkat_id",
+                "operator": "=",
+                "value": "$param_api_tingkat_id"
+              }
+            ],
+            "output": [
+              {
+                "value": "{id}",
+                "type": "normal"
+              },
+              {
+                "value": "Kelas {nama}",
+                "type": "normal"
+              }
+            ],
+            "join": "tb_tingkat",
+            "join_relation": [
+              {
+                "index": "tb_kelas.tingkat_id",
+                "operator": "=",
+                "value": "tb_tingkat.id"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
