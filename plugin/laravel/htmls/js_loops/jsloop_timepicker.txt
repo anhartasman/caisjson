@@ -1,0 +1,6 @@
+
+    //Date picker
+    $('#{elemen_id}').timepicker({
+      showInputs: false
+      ,showMeridian: false
+    })

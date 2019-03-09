@@ -1,0 +1,6 @@
+
+    //Date picker
+    $('#{elemen_id}').datepicker({
+      autoclose: true
+      ,format: '{date_format}'
+    })

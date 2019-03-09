@@ -1,0 +1,4 @@
+
+<!-- Calendar -->
+<script src="{{ asset('public/bower_components/moment/moment.js') }}"></script>
+<script src="{{ asset('public/bower_components/fullcalendar/dist/fullcalendar.min.js') }}"></script>

@@ -124,6 +124,37 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
 
       $bahanawaljs.=$fungsisubmitformjs;
 
+      $kontenfungsienterformjs="";
+      //echo "form ".$page_elemen->id;
+      if(isset($page_elemen->listeners)){
+      //echo "jumlah listener ".count($page_elemen->listeners);
+      for ($lis=0; $lis<count($page_elemen->listeners); $lis++){
+
+      $tolisten=$page_elemen->listeners[$lis];
+
+      //echo $tolisten->listen. "ADA INI \n";
+      switch($tolisten->listen){
+        case "onEnter":
+        //echo "ADA onEnter \n";
+        for ($c=0; $c<count($tolisten->functions); $c++){
+        $bahanlistener=create_web_function_caller($tolisten->functions[$c]);
+
+              $kontenfungsienterformjs.=$bahanlistener."\n";
+
+
+        }
+
+        break;
+      }
+      }
+      }
+
+      $fungsienterformjs=bacafile($_SESSION['caisconfig_'.$_SESSION['config_type']]->web_localpath."copy_base/js_form_enter.html");
+      $fungsienterformjs=str_replace("{form_id}",$page_elemen->id,$fungsienterformjs);
+      $fungsienterformjs=str_replace("{content}",$kontenfungsienterformjs,$fungsienterformjs);
+
+      $bahanawaljs.=$fungsienterformjs;
+
       $content->kontenvariabelform=$kontenvariabelform;
       $content->kontenfungsivalidasi=$kontenfungsivalidasi;
       $content->bahanform=$bahanform;
@@ -200,15 +231,46 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
 
     function get_fungsi_name_new($modul,$page,$enginetype,$enginebody,$tambahan){
       $additional_name="";
-      $ar_fungsi = $_SESSION['ar_fungsi'];
+      //$ar_fungsi = $_SESSION['ar_fungsi'];
       switch($enginetype){
         case "table":
         $additional_name=$enginebody->process_name."_".$enginebody->table_name;
         break;
       }
+
+      $arcekcaller=array();
+      $arcekcaller["modul"]=$modul;
+      $arcekcaller["page"]=$page;
+      $arcekcaller["table"]=$enginebody->table_name;
+      $arcekcaller["process_name"]=$enginebody->process_name;
+      $arcekcaller["process"]=$enginebody;
+      //$arcekcaller["func_name"]="";
+
+      $ar_body_caller_with_name=$_SESSION['ar_fungsi_caller'];
+
       $thename="Go_".$enginetype."_for_modul_".$modul."_page_".$page."_".$additional_name;
+      $thename="";
+      for($a=0; $a<count($ar_body_caller_with_name); $a++){
+        //var_dump($arcekcaller);
+        //echo "<BR><BR>";
+        //var_dump($ar_body_caller_with_name[$a]);
+        //echo "<BR><BR><BR>";
+        if($ar_body_caller_with_name[$a]["thecaller"]==$arcekcaller){
+          $thename=$ar_body_caller_with_name[$a]["func_name"];
+          //echo "ada cek ".$ar_body_caller_with_name[$a]["func_name"]."<BR>";
+          //var_dump($arcekcaller);
+        }else{
+          //echo "tak ada cek <br>";
+          //var_dump($arcekcaller);
+          //  echo "<br><br><br>";
+
+        }
+      }
+
       $hasilreturn=$thename;
       $dapatengine=0;
+
+      /**
       for($a=0; $a<count($ar_fungsi); $a++){
         if($ar_fungsi[$a]["enginetype"]==$enginetype){
           $dapatengine=1;
@@ -281,17 +343,18 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
         $ar_fungsi[]=$objbaru;
         $hasilreturn=$thename;
       }
-
+**/
       //echo count($ar_fungsi)."<BR>";
       $objreturn=new \stdClass();
 
       $objreturn->function_name=$hasilreturn;
-      $objreturn->ar_fungsi=$ar_fungsi;
-      $_SESSION['ar_fungsi']=$ar_fungsi;
+      //$objreturn->ar_fungsi=$ar_fungsi;
+      //$_SESSION['ar_fungsi']=$ar_fungsi;
       return $objreturn;
 
       //akhir get_fungsi_name_new
     }
+
     function rekursifcekurlcatcher($process){
       $daf_url_catcher=array();
       //echo "DIPANGGIL";
@@ -355,6 +418,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
               if($category->type=="include_file"){
                 //  echo "ADA INCLUDE ".$category->include."\n";
                 $isijsonfile=bacafile($filedirection.$category->include);
+                if(strlen($isijsonfile)>0){
                 $tulisancat=json_encode($category);
                 //    echo "ISI INCLUDE ".$isijsonfile."\n";
                 //      echo "ISI tulisancat ".$tulisancat."\n";
@@ -363,6 +427,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
                 $daf_stringinclude[]=$bahanreplace;
                 $calonobj=json_decode($isijsonfile);
                 $category=$calonobj;
+                }
               }
             }
             $hasilrekursif=rekursifcekinclude($category,$filedirection);
@@ -449,7 +514,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
       $key=(string)$key;
       if($key=="process"){
         if(isset($bodyawal->func_name)){
-        echo "key ".$bodyawal->func_name."<BR>";
+        //echo "key ".$bodyawal->func_name."<BR>";
         }
         //var_dump($bodyawal)."<BR>";
         $grupengine=render_grup_engine((object)$bodyawal);
@@ -459,7 +524,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
               case "untukatas":
               if(isset($bodyawal->func_name)){
               $grupengine->ar_worktodo[$iw]["ignore"]=false;
-              echo "ADAATAS".$bodyawal->func_name;
+              //echo "ADAATAS".$bodyawal->func_name;
               $grupengine->ar_worktodo[$iw]["function_id"]="function_".$bodyawal->func_name;
               //$ar_worktodo[$iw]["content"]="ASDASD";
               }
@@ -467,7 +532,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
               case "fileatas":
               if(isset($bodyawal->table_name)){
               $grupengine->ar_worktodo[$iw]["ignore"]=false;
-              echo "fileatas".$bodyawal->table_name;
+              //echo "fileatas".$bodyawal->table_name;
               $grupengine->ar_worktodo[$iw]["file_id"]="tabel_".$bodyawal->table_name;
               $grupengine->ar_worktodo[$iw]["work_id"]="includes_".$bodyawal->table_name."_to_".$grupengine->ar_worktodo[$iw]["namatabel"];
               //$grupengine->ar_worktodo[$iw]["content"]=create_text_include_model("model_tabel_".$bodyawal->table_name);
@@ -481,7 +546,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
         $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
         //print($grupengine->deklarasi)."<BR>";
         //echo $obj->title;
-        echo "<BR>";
+        //echo "<BR>";
       }
 
       return $ar_worktodo;
@@ -524,7 +589,7 @@ $kontenvariabelform=str_replace("{field_id}",$page_elemen->field[$c]->id,$konten
             }
           }
         }
-        
+
         $isijs="";
         $varjsawal="";
         $attribute="";
@@ -669,8 +734,9 @@ function create_web_element_dropdown($dropdown){
     $variabeloptionlabel=create_variable_web($dropdown->value->option_label);
 
 
-    $firstloop='foreach('.$tulisanvariabledropdown.' as $key'.$bahankeyvalue.'=>$value'.$bahankeyvalue.') {';
+    $firstloop='if(isset('.$tulisanvariabledropdown.')){foreach('.$tulisanvariabledropdown.' as $key'.$bahankeyvalue.'=>$value'.$bahankeyvalue.') {';
       $contentloop=get_web_print_option($variabeloptionvalue,$variabeloptionlabel,'');
+
       $closingloop="}";
     }
     $option_list.="<?php ";
@@ -761,6 +827,7 @@ function create_web_element_dropdown($dropdown){
               }
               $option_list.=$contentloop."\n";
               $option_list.=$closingloop."\n";
+              $option_list.=$closingloop."\n";
               $option_list.="?>";
 
               $select_content=str_replace("{label}",$dropdown->label,$select_content);
@@ -829,23 +896,23 @@ function create_web_element_dropdown($dropdown){
                   $varvalue=create_variable_web($checkgroup->content[$c]->value);
                   $comparing_content.=$varcheck.' '.$checkgroup->content[$c]->operator.' '.$varvalue."\n";
                   $daf_var[]=$varcheck;
-                  if($c+1>count($checkgroup->content)){
-                    if($checkgroup->content->operator=="and"){
+                  if($c+1<count($checkgroup->content)){
+                    if($checkgroup->operator=="and"){
                       $comparing_content.=" && ";
-                    }else if($checkgroup->content->operator=="or"){
+                    }else if($checkgroup->operator=="or"){
                       $comparing_content.=" || ";
                     }
                   }
 
                 }
-                for($d=0; $d<count($daf_var); $d++){
-                  $isset_content.="isset(".$daf_var[$d].")";
-                  if($d+1>count($daf_var)){
-                    $isset_content.="&&";
-                  }
-                }
-                echo $isset_content;
               }
+              for($d=0; $d<count($daf_var); $d++){
+                $isset_content.="isset(".$daf_var[$d].")";
+                if($d+1<count($daf_var)){
+                  $isset_content.=" && ";
+                }
+              }
+              //echo $isset_content;
 
               $objreturn= new \stdClass();
               $objreturn->comparing_content=$comparing_content;
@@ -991,6 +1058,7 @@ function create_web_element_dropdown($dropdown){
                       $func_content=$func->func_content;
                     }
                   }
+
                   if(!isset($func->content_generate)){
                     $func->content_generate="auto";
                   }
@@ -1037,7 +1105,7 @@ function create_web_element_dropdown($dropdown){
                     }
 
 
-                      $func_content=$func_body."\n".$func_footer;
+                      $func_content.=$func_body."\n".$func_footer;
                       $content=str_replace("{content}",$func_content,$content);
                     }
                     $func_name="thefunc".rand(1,100000);
@@ -1247,8 +1315,15 @@ function create_web_element_dropdown($dropdown){
 
                                         }
                                         //echo "tipe ".$pro->type.$content."<BR>";
-                                        $ar_worktodo[]=array("type"=>"add_to_function","work_id"=>"run_process_".$pro->type."_in_function_".$properties_page."_in_".$properties_modul,"function_id"=>"function_".$page_name_controller,"content"=>$content."\n");
-
+                                        $kasihatf=true;
+                                        if(isset($pro->dalamgenggaman)){
+                                          if($pro->dalamgenggaman){
+                                            $kasihatf=false;
+                                          }
+                                        }
+                                        if($kasihatf){
+                                          $ar_worktodo[]=array("type"=>"add_to_function","work_id"=>"run_process_".$pro->type."_in_function_".$properties_page."_in_".$properties_modul,"function_id"=>"function_".$page_name_controller,"content"=>$content."\n");
+                                        }
                                         //echo "function_id "."function_".$page_name_controller."<BR>";
                                         //  echo "run process "."run_process_".$pro->type."_in_function_".$properties_page."_in_".$properties_modul." content ".$content."<BR>";
 
