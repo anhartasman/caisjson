@@ -1,0 +1,97 @@
+{
+    "action": "retrieve_classess",
+    "param": [
+        {
+            "name": "class_year",
+            "mandatory": false
+        }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_class_year"},"operator":"==","value":{
+            "var_name": "null","var_type":"hardcode"}
+  }
+        ]
+        ,"ontrue":{
+          "process": [
+
+            {
+                "type": "table",
+                "from_engine": false,
+                "runifnotnull": [],
+                "table_name": "tb_class",
+                "process_name": "select",
+                "execute": "many",
+                "output_generate": "manual",
+                "param": [],
+                "array_data": [
+                    "id",
+                    "class",
+                    "description",
+                    "class_start"
+                ],
+                "where": [],
+                "outputVariable": "get_classess",
+                "output": "[\"v{'var_name':'qget_classess','index':['id']}v\",\"v{'var_name':'qget_classess','index':['class']}v\",\"v{'var_name':'qget_classess','index':['description']}v\",\"<a href={cais_web_url}\/admin\/infiniteach\/view_class\/id\/v{'var_name':'qget_classess','index':['id']}v>View ID v{'var_name':'qget_classess','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/infiniteach\/edit_class\/id\/v{'var_name':'qget_classess','index':['id']}v>Edit ID v{'var_name':'qget_classess','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/infiniteach\/delete_class\/id\/v{'var_name':'qget_classess','index':['id']}v>Delete ID v{'var_name':'qget_classess','index':['id']}v<\/a>\"]",
+                "output_divider": ",",
+                "engine": []
+            }
+
+          ]
+}
+}
+,{
+  "type": "condition"
+  ,"from_engine": false
+  ,"id":null
+  ,"check_condition": [
+    {
+      "check":{
+      "var_name": "param_api_class_year"},"operator":"!=","value":{
+      "var_name": "null","var_type":"hardcode"}
+}
+  ]
+  ,"ontrue":{
+    "process": [
+
+      {
+          "type": "table",
+          "from_engine": false,
+          "runifnotnull": [],
+          "table_name": "tb_class",
+          "process_name": "select",
+          "execute": "many",
+          "output_generate": "manual",
+          "param": [{"var_name":"param_api_class_year"}],
+          "array_data": [
+            "id",
+            "class",
+            "description",
+            "class_start"
+          ],
+          "where": [
+            {"index":{"raw":"YEAR(class_start)"}
+            ,"operator":"="
+            ,"value":{"var_name":"param_api_class_year"}}
+          ],
+          "outputVariable": "get_classess",
+          "output": "[\"v{'var_name':'qget_classess','index':['id']}v\",\"v{'var_name':'qget_classess','index':['class']}v\",\"v{'var_name':'qget_classess','index':['description']}v\",\"<a href={cais_web_url}\/admin\/infiniteach\/view_class\/id\/v{'var_name':'qget_classess','index':['id']}v>View ID v{'var_name':'qget_classess','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/infiniteach\/edit_class\/id\/v{'var_name':'qget_classess','index':['id']}v>Edit ID v{'var_name':'qget_classess','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/infiniteach\/delete_class\/id\/v{'var_name':'qget_classess','index':['id']}v>Delete ID v{'var_name':'qget_classess','index':['id']}v<\/a>\"]",
+          "output_divider": ",",
+          "engine": []
+      }
+
+    ]
+}
+}
+
+    ],
+    "engine": [],
+    "response_output": "[{get_classess}]",
+    "response_type": "json"
+}

@@ -1,0 +1,100 @@
+{
+    "action": "insert_data_contact",
+    "param": [
+        {
+            "name": "contact",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+            {
+                "name": "foto",
+                "mandatory": true,
+                "returnpackage": {}
+            }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_contact"
+            ,"index":[]},"operator":"!=","value":{
+            "var_type":"hardcode"
+            ,"var_name": "null"
+            ,"index":[]}
+          }
+        ]
+        ,"ontrue":{
+          "process": [
+            {
+                "from_engine": false,
+                "runifnotnull": [],
+                "type": "fileupload",
+                "id": null,
+                "field": "param_api_foto",
+                "file_name": "foto_icon_contact_{param_api_contact}",
+                "extension": "jpg",
+
+                "param": [
+                    {
+                        "var_name": "param_api_contact"
+                    }
+                ]
+            },{
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_contact",
+              "execute": "execute",
+              "id": null,
+              "process_name": "insert",
+              "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_file_param_api_foto_filename",
+                    "index": [],
+                    "returnpackage": {}
+                },{
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_contact"
+                  }
+              ],
+              "array_data": [
+                {
+                    "index": "contact",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_contact"
+                    },
+                    "returnpackage": {}
+                }
+                ,{
+                    "index": "foto",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "data_file_param_api_foto_filename"
+                    },
+                    "returnpackage": {}
+                }
+              ],
+              "where": [],
+              "outputVariable": "hasil_insert_contact",
+              "returnpackage": {}
+          }
+          ]}
+        ,"runifnotnull": []
+      }
+
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_contact}",
+    "response_type": "text",
+    "returnpackage": {}
+}

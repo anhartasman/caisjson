@@ -1,0 +1,19 @@
+{
+    "title": "View Class",
+    "subtitle": "View Class",
+    "frame": "adminpage",
+    "id": "view_class",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+    ],
+    "functions": [],
+    "process": [{
+        "from_engine": false,
+        "runifnotnull": [],
+        "type": "url_catcher",
+        "catch": "id",
+        "variable": "class_id"
+    }],
+    "engine": []
+}

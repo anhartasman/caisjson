@@ -1,0 +1,49 @@
+{
+    "action": "delete_data_contact_hotel",
+    "param": [
+        {
+            "name": "contact_id",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_jem_contact_hotel",
+            "execute": "execute",
+            "process_name": "delete",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_contact_id",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "where": [
+                {
+                    "index": "id",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_contact_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "outputVariable": "hasil_deletedata_contact_hotel",
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "{hasil_deletedata_contact_hotel}",
+    "response_type": "text",
+    "returnpackage": {}
+}

@@ -1,0 +1,30 @@
+{
+    "action": "get_breakfast",
+    "param": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_breakfast",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [],
+            "array_data": [
+                "id",
+                "breakfast"
+            ],
+            "where": [],
+            "outputVariable": "hasil_get_breakfast",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['id']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['breakfast']}v\",\"<a href={cais_web_url}\/admin\/information\/edit_breakfast\/id\/v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['id']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/information\/delete_breakfast\/id\/v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['id']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_breakfast','index':['id']}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [],
+            "engine": []
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_breakfast}]",
+    "response_type": "json",
+    "returnpackage": {}
+}

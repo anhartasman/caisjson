@@ -1,0 +1,60 @@
+{
+    "action": "get_locations",
+    "param": [
+        {
+            "name": "city_code",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_code",
+            "id": "tb_location",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_city_code",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "distinct":true,
+            "array_data": [
+                "LocationName",
+                "LocationCode"
+            ],
+            "where": [
+                {
+                    "index": "CityCode",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_city_code",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "outputVariable": "hasil_get_location",
+            "output": "<option value='v{'var_type':'variable','var_name':'qhasil_get_location','index':['LocationCode']}v'>v{'var_type':'variable','var_name':'qhasil_get_location','index':['LocationName']}v<\/option>",
+            "output_divider": "",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "<option value='-1'>- select -<\/option>{hasil_get_location}",
+    "response_type": "text",
+    "returnpackage": {}
+}

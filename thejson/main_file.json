@@ -1,0 +1,213 @@
+{
+    "project_name": "Infiniteach Web",
+    "project_subtitle": "",
+    "project_config": [
+        {
+            "config_type": "weblaravel",
+            "database_host": "localhost",
+            "database_name": "db_infiniteach",
+            "database_username": "root",
+            "database_password": "",
+            "web_url": "http://localhost/infiniteach",
+            "web_localpath": "../infiniteach/",
+            "web_description": "Web Sharing Session milik Infiniqa"
+        }
+    ],
+    "auth": [
+      {"moduls":"manage_account","pages":["daftar_account","add_account","delete_account","edit_account"],"allow":[{
+      "check":{
+      "var_name": "_SESSION"
+      ,"index":["auth_token"]},"operator":"!=","value":{
+        "var_type":"hardcode"
+      ,"var_name": "null"}
+    }],"onfailed":{"process":[{"type":"change_page","modul":"account","page":"login"}]}}
+
+    ,{"moduls":"infiniteach","pages":["add_class","daftar_class","delete_class","edit_class","view_class"],"allow":[{
+      "check":{
+      "var_name": "_SESSION"
+      ,"index":["auth_token"]},"operator":"!=","value":{
+        "var_type":"hardcode"
+      ,"var_name": "null"}
+    }],"onfailed":{"process":[{"type":"change_page","modul":"account","page":"login"}]}}
+    
+    ],
+    "moduls": [
+      {
+          "id": "home",
+          "title": "Home",
+          "subtitle": "Home",
+          "ignore": false,
+          "placement": [],
+          "page": [
+            {
+                "title": "Dashboard",
+                "subtitle": "Dashboard",
+                "frame": "adminpage",
+                "id": "dashboard",
+                "ignore": false,
+                "placement": [],
+                "elemen": [],
+                "functions": [],
+                "process": [],
+                "engine": []
+            }
+
+          ]
+      }
+      ,{
+          "id": "account",
+          "title": "Account",
+          "subtitle": "Account",
+          "ignore": false,
+          "placement": [],
+          "page": [
+              {
+                  "type": "include_file",
+                  "include": "thejson/feature/account/include_file_id_page_login.json"
+              }
+          ]
+      }
+      ,{
+            "id": "manage_account",
+            "title": "Account",
+            "subtitle": "Manage Account",
+            "ignore": false,
+            "placement": [
+                {
+                    "place": "sidemenu"
+                }
+            ],
+            "page": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/feature/account/include_file_id_page_add_account.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/feature/account/include_file_id_page_edit_account.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/feature/account/include_file_id_page_delete_account.json"
+                },
+                {
+                    "type": "include_file",
+                    "include": "thejson/feature/account/include_file_id_page_daftar_account.json"
+                }
+            ]
+        }
+        ,
+            {
+                "id": "infiniteach",
+                "title": "Infini Teach",
+                "subtitle": "Manage Infiniteach World",
+                "ignore": false,
+                "placement": [
+                    {
+                        "place": "sidemenu"
+                    }
+                ],
+                "page": [
+                    {
+                        "type": "include_file",
+                        "include": "thejson/feature/infiniteach/include_file_id_page_daftar_class.json"
+                    },
+                    {
+                        "type": "include_file",
+                        "include": "thejson/feature/infiniteach/include_file_id_page_add_class.json"
+                    },
+                    {
+                        "type": "include_file",
+                        "include": "thejson/feature/infiniteach/include_file_id_page_edit_class.json"
+                    },
+                    {
+                        "type": "include_file",
+                        "include": "thejson/feature/infiniteach/include_file_id_page_delete_class.json"
+                    },
+                    {
+                        "type": "include_file",
+                        "include": "thejson/feature/infiniteach/include_file_id_page_view_class.json"
+                    }
+                ]
+            }
+    ],
+    "global_variables": [
+        {
+            "name": "ar_roles",
+            "type": "array",
+            "content": [
+                {
+                    "index": "1",
+                    "value": "Admin"
+                },
+                {
+                    "index": "2",
+                    "value": "Teacher"
+                },
+                {
+                    "index": "3",
+                    "value": "Student"
+                }
+            ]
+        }
+    ],
+    "libraries": [],
+    "daf_api": [
+        {
+            "modul": "insert_data",
+            "action": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/API/insert/include_file_id_api_insert_account.json"
+                }
+                ,{
+                    "type": "include_file",
+                    "include": "thejson/API/insert/include_file_id_api_insert_class.json"
+                }
+            ]
+        }
+        ,{
+            "modul": "update_data",
+            "action": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/API/update/include_file_id_api_update_account.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/API/update/include_file_id_api_update_class.json"
+                }
+            ]
+        }
+        ,{
+            "modul": "delete_data",
+            "action": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/API/delete/include_file_id_api_delete_account.json"
+                },{
+                    "type": "include_file",
+                    "include": "thejson/API/delete/include_file_id_api_delete_class.json"
+                }
+            ]
+        }
+        ,{
+            "modul": "retrieve_data",
+            "action": [
+                {
+                    "type": "include_file",
+                    "include": "thejson/API/retrieve/include_file_id_api_retrieve_account.json"
+                }
+                ,{
+                    "type": "include_file",
+                    "include": "thejson/API/retrieve/include_file_id_api_retrieve_class.json"
+                }
+                ,
+                    {
+                        "type": "include_file",
+                        "include": "thejson/API/retrieve/include_file_id_api_login.json"
+                    }
+            ]
+        }
+    ],
+    "returnpackage": {}
+}

@@ -1,0 +1,337 @@
+{
+    "action": "insert_data_siswa",
+    "param": [
+        {
+            "name": "kelas_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "tingkat_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "nama",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "email",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "alamat",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "sertifikat",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "handphone",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "fotoprofil",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+        {
+            "name": "pelajaran_favorit",
+            "mandatory": false,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+        {
+            "from_engine": false,
+            "runifnotnull": [],
+            "type": "fileupload",
+            "id": null,
+            "field": "param_api_fotoprofil",
+            "file_name": "foto_profil_siswa_{param_api_nama}",
+            "extension": "jpg",
+            
+            "param": []
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_file_param_api_fotoprofil_filename",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "table_name": "tb_siswa",
+            "execute": "execute",
+            "id": null,
+            "process_name": "insert",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_tingkat_id",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_kelas_id",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_nama",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_email",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_alamat",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_sertifikat",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_handphone",
+                    "index": [],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_file_param_api_fotoprofil_filename",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                {
+                    "type": "array_data_index_value",
+                    "index": "kelas_id",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_kelas_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "tingkat_id",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_tingkat_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "nama",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_nama",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "email",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_email",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "alamat",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_alamat",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "sertifikat",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_sertifikat",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "handphone",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_handphone",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },
+                {
+                    "type": "array_data_index_value",
+                    "index": "fotoprofil",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "data_file_param_api_fotoprofil_filename",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "where": [],
+            "outputVariable": "hasil_insert_siswa",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_siswa",
+            "id": null,
+            "process_name": "select",
+            "output_generate": "auto",
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "data_file_param_api_fotoprofil_filename",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "array_data": [
+                "id"
+            ],
+            "where": [
+                {
+                    "index": "fotoprofil",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "data_file_param_api_fotoprofil_filename",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+            ],
+            "execute": "one",
+            "outputVariable": "hasil_get_id",
+            "returnpackage": {}
+        },
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "hasil_get_id",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "process_name": "bridge",
+            "table_name": "tb_jem_pelajaran",
+            "id": null,
+            "param": [
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "hasil_get_id",
+                    "index": [
+                        "id"
+                    ],
+                    "returnpackage": {}
+                },
+                {
+                    "type": "variable",
+                    "var_type": "variable",
+                    "var_name": "param_api_pelajaran_favorit",
+                    "index": [],
+                    "returnpackage": {}
+                }
+            ],
+            "left_bridge_column": "ids",
+            "right_bridge_column": "idp",
+            "left_table": "tb_siswa",
+            "left_table_id": "id",
+            "right_table": "tb_pelajaran",
+            "right_table_id": "id",
+            "left_id": {
+                "type": "variable",
+                "var_type": "variable",
+                "var_name": "hasil_get_id_id",
+                "index": [],
+                "returnpackage": {}
+            },
+            "right_array": {
+                "type": "variable",
+                "var_type": "variable",
+                "var_name": "param_api_pelajaran_favorit",
+                "index": [],
+                "returnpackage": {}
+            },
+            "outputVariable": "hasil_bridge_pelajaran",
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_siswa}",
+    "response_type": "text",
+    "returnpackage": {}
+}

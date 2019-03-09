@@ -1,0 +1,123 @@
+{
+    "action": "insert_data_class",
+    "param": [
+        {
+            "name": "class",
+            "mandatory": true
+        },
+        {
+            "name": "description",
+            "mandatory": true
+        },
+        {
+            "name": "class_start",
+            "mandatory": true
+        }
+    ],
+    "process": [
+      {"type":"declare_variable"
+      ,"body":{"var_name":"hasil_api"}}
+      ,{
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_class",
+            "process_name": "select",
+            "execute": "one",
+            "param": [
+                {
+                    "var_name": "param_api_class"
+                }
+                ,{
+                    "var_name": "param_api_class_start"
+                }
+            ],
+            "array_data": [
+                "id"
+            ],
+            "where": [
+                {
+                    "index": "class",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_class"
+                    }
+                }
+                ,{
+                    "index": "class_start",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_class"
+                    }
+                }
+            ],
+            "outputVariable": "check_class",
+            "engine": []
+        }
+        ,{
+          "type": "condition"
+          ,"from_engine": false
+          ,"id":null
+          ,"check_condition": [
+            {
+              "check":{
+              "var_name": "check_class"},"operator":"==","value":{
+              "var_name": "null","var_type":"hardcode"}
+    }
+          ]
+          ,"ontrue":{
+            "process": [
+              {
+                  "type": "table",
+                  "from_engine": false,
+                  "runifnotnull": [],
+                  "table_name": "tb_class",
+                  "execute": "execute",
+                  "id": null,
+                  "process_name": "insert",
+                  "param": [
+                      {
+                          "var_name": "param_api_class"
+                      },
+                      {
+                          "var_name": "param_api_description"
+                      },
+                      {
+                          "var_name": "param_api_class_start"
+                      }
+                  ],
+                  "array_data": [
+                      {
+                          "index": "class",
+                          "value": {
+                              "var_name": "param_api_class"
+                          }
+                      },
+                      {
+                          "index": "description",
+                          "value": {
+                              "var_name": "param_api_description"
+                          }
+                      },
+                      {
+                          "index": "class_start",
+                          "value": {
+                              "var_name": "param_api_class_start"
+                          }
+                      }
+                  ],
+                  "where": [],
+                  "outputVariable": "hasil_insert_class"
+              }
+              ,{"type":"set_variable"
+              ,"var":{"var_name":"hasil_api"},"equal":{"var_name":"hasil_insert_class"}}
+
+            ]
+  }
+  }
+    ],
+    "engine": [],
+    "response_output": "[v{'var_name':'hasil_api'}v]",
+    "response_type": "json",
+    "returnpackage": {}
+}

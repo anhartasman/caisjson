@@ -1,0 +1,127 @@
+{
+    "action": "update_class",
+    "param": [
+        {
+            "name": "class_id",
+            "mandatory": true
+        },
+        {
+            "name": "class",
+            "mandatory": true
+        },
+        {
+            "name": "description",
+            "mandatory": true
+        },
+        {
+            "name": "class_start",
+            "mandatory": true
+        }
+    ],
+    "process": [
+      {"type":"declare_variable"
+      ,"body":{"var_name":"hasil_api"}}
+      ,{
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_class",
+            "process_name": "select",
+            "execute": "one",
+            "param": [
+                {
+                    "var_name": "param_api_class_id"
+                }
+            ],
+            "array_data": [
+                "id"
+            ],
+            "where": [
+                {
+                    "index": "id",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_class_id"
+                    }
+                }
+            ],
+            "outputVariable": "current_class",
+            "engine": []
+        }
+        ,
+        {
+          "type": "condition"
+          ,"from_engine": false
+          ,"id":null
+          ,"check_condition": [
+            {
+              "check":{
+              "var_name": "current_class"},"operator":"!=","value":{
+              "var_name": "null","var_type":"hardcode"}
+            }
+          ]
+          ,"ontrue":{
+            "process": [
+              {
+                  "type": "table",
+                  "from_engine": false,
+                  "runifnotnull": [],
+                  "table_name": "tb_class",
+                  "execute": "execute",
+                  "process_name": "update",
+                  "param": [
+                      {
+                          "var_name": "param_api_class_id"
+                      },
+                      {
+                          "var_name": "param_api_class"
+                      },
+                      {
+                          "var_name": "param_api_class_start"
+                      },
+                      {
+                          "var_name": "param_api_description"
+                      }
+                  ],
+                  "array_data": [
+                      {
+                          "index": "class",
+                          "value": {
+                              "var_name": "param_api_class"
+                          }
+                      },
+                      {
+                          "index": "class_start",
+                          "value": {
+                              "var_name": "param_api_class_start"
+                          }
+                      },
+                      {
+                          "index": "description",
+                          "value": {
+                              "var_name": "param_api_description"
+                          }
+                      }
+                  ],
+                  "where": [
+                      {
+                          "index": "id",
+                          "operator": "=",
+                          "value": {
+                              "var_name": "param_api_class_id"
+                          }
+                      }
+                  ],
+                  "outputVariable": "hasil_updatedata_class"
+              }
+              ,{"type":"set_variable"
+              ,"var":{"var_name":"hasil_api"},"equal":{"var_name":"hasil_updatedata_class"}}
+
+            ]
+          }
+        }
+    ],
+    "engine": [],
+    "response_output": "v{'var_name':'hasil_api'}v",
+    "response_type": "text"
+}

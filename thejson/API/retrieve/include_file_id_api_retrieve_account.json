@@ -1,0 +1,99 @@
+{
+    "action": "retrieve_accounts",
+    "param": [
+        {
+            "name": "account_role",
+            "mandatory": false
+        }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_account_role"},"operator":"==","value":{
+            "var_name": "null","var_type":"hardcode"}
+  }
+        ]
+        ,"ontrue":{
+          "process": [
+
+            {
+                "type": "table",
+                "from_engine": false,
+                "runifnotnull": [],
+                "table_name": "tb_account",
+                "process_name": "select",
+                "execute": "many",
+                "output_generate": "manual",
+                "param": [],
+                "array_data": [
+                    "id",
+                    "name",
+                    "username",
+                    "email",
+                    "role"
+                ],
+                "where": [],
+                "outputVariable": "get_accounts",
+                "output": "[\"v{'var_name':'qget_accounts','index':['id']}v\",\"v{'var_name':'qget_accounts','index':['name']}v (v{'var_name':'qget_accounts','index':['username']}v)\",\"v{'var_name':'qget_accounts','index':['email']}v\",\"v{'var_name':'qget_accounts','index':['role']}v\",\"<a href={cais_web_url}\/admin\/manage_account\/edit_account\/id\/v{'var_name':'qget_accounts','index':['id']}v>Edit ID v{'var_name':'qget_accounts','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/manage_account\/delete_account\/id\/v{'var_name':'qget_accounts','index':['id']}v>Delete ID v{'var_name':'qget_accounts','index':['id']}v<\/a>\"]",
+                "output_divider": ",",
+                "engine": []
+            }
+
+          ]
+}
+}
+,{
+  "type": "condition"
+  ,"from_engine": false
+  ,"id":null
+  ,"check_condition": [
+    {
+      "check":{
+      "var_name": "param_api_account_role"},"operator":"!=","value":{
+      "var_name": "null","var_type":"hardcode"}
+}
+  ]
+  ,"ontrue":{
+    "process": [
+
+      {
+          "type": "table",
+          "from_engine": false,
+          "runifnotnull": [],
+          "table_name": "tb_account",
+          "process_name": "select",
+          "execute": "many",
+          "output_generate": "manual",
+          "param": [],
+          "array_data": [
+              "id",
+              "name",
+              "username",
+              "email",
+              "role"
+          ],
+          "where": [
+            {"index":"role"
+            ,"operator":"="
+            ,"value":{"var_name":"param_api_account_role"}}
+          ],
+          "outputVariable": "get_accounts",
+          "output": "[\"v{'var_name':'qget_accounts','index':['id']}v\",\"v{'var_name':'qget_accounts','index':['name']}v (v{'var_name':'qget_accounts','index':['username']}v)\",\"v{'var_name':'qget_accounts','index':['email']}v\",\"v{'var_name':'qget_accounts','index':['role']}v\",\"<a href={cais_web_url}\/admin\/manage_account\/edit_account\/id\/v{'var_name':'qget_accounts','index':['id']}v>Edit ID v{'var_name':'qget_accounts','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/manage_account\/delete_account\/id\/v{'var_name':'qget_accounts','index':['id']}v>Delete ID v{'var_name':'qget_accounts','index':['id']}v<\/a>\"]",
+          "output_divider": ",",
+          "engine": []
+      }
+
+    ]
+}
+}
+
+    ],
+    "engine": [],
+    "response_output": "[{get_accounts}]",
+    "response_type": "json"
+}

@@ -1,0 +1,109 @@
+{
+    "action": "insert_data_images_hotel",
+    "param": [
+        {
+            "name": "hotel_id",
+            "mandatory": true,
+            "returnpackage": {}
+        },
+            {
+                "name": "foto",
+                "mandatory": true,
+                "returnpackage": {}
+            }
+    ],
+    "process": [
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_hotel_id"
+            ,"index":[]},"operator":"!=","value":{
+            "var_type":"hardcode"
+            ,"var_name": "null"
+            ,"index":[]}
+          }
+        ]
+        ,"ontrue":{
+          "process": [
+            {
+                "from_engine": false,
+                "runifnotnull": [],
+                "type": "fileupload",
+                "id": null,
+                "field": "param_api_foto",
+                "file_name": "foto_hotel_{param_api_hotel_id}",
+                "extension": "jpg",
+
+                "param": [
+                    {
+                        "var_name": "param_api_hotel_id",
+                        "index": [],
+                        "returnpackage": {}
+                    }
+                ]
+            },{
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [{
+                  "var_name": "data_file_param_api_foto_filename",
+                  "index": [],
+                  "returnpackage": {}
+              }],
+              "table_name": "tb_images_hotel",
+              "execute": "execute",
+              "id": null,
+              "process_name": "insert",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "data_file_param_api_foto_filename",
+                      "index": [],
+                      "returnpackage": {}
+                  },{
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_hotel_id",
+                      "index": [],
+                      "returnpackage": {}
+                  }
+              ],
+              "array_data": [
+                {
+                    "index": "idh",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_hotel_id",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                },{
+                    "index": "foto",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "data_file_param_api_foto_filename",
+                        "index": [],
+                        "returnpackage": {}
+                    },
+                    "returnpackage": {}
+                }
+              ],
+              "where": [],
+              "outputVariable": "hasil_insert_image_hotel",
+              "returnpackage": {}
+          }
+          ]}
+        ,"runifnotnull": []
+      }
+
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_image_hotel}",
+    "response_type": "text",
+    "returnpackage": {}
+}

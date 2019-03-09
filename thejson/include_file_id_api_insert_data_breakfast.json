@@ -1,0 +1,68 @@
+{
+    "action": "insert_data_breakfast",
+    "param": [
+        {
+            "name": "breakfast",
+            "mandatory": true,
+            "returnpackage": {}
+        }
+    ],
+    "process": [
+
+      {
+        "type": "condition"
+        ,"from_engine": false
+        ,"id":null
+        ,"check_condition": [
+          {
+            "check":{
+            "var_name": "param_api_breakfast"
+            ,"index":[]},"operator":"!=","value":{
+            "var_type":"hardcode"
+            ,"var_name": "null"
+            ,"index":[]}
+          }
+        ]
+        ,"ontrue":{
+          "process": [
+            {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_breakfast",
+              "execute": "execute",
+              "id": null,
+              "process_name": "insert",
+              "param": [
+                {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_breakfast"
+                  }
+              ],
+              "array_data": [
+                {
+                    "index": "breakfast",
+                    "operator": "=",
+                    "value": {
+                        "type": "variable",
+                        "var_type": "variable",
+                        "var_name": "param_api_breakfast"
+                    },
+                    "returnpackage": {}
+                }
+              ],
+              "where": [],
+              "outputVariable": "hasil_insert_breakfast",
+              "returnpackage": {}
+          }
+          ]}
+        ,"runifnotnull": []
+      }
+
+    ],
+    "engine": [],
+    "response_output": "{hasil_insert_breakfast}",
+    "response_type": "text",
+    "returnpackage": {}
+}

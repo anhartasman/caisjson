@@ -1,0 +1,143 @@
+{
+    "action": "insert_data_account",
+    "param": [
+        {
+            "name": "account_name",
+            "mandatory": true
+        },
+        {
+            "name": "account_role",
+            "mandatory": true
+        },
+        {
+            "name": "account_email",
+            "mandatory": true
+        },
+        {
+            "name": "account_username",
+            "mandatory": true
+        },
+        {
+            "name": "account_password",
+            "mandatory": true
+        }
+    ],
+    "process": [
+      {"type":"declare_variable"
+      ,"body":{"var_name":"hasil_api"}}
+      ,{
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_account",
+            "process_name": "select",
+            "execute": "one",
+            "param": [
+                {
+                    "var_name": "param_api_account_username"
+                }
+            ],
+            "array_data": [
+                "id",
+                "username"
+            ],
+            "where": [
+                {
+                    "index": "username",
+                    "operator": "=",
+                    "value": {
+                        "var_name": "param_api_account_username"
+                    }
+                }
+            ],
+            "outputVariable": "check_account",
+            "engine": []
+        }
+        ,{
+          "type": "condition"
+          ,"from_engine": false
+          ,"id":null
+          ,"check_condition": [
+            {
+              "check":{
+              "var_name": "check_account"},"operator":"==","value":{
+              "var_name": "null","var_type":"hardcode"}
+    }
+          ]
+          ,"ontrue":{
+            "process": [
+              {"type":"encrypt_sha256",
+              "from":{"var_name":"param_api_account_password"}
+            ,"outputVariable":"kuncianpassword"}
+              ,{
+                  "type": "table",
+                  "from_engine": false,
+                  "runifnotnull": [],
+                  "table_name": "tb_account",
+                  "execute": "execute",
+                  "id": null,
+                  "process_name": "insert",
+                  "param": [
+                      {
+                          "var_name": "param_api_account_role"
+                      },
+                      {
+                          "var_name": "param_api_account_username"
+                      },
+                      {
+                          "var_name": "param_api_account_name"
+                      },
+                      {
+                          "var_name": "param_api_account_email"
+                      },
+                      {
+                          "var_name": "kuncianpassword"
+                      }
+                  ],
+                  "array_data": [
+                      {
+                          "index": "role",
+                          "value": {
+                              "var_name": "param_api_account_role"
+                          }
+                      },
+                      {
+                          "index": "username",
+                          "value": {
+                              "var_name": "param_api_account_username"
+                          }
+                      },
+                      {
+                          "index": "name",
+                          "value": {
+                              "var_name": "param_api_account_name"
+                          }
+                      },
+                      {
+                          "index": "email",
+                          "value": {
+                              "var_name": "param_api_account_email"
+                          }
+                      },
+                      {
+                          "index": "password",
+                          "value": {
+                              "var_name": "kuncianpassword"
+                          }
+                      }
+                  ],
+                  "where": [],
+                  "outputVariable": "hasil_insert_account"
+              }
+              ,{"type":"set_variable"
+              ,"var":{"var_name":"hasil_api"},"equal":{"var_name":"hasil_insert_account"}}
+
+            ]
+  }
+  }
+    ],
+    "engine": [],
+    "response_output": "[v{'var_name':'hasil_api'}v]",
+    "response_type": "json",
+    "returnpackage": {}
+}

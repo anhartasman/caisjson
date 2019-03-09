@@ -1,0 +1,223 @@
+{
+    "title": "Add Account",
+    "subtitle": "Form Add Account",
+    "frame": "adminpage",
+    "id": "add_account",
+    "ignore": false,
+    "placement": [],
+    "elemen": [
+        {
+            "type": "form",
+            "id": "form_data_account",
+            "title": "Form Account",
+            "link": {},
+            "listeners": [],
+            "forms": [
+                {
+                    "id": "form_account",
+                    "div_class": "box-body",
+                    "attribute": {
+                        "method": "POST"
+                    },
+                    "field": [
+                        {
+                            "type": "select",
+                            "id": "pilihan_role",
+                            "label": "Role",
+                            "variable": "pilihan_role_account",
+                            "class": "form-control",
+                            "theme": "admin",
+                            "first_option_label": "- select -",
+                            "first_option_value": "-1",
+                            "value": {
+                                "var_name": "ar_roles"
+                            },
+                            "attribute": {},
+                            "listeners": [],
+                            "validation": []
+                        },
+                        {
+                            "type": "text",
+                            "id": "name",
+                            "label": "Name",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter the name"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Please fill in name's field"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "id": "email",
+                            "label": "Email",
+                            "variable": "isian_email",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter Email"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Please fill in email's field"
+                                },
+                                {
+                                    "type": "email",
+                                    "message": "Invalid email's format"
+                                }
+                            ],
+                            "returnpackage": {}
+                        },
+                        {
+                            "type": "text",
+                            "id": "username",
+                            "label": "Username",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter username"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Please fill in the username"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "password",
+                            "id": "password",
+                            "label": "Password",
+                            "class": "form-control",
+                            "theme": "normal",
+                            "attribute": {
+                                "placeholder": "Enter password"
+                            },
+                            "listeners": [],
+                            "validation": [
+                                {
+                                    "type": "minlength",
+                                    "length": "1",
+                                    "message": "Please fill in the password"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "button",
+                            "id": "buttonSubmitForm",
+                            "label": "Submit Form",
+                            "class": "btn btn-primary",
+                            "theme": "normal",
+                            "attribute": {},
+                            "listeners": [
+                                {
+                                    "listen": "onclick",
+                                    "functions": [
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "get_variable_of_form_form_account",
+                                            "param": []
+                                        },
+                                        {
+                                            "func_type": "callfunction",
+                                            "func_name": "check_validation_form_form_account",
+                                            "param": [],
+                                            "checkReturn": [
+                                                {
+                                                    "condition": "==",
+                                                    "if": "true",
+                                                    "then": [
+                                                        {
+                                                            "func_name": "upload_data_account",
+                                                            "func_type": "api_shooter",
+                                                            "type": "api_shooter",
+                                                            "content_generate": "auto",
+                                                            "modul": "insert_data",
+                                                            "action": "insert_data_account",
+                                                            "param": [
+                                                                {
+                                                                    "index": "account_name",
+                                                                    "slash": "",
+                                                                    "value": "isian_name"
+                                                                },
+                                                                {
+                                                                    "index": "account_role",
+                                                                    "slash": "",
+                                                                    "value": "pilihan_role_account"
+                                                                },
+                                                                {
+                                                                    "index": "account_email",
+                                                                    "slash": "",
+                                                                    "value": "isian_email"
+                                                                },
+                                                                {
+                                                                    "index": "account_username",
+                                                                    "slash": "",
+                                                                    "value": "isian_username"
+                                                                },
+                                                                {
+                                                                    "index": "account_password",
+                                                                    "slash": "",
+                                                                    "value": "isian_password"
+                                                                }
+                                                            ],
+                                                            "onAPIReturn": [
+                                                                {
+                                                                    "func_type": "json_extracter",
+                                                                    "func_name": "ekstrakHasilUpload",
+                                                                    "type": "json_extracter",
+                                                                    "func_param": [
+                                                                        "this_html_response",
+                                                                        "\"response_data\""
+                                                                    ],
+                                                                    "variable": "hasilInsertDataAccount",
+                                                                    "checkReturn": [
+                                                                        {
+                                                                            "condition": "==",
+                                                                            "if": "1",
+                                                                            "then": [
+                                                                                {
+                                                                                    "func_name": "jumpketabel",
+                                                                                    "func_type": "page_jumper",
+                                                                                    "type": "page_jumper",
+                                                                                    "page_jumper_package": [],
+                                                                                    "func_param": [
+                                                                                        "\"manage_account\"",
+                                                                                        "\"daftar_account\""
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "functions": [],
+    "process": [],
+    "engine": []
+}

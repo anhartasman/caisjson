@@ -1,0 +1,33 @@
+{
+    "action": "get_hotels",
+    "param": [],
+    "process": [
+        {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_hotel",
+            "process_name": "select",
+            "execute": "many",
+            "output_generate": "manual",
+            "param": [],
+            "array_data": [
+                "id",
+                "hotelname",
+                "star",
+                "address"
+            ],
+            "where": [],
+            "outputVariable": "hasil_get_hotels",
+            "output": "[\"v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['id']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['hotelname']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['star']}v\",\"v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['address']}v\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/edit_hotel\/id\/v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['id']}v>Edit ID v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['id']}v<\/a>\",\"<a href={cais_web_url}\/admin\/tabel_hotel\/delete_hotel\/id\/v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['id']}v>Delete ID v{'var_type':'variable','var_name':'qhasil_get_hotels','index':['id']}v<\/a>\"]",
+            "output_divider": ",",
+            "process": [],
+            "engine": [],
+            "returnpackage": {}
+        }
+    ],
+    "engine": [],
+    "response_output": "[{hasil_get_hotels}]",
+    "response_type": "json",
+    "returnpackage": {}
+}
