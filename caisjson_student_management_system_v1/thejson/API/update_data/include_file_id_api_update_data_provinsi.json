@@ -1,0 +1,250 @@
+{
+  "action": "update_data_provinsi",
+  "param": [
+    {
+      "name": "country_code",
+      "mandatory": true
+    },
+    {
+      "name": "provinsi",
+      "mandatory": true
+    },
+    {
+      "name": "kodeprovinsi",
+      "mandatory": true
+    },
+    {
+      "name": "province_id",
+      "mandatory": true
+    }
+  ],
+  "process": [
+    {
+      "type": "condition",
+      "from_engine": false,
+      "id": null,
+      "check_condition": [
+        {
+          "check": {
+            "var_name": "param_api_province_id",
+            "index": []
+          },
+          "operator": "!=",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "null",
+            "index": []
+          }
+        }
+      ],
+      "ontrue": {
+        "process": [
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_countries",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_country_code"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName"
+              ],
+              "where": [
+                  {
+                      "index": "CountryCode",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_country_code"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_negara"
+          }
+          ,
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_provinces",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_province_id"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName",
+                  "ProvinceCode",
+                  "ProvinceName"
+              ],
+              "where": [
+                  {
+                      "index": "id",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_province_id"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_provinsi"
+          }
+          ,
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_provinces",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "data_negara"
+              },
+              {
+                "var_name": "param_api_provinsi"
+              },
+              {
+                "var_name": "param_api_kodeprovinsi"
+              },
+              {
+                "var_name": "param_api_province_id"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "CountryName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryName"]
+                }
+              },
+              {
+                "index": "CountryCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryCode"]
+                }
+              },
+              {
+                "index": "ProvinceName",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_provinsi"
+                }
+              },
+              {
+                "index": "ProvinceCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kodeprovinsi"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "id",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_province_id"
+                }
+              }
+            ],
+            "outputVariable": "hasil_updatedata_provinsi"
+          }
+          ,
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_cities",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "data_negara"
+              },
+              {
+                "var_name": "data_provinsi"
+              },
+              {
+                "var_name": "param_api_provinsi"
+              },
+              {
+                "var_name": "param_api_kodeprovinsi"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "CountryName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryName"]
+                }
+              },
+              {
+                "index": "CountryCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryCode"]
+                }
+              },
+              {
+                "index": "ProvinceName",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_provinsi"
+                }
+              },
+              {
+                "index": "ProvinceCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kodeprovinsi"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "ProvinceCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_provinsi"
+                  ,"index":["ProvinceCode"]
+                }
+              }
+            ],
+            "outputVariable": "hasil_updatedata_code"
+          }
+        ]
+      },
+      "runifnotnull": []
+    }
+  ],
+  "engine": [],
+  "response_output": "{hasil_updatedata_provinsi}",
+  "response_type": "text"
+}

@@ -1,0 +1,6 @@
+
+    //Date picker
+    $('<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}').datepicker({
+      autoclose: true
+      ,format: '{date_format}'
+    })

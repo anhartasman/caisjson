@@ -1,0 +1,1 @@
+<li class="<?php if($modul_id_page_id=="{modul_id_page_id}"){ print("active"); } ?>"><a href="{page_url}"><i class="fa fa-circle-o"></i> {page_title}</a></li>

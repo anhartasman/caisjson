@@ -1,0 +1,4 @@
+<!-- Datetimepicker -->
+<script src="{{ asset('public/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>

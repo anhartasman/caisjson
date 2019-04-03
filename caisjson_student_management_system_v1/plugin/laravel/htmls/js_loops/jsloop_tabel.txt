@@ -1,0 +1,11 @@
+$('<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}').DataTable({
+  'paging'      : true,
+  'lengthChange': true,
+  'searching'   : true,
+  'ordering'    : true,
+  'info'        : true,
+  'autoWidth'   : false
+  ,'drawCallback': function( settings ) {
+    setListeners();
+    }
+});

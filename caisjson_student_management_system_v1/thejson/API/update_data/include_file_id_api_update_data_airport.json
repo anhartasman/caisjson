@@ -1,0 +1,228 @@
+{
+  "action": "update_data_airport",
+  "param": [
+    {
+      "name": "airport_id",
+      "mandatory": true
+    },
+    {
+      "name": "airport_code",
+      "mandatory": true
+    },
+    {
+      "name": "airport",
+      "mandatory": true
+    },
+    {
+      "name": "latitude",
+      "mandatory": true
+    },
+    {
+      "name": "longitude",
+      "mandatory": true
+    },
+    {
+      "name": "country_code",
+      "mandatory": true
+    },
+    {
+      "name": "city_code",
+      "mandatory": true
+    }
+  ],
+  "process": [
+    {
+      "type": "condition",
+      "from_engine": false,
+      "id": null,
+      "check_condition": [
+        {
+          "check": {
+            "var_name": "param_api_airport_id",
+            "index": []
+          },
+          "operator": "!=",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "null",
+            "index": []
+          }
+        }
+      ],
+      "ontrue": {
+        "process": [
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_countries",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_country_code"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName"
+              ],
+              "where": [
+                  {
+                      "index": "CountryCode",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_country_code"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_negara"
+          }
+          ,
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_cities",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_city_code"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName",
+                  "ProvinceCode",
+                  "ProvinceName",
+                  "CityCode",
+                  "CityName"
+              ],
+              "where": [
+                  {
+                      "index": "CityCode",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_city_code"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_kota"
+          }
+          ,
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_bandara",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "data_negara"
+              },
+              {
+                "var_name": "data_kota"
+              },
+              {
+                "var_name": "param_api_airport"
+              },
+              {
+                "var_name": "param_api_airport_code"
+              },
+              {
+                "var_name": "param_api_airport_id"
+              },
+              {
+                "var_name": "param_api_latitude"
+              },
+              {
+                "var_name": "param_api_longitude"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "CountryName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryName"]
+                }
+              },
+              {
+                "index": "CountryCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryCode"]
+                }
+              },
+              {
+                "index": "AirportName",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_airport"
+                }
+              },
+              {
+                "index": "AirportCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_airport_code"
+                }
+              },
+              {
+                "index": "CityName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_kota"
+                  ,"index":["CityName"]
+                }
+              },
+              {
+                "index": "Latitude",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_latitude"
+                }
+              },
+              {
+                "index": "Longitude",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_longitude"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "id",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_airport_id"
+                }
+              }
+            ],
+            "outputVariable": "hasil_updatedata_bandara"
+          }
+        ]
+      },
+      "runifnotnull": []
+    }
+  ],
+  "engine": [],
+  "response_output": "{hasil_updatedata_bandara}",
+  "response_type": "text"
+}

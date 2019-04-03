@@ -1,0 +1,179 @@
+{
+  "action": "update_data_hotel_price_package",
+  "param": [
+    {
+      "name": "price_package_name",
+      "mandatory": true,
+      "returnpackage": {}
+    },
+    {
+      "name": "price_package_diskon",
+      "mandatory": true,
+      "returnpackage": {}
+    },
+    {
+      "name": "price_package_diskon_amount",
+      "mandatory": true,
+      "returnpackage": {}
+    },
+    {
+      "name": "price_package_room",
+      "mandatory": true,
+      "returnpackage": {}
+    },
+    {
+      "name": "price_package_breakfast",
+      "mandatory": true,
+      "returnpackage": {}
+    },
+    {
+      "name": "package_id",
+      "mandatory": true,
+      "returnpackage": {}
+    }
+  ],
+  "process": [
+    {
+      "type": "condition",
+      "from_engine": false,
+      "id": null,
+      "check_condition": [
+        {
+          "check": {
+            "var_name": "param_api_package_id",
+            "index": []
+          },
+          "operator": "!=",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "null",
+            "index": []
+          }
+        }
+      ],
+      "ontrue": {
+        "process": [
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_hotel_price_package",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "param_api_price_package_name"
+              },
+              {
+                "var_name": "param_api_price_package_diskon"
+              },
+              {
+                "var_name": "param_api_price_package_diskon_amount"
+              },
+              {
+                "var_name": "param_api_package_id"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "name",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_price_package_name"
+                }
+              },
+              {
+                "index": "diskon",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_price_package_diskon"
+                }
+              },
+              {
+                "index": "diskonamount",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_price_package_diskon_amount"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "id",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_package_id"
+                }
+              }
+            ],
+            "outputVariable": "hasil_update_hotel_price_package",
+            "returnpackage": {}
+          },
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "process_name": "bridge",
+            "table_name": "tb_jem_breakfast_paketharga",
+            "id": null,
+            "param": [
+              {
+                "var_name": "param_api_package_id"
+              },
+              {
+                "var_name": "param_api_price_package_breakfast"
+              }
+            ],
+            "left_bridge_column": "idp",
+            "right_bridge_column": "idb",
+            "left_table": "tb_hotel_price_package",
+            "left_table_id": "id",
+            "right_table": "tb_breakfast",
+            "right_table_id": "id",
+            "left_id": {
+              "var_name": "param_api_package_id"
+            },
+            "right_array": {
+              "var_name": "param_api_price_package_breakfast"
+            },
+            "outputVariable": "hasil_bridge_breakfastpaket"
+          },
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "process_name": "bridge",
+            "table_name": "tb_jem_roomtype_paketharga",
+            "id": null,
+            "param": [
+              {
+                "var_name": "param_api_package_id"
+              },
+              {
+                "var_name": "param_api_price_package_room"
+              }
+            ],
+            "left_bridge_column": "idp",
+            "right_bridge_column": "idr",
+            "left_table": "tb_hotel_price_package",
+            "left_table_id": "id",
+            "right_table": "tb_roomtype",
+            "right_table_id": "id",
+            "left_id": {
+              "var_name": "param_api_package_id"
+            },
+            "right_array": {
+              "var_name": "param_api_price_package_room"
+            },
+            "outputVariable": "hasil_bridge_roompaket"
+          }
+        ]
+      },
+      "runifnotnull": []
+    }
+  ],
+  "engine": [],
+  "response_output": "{hasil_update_hotel_price_package}",
+  "response_type": "text"
+}

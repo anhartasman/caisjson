@@ -1,0 +1,3 @@
+
+CKEDITOR.replace('{elemen_id}')
+//$('#{elemen_id}').wysihtml5();

@@ -1,0 +1,58 @@
+$("#dropzone{elemen_id}").dropzone({
+ autoProcessQueue: false,
+ acceptedFiles:".png,.jpg,.gif,.bmp,.jpeg",
+ init: function(){
+ //  alert('CEK');
+    var submitButton{elemen_id} = document.querySelector('#submit-all{elemen_id}');
+  myDropzone = this;
+  submitButton{elemen_id}.addEventListener("click", function(){
+   myDropzone.processQueue();
+  });
+  this.on("sending", function(file, xhr, formData) {
+ file.myCustomName = "my-new-name" + file.name;
+  formData.append("fileName", file.myCustomName);
+      formData.append("operation", "insert_image");
+          formData.append("hotel_id",catch_hotel_id);
+ console.log(file.myCustomName);
+ });
+  this.on("complete", function(){
+   // alert("CEK");
+   if(this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0)
+   {
+    var _this = this;
+    _this.removeAllFiles();
+   }
+   list_image{elemen_id}();
+  });
+ },
+
+     renameFilename: function (filename) {
+         return 'tesa_'+new Date().getTime() + '_' + filename;
+     }
+});
+function list_image{elemen_id}()
+   {
+     //alert("CEK");
+    $.ajax({
+     url:{dropzone_ajax_file_list_url},
+     method:"GET",
+     success:function(data){
+      $('#preview{elemen_id}').html(data);
+     }
+    });
+   }
+     list_image{elemen_id}();
+
+     $(document).on('click', '.remove_image', function(){
+      var image_id_to_remove = $(this).attr('id');
+      $.ajax({
+       url:{dropzone_ajax_upload_url},
+       method:"POST",
+       data:{image_id:image_id_to_remove,hotel_id:catch_hotel_id,operation:"delete_image"},
+       success:function(data)
+       {
+       //alert("BERHASIL");
+        list_image{elemen_id}();
+       }
+      })
+     });

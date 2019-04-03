@@ -1,0 +1,415 @@
+{
+  "project_name": "Student Management System",
+  "project_subtitle": "",
+  "project_config": [
+    {
+      "config_type": "weblaravel",
+      "database_host": "127.0.0.1",
+      "database_name": "student_management_system_v1",
+      "database_username": "root",
+      "database_password": "123123",
+      "web_url": "http://localhost/student_management_system_v1",
+      "web_localpath": "../student_management_system_v1/",
+      "web_description": "System to manage student",
+      "target_items": "plugin/laravel/target_items/basic_items/"
+    }
+  ]
+  ,"auth_checking":{
+    "outputVariable":"hasilCekAuth"
+    ,"process":[
+      {
+        "type":"declare_variable"
+        ,"body":{"var_name":"ok_to_continue"}
+        ,"default_value":{"var_name":"true","var_type":"hardcode"}
+      }
+      ,
+      {
+        "type":"set_variable"
+        ,"var":{"var_name":"ok_to_continue"}
+        ,"equal":{"var_name":"true","var_type":"hardcode"}
+      }
+    ]
+    ,"allow":[
+      {
+      "check": {
+        "var_name": "_SESSION"
+        ,"index":["sudahlogin"]
+      },
+      "operator": "!=",
+      "value": {
+        "var_type": "hardcode",
+        "var_name": "null"
+      }
+      }
+    ],
+    "onfailed": {
+      "process": [
+        {
+          "type": "change_page",
+          "modul": "account",
+          "page": "login"
+        }
+      ]
+    }
+  }
+  ,"auth": [
+    {
+      "moduls": "administrative",
+      "pages": [
+        "class"
+      ],
+      "allow": [
+        {
+          "check": {
+            "var_name": "hasilCekAuth"
+            ,"index":["ok_to_continue"]
+          },
+          "operator": "==",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "true"
+          }
+        }
+      ]
+
+    }
+  ],
+  "auto_crud":[
+    {
+
+      "modul":"administrative"
+      ,"page":"class"
+      ,"master":[
+        {
+          "table":"tb_class"
+            ,"column":[
+            {
+              "column":"name"
+            }
+            ,
+            {
+              "column":"description"
+            }
+          ]
+          ,"field_add":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+          ,"field_edit":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+          ,"field_delete":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+
+        }
+      ]
+
+    }
+    ,
+    {
+
+      "modul":"people"
+      ,"page":"student"
+      ,"master":[
+        {
+          "table":"tb_student"
+            ,"column":[
+            {
+              "column":"name"
+            }
+            ,
+            {
+              "column":"photo"
+              ,"type":"image"
+            }
+            ,
+            {
+              "column":"address"
+            }
+          ]
+          ,"field_add":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
+            ]
+          }
+          ,"field_edit":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
+            ]
+          }
+          ,"field_delete":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
+            ]
+          }
+
+        }
+      ]
+
+    }
+
+  ]
+  ,"moduls": [
+    {
+      "id": "home",
+      "title": "Home",
+      "subtitle": "Home",
+      "ignore": false,
+      "placement": [
+        {
+          "place": "sidemenu"
+        }
+      ],
+      "page": [
+        {
+          "title": "Dashboard",
+          "subtitle": "Dashboard",
+          "frame": "adminpage",
+          "id": "dashboard",
+          "ignore": false,
+          "placement": [
+            {
+              "place": "sidemenu"
+            }
+          ],
+          "elemen": [],
+          "functions": [],
+          "process": [],
+          "engine": []
+        }
+      ]
+    }
+    ,{
+        "id": "account",
+        "title": "Account",
+        "subtitle": "Account",
+        "ignore": false,
+        "placement": [],
+        "page": [
+            {
+                "type": "include_file",
+                "include": "thejson/fitur/account/include_file_id_page_login.json"
+            },
+            {
+                "type": "include_file",
+                "include": "thejson/fitur/account/include_file_id_page_logout.json"
+            }
+        ]
+    }
+
+  ],
+  "global_variables": [
+    {
+      "name": "status_laporan",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Belum dikonfirmasi",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Sudah konfirmasi",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Selesai",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Dicancel",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "status_siswa",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Asli",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Pindahan",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Dikeluarkan",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Bermasalah",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "status_hotel",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Asli",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Pindahan",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Dikeluarkan",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Bermasalah",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "bintang_hotel",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "0",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "1",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "2",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "3",
+          "returnpackage": {}
+        },
+        {
+          "index": "4",
+          "value": "4",
+          "returnpackage": {}
+        },
+        {
+          "index": "5",
+          "value": "5",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    }
+  ],
+  "libraries": [
+    {
+      "language": "library_web_css",
+      "libraries": [
+        {
+          "language": "library_web_css",
+          "type": "field_select2",
+          "name": "select2",
+          "path": "bower_components/select2/dist/css/select2.min.css",
+          "returnpackage": {}
+        }
+      ]
+    }
+  ],
+  "daf_api": [
+    {
+      "modul": "retrieve_data",
+      "action": [
+        {
+          "type": "include_file",
+          "include": "thejson/API/retrieve_data/include_file_id_api_login.json"
+        }
+      ]
+    },
+    {
+      "modul": "insert_data",
+      "action": []
+    },
+    {
+      "modul": "update_data",
+      "action": []
+    },
+    {
+      "modul": "delete_data",
+      "action": []
+    }
+  ]
+}

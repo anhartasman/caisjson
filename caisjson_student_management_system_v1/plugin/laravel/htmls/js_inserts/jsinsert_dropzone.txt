@@ -1,0 +1,3 @@
+
+<!-- Drop Zone -->
+<script src="{{ asset('public/dropzone_assets/dropzone.js') }}"></script>

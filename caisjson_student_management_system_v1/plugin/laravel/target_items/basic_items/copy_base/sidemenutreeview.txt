@@ -1,0 +1,12 @@
+<li class="<?php if($modul_id=="{modul_id}"){ print("active"); } ?> treeview">
+  <a href="#">
+    <i class="fa fa-dashboard"></i> <span>{modul_title}</span>
+    <span class="pull-right-container">
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
+  </a>
+  <ul class="treeview-menu">
+  <!-- hereforli -->
+    {li}
+  </ul>
+</li>
