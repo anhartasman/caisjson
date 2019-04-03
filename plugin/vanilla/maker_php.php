@@ -327,7 +327,7 @@ $manifest->moduls[]=$objmodulsistem;
 
                         $ar_worktodo[]=array("type"=>"addinclude","work_id"=>"include_".$page_nickname."_to_".$controller_nickname,"file_id"=>$controller_nickname,"include_id"=>$page_nickname,"content"=>"include \"../mvc_model/model_".$page_nickname.".php\";"."\n");
                         $ar_worktodo[]=array("type"=>"addfunction","starter"=>"function","work_id"=>"add_function_".$page_name_controller,"function_id"=>"function_".$page_name_controller,"function_name"=>$page_nickname,"param"=>array(),"file_id"=>$controller_nickname);
-                        $ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfile".$page_nickname,"file_id"=>$page_nickname,"location"=>"mvc_model/model_".$page_nickname.".php","content_from"=>"file","content"=>"file_template/language_php_template_class.php");
+                        $ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfile".$page_nickname,"file_id"=>$page_nickname,"location"=>"mvc_model/model_".$page_nickname.".php","content_from"=>"file","autopath_content"=>true,"content"=>"file_template/language_php_template_class.php");
 
                         $bahandeklarasi='$obj_'.$page_name." = new model_page_".$page_name."();\n";
                         $bahandeklarasi.='$obj_'.$page_name.'->db=$this->db;'."\n";

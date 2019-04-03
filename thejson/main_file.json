@@ -1,213 +1,415 @@
 {
-    "project_name": "Infiniteach Web",
-    "project_subtitle": "",
-    "project_config": [
-        {
-            "config_type": "weblaravel",
-            "database_host": "localhost",
-            "database_name": "db_infiniteach",
-            "database_username": "root",
-            "database_password": "",
-            "web_url": "http://localhost/infiniteach",
-            "web_localpath": "../infiniteach/",
-            "web_description": "Web Sharing Session milik Infiniqa"
-        }
-    ],
-    "auth": [
-      {"moduls":"manage_account","pages":["daftar_account","add_account","delete_account","edit_account"],"allow":[{
-      "check":{
-      "var_name": "_SESSION"
-      ,"index":["auth_token"]},"operator":"!=","value":{
-        "var_type":"hardcode"
-      ,"var_name": "null"}
-    }],"onfailed":{"process":[{"type":"change_page","modul":"account","page":"login"}]}}
-
-    ,{"moduls":"infiniteach","pages":["add_class","daftar_class","delete_class","edit_class","view_class"],"allow":[{
-      "check":{
-      "var_name": "_SESSION"
-      ,"index":["auth_token"]},"operator":"!=","value":{
-        "var_type":"hardcode"
-      ,"var_name": "null"}
-    }],"onfailed":{"process":[{"type":"change_page","modul":"account","page":"login"}]}}
-    
-    ],
-    "moduls": [
+  "project_name": "Student Management System",
+  "project_subtitle": "",
+  "project_config": [
+    {
+      "config_type": "weblaravel",
+      "database_host": "127.0.0.1",
+      "database_name": "student_management_system_v1",
+      "database_username": "root",
+      "database_password": "123123",
+      "web_url": "http://localhost/student_management_system_v1",
+      "web_localpath": "../student_management_system_v1/",
+      "web_description": "System to manage student",
+      "target_items": "plugin/laravel/target_items/basic_items/"
+    }
+  ]
+  ,"auth_checking":{
+    "outputVariable":"hasilCekAuth"
+    ,"process":[
       {
-          "id": "home",
-          "title": "Home",
-          "subtitle": "Home",
-          "ignore": false,
-          "placement": [],
-          "page": [
-            {
-                "title": "Dashboard",
-                "subtitle": "Dashboard",
-                "frame": "adminpage",
-                "id": "dashboard",
-                "ignore": false,
-                "placement": [],
-                "elemen": [],
-                "functions": [],
-                "process": [],
-                "engine": []
-            }
+        "type":"declare_variable"
+        ,"body":{"var_name":"ok_to_continue"}
+        ,"default_value":{"var_name":"true","var_type":"hardcode"}
+      }
+      ,
+      {
+        "type":"set_variable"
+        ,"var":{"var_name":"ok_to_continue"}
+        ,"equal":{"var_name":"true","var_type":"hardcode"}
+      }
+    ]
+    ,"allow":[
+      {
+      "check": {
+        "var_name": "_SESSION"
+        ,"index":["sudahlogin"]
+      },
+      "operator": "!=",
+      "value": {
+        "var_type": "hardcode",
+        "var_name": "null"
+      }
+      }
+    ],
+    "onfailed": {
+      "process": [
+        {
+          "type": "change_page",
+          "modul": "account",
+          "page": "login"
+        }
+      ]
+    }
+  }
+  ,"auth": [
+    {
+      "moduls": "administrative",
+      "pages": [
+        "class"
+      ],
+      "allow": [
+        {
+          "check": {
+            "var_name": "hasilCekAuth"
+            ,"index":["ok_to_continue"]
+          },
+          "operator": "==",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "true"
+          }
+        }
+      ]
 
-          ]
-      }
-      ,{
-          "id": "account",
-          "title": "Account",
-          "subtitle": "Account",
-          "ignore": false,
-          "placement": [],
-          "page": [
-              {
-                  "type": "include_file",
-                  "include": "thejson/feature/account/include_file_id_page_login.json"
-              }
-          ]
-      }
-      ,{
-            "id": "manage_account",
-            "title": "Account",
-            "subtitle": "Manage Account",
-            "ignore": false,
-            "placement": [
-                {
-                    "place": "sidemenu"
-                }
-            ],
-            "page": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/feature/account/include_file_id_page_add_account.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/feature/account/include_file_id_page_edit_account.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/feature/account/include_file_id_page_delete_account.json"
-                },
-                {
-                    "type": "include_file",
-                    "include": "thejson/feature/account/include_file_id_page_daftar_account.json"
-                }
-            ]
-        }
-        ,
+    }
+  ],
+  "auto_crud":[
+    {
+
+      "modul":"administrative"
+      ,"page":"class"
+      ,"master":[
+        {
+          "table":"tb_class"
+            ,"column":[
             {
-                "id": "infiniteach",
-                "title": "Infini Teach",
-                "subtitle": "Manage Infiniteach World",
-                "ignore": false,
-                "placement": [
-                    {
-                        "place": "sidemenu"
-                    }
-                ],
-                "page": [
-                    {
-                        "type": "include_file",
-                        "include": "thejson/feature/infiniteach/include_file_id_page_daftar_class.json"
-                    },
-                    {
-                        "type": "include_file",
-                        "include": "thejson/feature/infiniteach/include_file_id_page_add_class.json"
-                    },
-                    {
-                        "type": "include_file",
-                        "include": "thejson/feature/infiniteach/include_file_id_page_edit_class.json"
-                    },
-                    {
-                        "type": "include_file",
-                        "include": "thejson/feature/infiniteach/include_file_id_page_delete_class.json"
-                    },
-                    {
-                        "type": "include_file",
-                        "include": "thejson/feature/infiniteach/include_file_id_page_view_class.json"
-                    }
-                ]
+              "column":"name"
             }
-    ],
-    "global_variables": [
+            ,
+            {
+              "column":"description"
+            }
+          ]
+          ,"field_add":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+          ,"field_edit":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+          ,"field_delete":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"description"
+              }
+            ]
+          }
+
+        }
+      ]
+
+    }
+    ,
+    {
+
+      "modul":"people"
+      ,"page":"student"
+      ,"master":[
         {
-            "name": "ar_roles",
-            "type": "array",
-            "content": [
-                {
-                    "index": "1",
-                    "value": "Admin"
-                },
-                {
-                    "index": "2",
-                    "value": "Teacher"
-                },
-                {
-                    "index": "3",
-                    "value": "Student"
-                }
+          "table":"tb_student"
+            ,"column":[
+            {
+              "column":"name"
+            }
+            ,
+            {
+              "column":"photo"
+              ,"type":"image"
+            }
+            ,
+            {
+              "column":"address"
+            }
+          ]
+          ,"field_add":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
             ]
+          }
+          ,"field_edit":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
+            ]
+          }
+          ,"field_delete":{
+            "field":[
+              {
+                "field":"name"
+              }
+              ,
+              {
+                "field":"address"
+              }
+              ,
+              {
+                "field":"photo"
+                ,"type":"image_upload"
+              }
+            ]
+          }
+
         }
-    ],
-    "libraries": [],
-    "daf_api": [
+      ]
+
+    }
+
+  ]
+  ,"moduls": [
+    {
+      "id": "home",
+      "title": "Home",
+      "subtitle": "Home",
+      "ignore": false,
+      "placement": [
         {
-            "modul": "insert_data",
-            "action": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/API/insert/include_file_id_api_insert_account.json"
-                }
-                ,{
-                    "type": "include_file",
-                    "include": "thejson/API/insert/include_file_id_api_insert_class.json"
-                }
-            ]
+          "place": "sidemenu"
         }
-        ,{
-            "modul": "update_data",
-            "action": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/API/update/include_file_id_api_update_account.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/API/update/include_file_id_api_update_class.json"
-                }
-            ]
+      ],
+      "page": [
+        {
+          "title": "Dashboard",
+          "subtitle": "Dashboard",
+          "frame": "adminpage",
+          "id": "dashboard",
+          "ignore": false,
+          "placement": [
+            {
+              "place": "sidemenu"
+            }
+          ],
+          "elemen": [],
+          "functions": [],
+          "process": [],
+          "engine": []
         }
-        ,{
-            "modul": "delete_data",
-            "action": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/API/delete/include_file_id_api_delete_account.json"
-                },{
-                    "type": "include_file",
-                    "include": "thejson/API/delete/include_file_id_api_delete_class.json"
-                }
-            ]
+      ]
+    }
+    ,{
+        "id": "account",
+        "title": "Account",
+        "subtitle": "Account",
+        "ignore": false,
+        "placement": [],
+        "page": [
+            {
+                "type": "include_file",
+                "include": "thejson/fitur/account/include_file_id_page_login.json"
+            },
+            {
+                "type": "include_file",
+                "include": "thejson/fitur/account/include_file_id_page_logout.json"
+            }
+        ]
+    }
+
+  ],
+  "global_variables": [
+    {
+      "name": "status_laporan",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Belum dikonfirmasi",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Sudah konfirmasi",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Selesai",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Dicancel",
+          "returnpackage": {}
         }
-        ,{
-            "modul": "retrieve_data",
-            "action": [
-                {
-                    "type": "include_file",
-                    "include": "thejson/API/retrieve/include_file_id_api_retrieve_account.json"
-                }
-                ,{
-                    "type": "include_file",
-                    "include": "thejson/API/retrieve/include_file_id_api_retrieve_class.json"
-                }
-                ,
-                    {
-                        "type": "include_file",
-                        "include": "thejson/API/retrieve/include_file_id_api_login.json"
-                    }
-            ]
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "status_siswa",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Asli",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Pindahan",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Dikeluarkan",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Bermasalah",
+          "returnpackage": {}
         }
-    ],
-    "returnpackage": {}
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "status_hotel",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "Asli",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "Pindahan",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "Dikeluarkan",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "Bermasalah",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    },
+    {
+      "name": "bintang_hotel",
+      "type": "array",
+      "content": [
+        {
+          "index": "0",
+          "value": "0",
+          "returnpackage": {}
+        },
+        {
+          "index": "1",
+          "value": "1",
+          "returnpackage": {}
+        },
+        {
+          "index": "2",
+          "value": "2",
+          "returnpackage": {}
+        },
+        {
+          "index": "3",
+          "value": "3",
+          "returnpackage": {}
+        },
+        {
+          "index": "4",
+          "value": "4",
+          "returnpackage": {}
+        },
+        {
+          "index": "5",
+          "value": "5",
+          "returnpackage": {}
+        }
+      ],
+      "returnpackage": {}
+    }
+  ],
+  "libraries": [
+    {
+      "language": "library_web_css",
+      "libraries": [
+        {
+          "language": "library_web_css",
+          "type": "field_select2",
+          "name": "select2",
+          "path": "bower_components/select2/dist/css/select2.min.css",
+          "returnpackage": {}
+        }
+      ]
+    }
+  ],
+  "daf_api": [
+    {
+      "modul": "retrieve_data",
+      "action": [
+        {
+          "type": "include_file",
+          "include": "thejson/API/retrieve_data/include_file_id_api_login.json"
+        }
+      ]
+    },
+    {
+      "modul": "insert_data",
+      "action": []
+    },
+    {
+      "modul": "update_data",
+      "action": []
+    },
+    {
+      "modul": "delete_data",
+      "action": []
+    }
+  ]
 }

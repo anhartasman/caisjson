@@ -1,6 +1,6 @@
 <?php
 function create_web_onclick_listener($elemen,$tolisten){
-  $content='$("#{field_id}").on( \'click\', function () {'."\n";
+  $content='$("<?php if(isset($prepage)){print($prepage);} ?>#{field_id}").on( \'click\', function () {'."\n";
     $content.="{content}"."\n";
     $content.="});"."\n";
 

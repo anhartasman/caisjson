@@ -1,6 +1,6 @@
 
     //Date picker
-    $('#{elemen_id}').timepicker({
+    $('<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}').timepicker({
       showInputs: false
       ,showMeridian: false
     })

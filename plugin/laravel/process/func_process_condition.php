@@ -15,6 +15,9 @@ function func_process_condition($engine,$pro,$action){
   $work_id="";
   //------------------------
   //tempat skrip
+  if(!isset($engine->withisset)){
+    $engine->withisset=false;
+  }
   if(isset($engine->check_condition) && count($engine->check_condition)>0){
 
     $objchecksession=new \stdClass();
@@ -44,8 +47,49 @@ function func_process_condition($engine,$pro,$action){
 
         }
       }
-      $content.='}'."\n";
+      $content.='}';
+
+
+      $isielse="";
+      if(isset($engine->else)){
+
+        $isielse.='else{'."\n";
+
+                  if(isset($engine->else->process)){
+                    for($w=0; $w<count($engine->else->process);$w++){
+                      $engine->else->process[$w]->dalamgenggaman=true;
+                    }
+                    $grupengine=render_grup_engine($engine->else);
+                    $varjsawal.=$grupengine->varjsawal;
+                    $ar_worktodo=array_merge($ar_worktodo,$grupengine->ar_worktodo);
+                    $isielse.=$grupengine->content;
+                    $current_function="function_page_".$engine->properties_page."controller_".$engine->properties_modul;
+                    //    echo $current_function."<BR>";
+                    for($w=0; $w<count($ar_worktodo);$w++){
+                      if($ar_worktodo[$w]["type"]=="add_to_function" && $ar_worktodo[$w]["function_id"]==$current_function){
+                        //echo "cancel ".$ar_worktodo[$w]["function_id"]."<BR>";
+                        $ar_worktodo[]=array("type"=>"cancelwork","work_id"=>"cancelwork".$ar_worktodo[$w]["work_id"],"cancel_work_id"=>$ar_worktodo[$w]["work_id"]);
+                      }
+                    }
+
+                  }
+
+                    $isielse.='}'."\n";
+        $content.=$isielse."\n";
+      }
+
+      if($engine->withisset==true){
+        $contentbaru="if (".$thegroup->isset_content."){"."\n";
+          $content=$contentbaru.$content."}";
+          if(isset($engine->else)){
+            $content.=$isielse."\n";
+          }
+      }
+
+
     }
+
+    $content.="\n";
   //------------------
   //balikan
   $objreturn->content=$content;

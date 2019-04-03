@@ -1,4 +1,4 @@
-$('#{table_id}').dataTable().fnClearTable();
+$('<?php if(isset($prepage)){print($prepage);} ?>#{table_id}').dataTable().fnClearTable();
 if(data_content.length>0){
-$('#{table_id}').dataTable().fnAddData(data_content);
+$('<?php if(isset($prepage)){print($prepage);} ?>#{table_id}').dataTable().fnAddData(data_content);
 }

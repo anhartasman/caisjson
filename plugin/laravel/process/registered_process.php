@@ -1,6 +1,7 @@
 <?php
 $all_process=array();
 $all_process[]=array("name"=>"fileupload","file"=>"func_process_fileupload.php");
+$all_process[]=array("name"=>"filemultiupload","file"=>"func_process_filemultiupload.php");
 $all_process[]=array("name"=>"url_catcher","file"=>"func_process_urlcatcher.php");
 $all_process[]=array("name"=>"file_delete","file"=>"func_process_file_delete.php");
 $all_process[]=array("name"=>"session","file"=>"func_process_session.php");
@@ -17,5 +18,8 @@ $all_process[]=array("name"=>"thetime","file"=>"func_process_thetime.php");
 $all_process[]=array("name"=>"create_var_js","file"=>"func_process_create_var_js.php");
 $all_process[]=array("name"=>"concat_string","file"=>"func_process_concat_string.php");
 $all_process[]=array("name"=>"string_href","file"=>"func_process_string_href.php");
+$all_process[]=array("name"=>"crafted","file"=>"func_process_crafted.php");
+$all_process[]=array("name"=>"catch_incoming_data","file"=>"func_process_catch_incoming_data.php");
+$all_process[]=array("name"=>"print_variable","file"=>"func_process_print_variable.php");
 
  ?>

@@ -63,6 +63,20 @@ function std_variable(){
     return $std_variable;
 }
 
+function std_api(){
+
+    $std_api=new \stdClass();
+    $std_api->modul="";
+    $std_api->action="";
+    $std_api->param=array();
+    $std_api->process=array();
+    $std_api->engine=array();
+    $std_api->response_output="";
+    $std_api->response_type="";
+
+    return $std_api;
+}
+
 
 function std_place_sidemenu(){
 
@@ -112,7 +126,7 @@ function std_element_tabel() {
   $std_element_tabel->listeners=array();
   $std_element_tabel->forms=array();
 
-  return $std_element_form;
+  return $std_element_tabel;
 }
 function std_link_head() {
 
@@ -132,7 +146,8 @@ function std_element_form() {
   $std_element_form->type="form";
   $std_element_form->id="";
   $std_element_form->title="";
-  $std_element_form->link=null;
+  $std_element_form->link=new \stdClass();
+  $std_element_form->link->head=array();
   $std_element_form->listeners=array();
   $std_element_form->forms=array();
 
@@ -212,7 +227,8 @@ $std_form_field_image_upload->type="image_upload";
 $std_form_field_image_upload->id="";
 $std_form_field_image_upload->label="";
 $std_form_field_image_upload->variable=null;
-$std_form_field_image_upload->src=new \stdClass();
+//$std_form_field_image_upload->src=new \stdClass();
+$std_form_field_image_upload->src=null;
 $std_form_field_image_upload->class="form-control";
 $std_form_field_image_upload->theme="normal";
 $std_form_field_image_upload->attribute=new \stdClass();
@@ -419,7 +435,7 @@ $std_form_field_button=new \stdClass();
 $std_form_field_button->type="button";
 $std_form_field_button->id="";
 $std_form_field_button->label="";
-$std_form_field_button->class="form-control";
+$std_form_field_button->class="btn btn-primary";
 $std_form_field_button->theme="normal";
 $std_form_field_button->attribute=new \stdClass();
 $std_form_field_button->listeners=array();
@@ -427,6 +443,361 @@ $std_form_field_button->validation=array();
 
 return $std_form_field_button;
 
+}
+
+function std_form_validate_minlength(){
+
+$std_form_validate_minlength=new \stdClass();
+$std_form_validate_minlength->type="minlength";
+$std_form_validate_minlength->length="1";
+$std_form_validate_minlength->message="";
+
+return $std_form_validate_minlength;
+
+}
+
+function std_form_listener_onclick(){
+
+$std_form_listener_onclick=new \stdClass();
+$std_form_listener_onclick->listen="onclick";
+$std_form_listener_onclick->functions=array();
+
+return $std_form_listener_onclick;
+
+}
+
+function std_form_listener_onload(){
+
+$std_form_listener_onload=new \stdClass();
+$std_form_listener_onload->listen="onload";
+$std_form_listener_onload->functions=array();
+
+return $std_form_listener_onload;
+
+}
+
+function std_form_listener_enter(){
+
+$std_form_listener_enter=new \stdClass();
+$std_form_listener_enter->listen="onEnter";
+$std_form_listener_enter->functions=array();
+
+return $std_form_listener_enter;
+
+}
+
+function std_form_js_callfunction(){
+
+$std_form_js_callfunction=new \stdClass();
+$std_form_js_callfunction->func_type="callfunction";
+$std_form_js_callfunction->func_name="";
+$std_form_js_callfunction->param=array();
+$std_form_js_callfunction->checkReturn=array();
+
+return $std_form_js_callfunction;
+
+}
+
+function std_form_js_return_condition(){
+
+$std_form_js_return_condition=new \stdClass();
+$std_form_js_return_condition->condition="==";
+$std_form_js_return_condition->if="true";
+$std_form_js_return_condition->then=array();
+
+return $std_form_js_return_condition;
+
+}
+
+function std_form_general_submit($form,$function,$listener){
+
+$jslisten="onclick";
+if(isset($listener)){
+  $jslisten=$listener;
+}
+
+$callfunctiongetformvariable=std_form_js_callfunction();
+$callfunctiongetformvariable->func_name="get_variable_of_form_".$form->id;
+
+$callfunctioncheckformvalidation=std_form_js_callfunction();
+$callfunctioncheckformvalidation->func_name="check_validation_form_".$form->id;
+
+$jsfunction_return_condition=std_form_js_return_condition();
+// /$jsfunction_return_condition->func_name="upload_data_account".$form_id;
+
+$jsfunction_return_condition->then[]=$function;
+
+$callfunctioncheckformvalidation->checkReturn[]=$jsfunction_return_condition;
+
+$returnfunctions=array();
+$returnfunctions[]=$callfunctiongetformvariable;
+$returnfunctions[]=$callfunctioncheckformvalidation;
+
+$thefunction=null;
+switch ($jslisten) {
+  case 'onclick':
+  $thefunction=std_form_listener_onclick();
+  $thefunction->functions=$returnfunctions;
+  break;
+  case 'onEnter':
+  $thefunction=std_form_listener_enter();
+  $thefunction->functions=$returnfunctions;
+  break;
+
+}
+return $thefunction;
+
+}
+
+function std_form_general_field_with_validation($field){
+
+$inmodulinpage="modul_".$field->properties_modul."_page_".$field->properties_page;
+
+$return_field=new \stdClass();
+if(!isset($field->type)){
+  $field->type="textfield";
+}
+if(!isset($field->name)){
+  $field->name=$field->field;
+}
+
+switch($field->type){
+  case "textfield":
+  $text_field=std_form_field_text();
+  $text_field->id="field_".$field->field.$inmodulinpage;
+  $text_field->label=$field->name;
+  $text_field->attribute->placeholder="Isi ".$field->name;
+  $text_field->properties_modul=$field->properties_modul;
+  $text_field->properties_page=$field->properties_page;
+
+
+  $text_field_validation_minlength=std_form_validate_minlength();
+  $text_field_validation_minlength->message="Isi ".$field->name;
+
+  $text_field->validation[]=$text_field_validation_minlength;
+
+  $return_field=$text_field;
+  break;
+  case "image_upload":
+  $imageupload_field=std_form_field_image_upload();
+  $imageupload_field->id="field_".$field->field.$inmodulinpage;
+  $imageupload_field->variable="isian_field_".$field->field.$inmodulinpage;
+  $imageupload_field->label=$field->name;
+
+  $onchangelistener=new \stdClass();
+  $onchangelistener->listen="onchange";
+  $onchangelistener->functions=array();
+
+  $imageupload_field->listeners[]=$onchangelistener;
+  $imageupload_field->properties_modul=$field->properties_modul;
+  $imageupload_field->properties_page=$field->properties_page;
+
+  $return_field=$imageupload_field;
+  break;
+  case "edit_image_upload":
+  $imageupload_field=std_form_field_image();
+  $imageupload_field->id="field_".$field->field.$inmodulinpage;
+  $imageupload_field->variable="isian_field_".$field->field.$inmodulinpage;
+  $imageupload_field->label=$field->name;
+
+  $onchangelistener=new \stdClass();
+  $onchangelistener->listen="onchange";
+  $onchangelistener->functions=array();
+
+  $imageupload_field->listeners[]=$onchangelistener;
+  $imageupload_field->properties_modul=$field->properties_modul;
+  $imageupload_field->properties_page=$field->properties_page;
+
+  $return_field=$imageupload_field;
+  break;
+}
+
+return $return_field;
+
+}
+
+function std_form_js_api_shooter(){
+
+  $std_form_js_api_shooter=new \stdClass();
+  $std_form_js_api_shooter->func_type="api_shooter";
+  $std_form_js_api_shooter->type="api_shooter";
+  $std_form_js_api_shooter->content_generate="auto";
+  $std_form_js_api_shooter->func_name="";
+  $std_form_js_api_shooter->modul="";
+  $std_form_js_api_shooter->action="";
+  $std_form_js_api_shooter->variable=null;
+  $std_form_js_api_shooter->func_param=array();
+  $std_form_js_api_shooter->checkReturn=array();
+  $std_form_js_api_shooter->onAPIReturn=array();
+
+  return $std_form_js_api_shooter;
+}
+
+function std_form_js_json_extracter(){
+
+
+    $std_form_js_json_extracter=new \stdClass();
+    $std_form_js_json_extracter->func_type="json_extracter";
+    $std_form_js_json_extracter->type="json_extracter";
+    $std_form_js_json_extracter->variable="";
+    $std_form_js_json_extracter->func_name="";
+    $std_form_js_json_extracter->func_param=array();
+    $std_form_js_json_extracter->checkReturn=array();
+
+return $std_form_js_json_extracter;
+}
+
+function std_form_js_page_jumper(){
+
+
+    $std_form_js_page_jumper=new \stdClass();
+    $std_form_js_page_jumper->func_type="page_jumper";
+    $std_form_js_page_jumper->type="page_jumper";
+    $std_form_js_page_jumper->func_name="";
+    $std_form_js_page_jumper->page_jumper_package=array();
+    $std_form_js_page_jumper->func_param=array();
+
+return $std_form_js_page_jumper;
+}
+
+function std_form_js_api_shooter_auto_insert_update($api_modul,$tablename,$modul,$page,$form_fields,$form,$thecrud){
+
+  $inmodulinpage="modul_".$form->properties_modul."_page_".$form->properties_page;
+  $tableinmodulinpage=$thecrud->page."_in_".$inmodulinpage;
+
+  $apishooter=std_form_js_api_shooter();
+  $apishooter->func_name="upload_data_".$tableinmodulinpage;
+  $apishooter->variable="hasil_upload_data_".$thecrud->page.$inmodulinpage;
+  $apishooter->modul=$api_modul;
+  $apishooter->action=$api_modul.$thecrud->page."_in_"."modul_".$form->properties_modul."_page_".$form->properties_page;
+
+if($api_modul!="delete_data"){
+  for($dcf=0; $dcf<count($form_fields); $dcf++){
+    $apishooterparam=new \stdClass();
+    $apishooterparam->index=$form_fields[$dcf]->field;
+    $apishooterparam->slash="";
+    $apishooterparam->value="isian_field_".$form_fields[$dcf]->field.$inmodulinpage;
+
+    if($form_fields[$dcf]->type=="image_upload"){
+      $apishooterparam->value="isian_field_".$form_fields[$dcf]->field.$inmodulinpage."_file_content";
+    }
+    $apishooter->param[]=$apishooterparam;
+  }
+}
+
+  if($api_modul=="update_data" || $api_modul=="delete_data"){
+
+    $apishooterparam=new \stdClass();
+    $apishooterparam->index=$thecrud->page.$form->properties_modul.$form->properties_page."_id";
+    $apishooterparam->slash="";
+    $apishooterparam->value="catch_".$thecrud->page."_in_modul_".$form->properties_modul."_page_".$form->properties_page."_id";
+    $apishooter->param[]=$apishooterparam;
+
+
+  }
+
+  $jsonextracter=std_form_js_json_extracter();
+  $jsonextracter->func_name="ekstrakHasilUpload".$tableinmodulinpage;
+  $jsonextracter->func_param[]="this_html_response";
+  $jsonextracter->func_param[]="\"error_code\"";
+  $jsonextracter->variable="hasilekstrak".$tableinmodulinpage;
+
+  $jscondition=std_form_js_return_condition();
+  $jscondition->if="000";
+
+
+  $jspagejumper=std_form_js_page_jumper();
+  $jspagejumper->func_name="jumpketabel".$tableinmodulinpage;
+  $jspagejumper->func_param[]="\"".$modul."\"";
+  $jspagejumper->func_param[]="\"list_".$page."\"";
+
+  $jscondition->then[]=$jspagejumper;
+
+  $jsonextracter->checkReturn[]=$jscondition;
+
+  $apishooter->onAPIReturn[]=$jsonextracter;
+
+  return $apishooter;
+
+  //end of std_form_js_api_shooter_auto_insert_update
+}
+
+
+function std_change_datatable_by_json(){
+
+
+    $std_change_datatable_by_json=new \stdClass();
+    $std_change_datatable_by_json->func_type="change_datatable_by_json";
+    $std_change_datatable_by_json->type="change_datatable_by_json";
+    $std_change_datatable_by_json->func_name="";
+    $std_change_datatable_by_json->content_generate="auto";
+    $std_change_datatable_by_json->table_id="";
+    $std_change_datatable_by_json->func_param=array();
+
+return $std_change_datatable_by_json;
+}
+
+function std_form_js_api_shooter_auto_retrieve($api_modul,$thecrud,$thepage){
+
+  $tablename=$thecrud->table;
+  $modul=$thecrud->modul;
+  $page=$thecrud->page;
+
+  $inmodulinpage="modul_".$thepage->properties_modul."_page_".$thepage->properties_page;
+  $tableinmodulinpage=$page."_in_".$inmodulinpage;
+
+  $api_action_name=$api_modul.$tableinmodulinpage;
+  $apishooter=std_form_js_api_shooter();
+  $apishooter->func_name="retrieve_data_".$tableinmodulinpage;
+  //$apishooter->variable="hasil_retrieve_data_".$tablename;
+  $apishooter->modul=$api_modul;
+  $apishooter->action=$api_action_name;
+
+
+  $jsonextracter=std_form_js_json_extracter();
+  $jsonextracter->func_name="ekstrakHasilUpload".$tableinmodulinpage;
+  $jsonextracter->func_param[]="this_html_response";
+  $jsonextracter->func_param[]="\"response_data\"";
+  $jsonextracter->variable="hasilekstrak".$tableinmodulinpage;
+
+  $jscondition=std_form_js_return_condition();
+  $jscondition->if="000";
+
+
+  $jssetdatatable=std_change_datatable_by_json();
+  $jssetdatatable->func_name="setTabel".$tableinmodulinpage;
+  $jssetdatatable->func_param[]="hasilekstrak".$tableinmodulinpage;
+  $jssetdatatable->table_id="table_".$tableinmodulinpage;
+  //$jscondition->then[]=$jssetdatatable;
+
+  //$jsonextracter->checkReturn[]=$jscondition;
+
+  $apishooter->onAPIReturn[]=$jsonextracter;
+  $apishooter->onAPIReturn[]=$jssetdatatable;
+
+  return $apishooter;
+
+  //end of std_form_js_api_shooter_auto_retrieve
+}
+
+
+function std_process_table(){
+
+
+    $std_process_table=new \stdClass();
+    $std_process_table->type="table";
+    $std_process_table->from_engine=false;
+    $std_process_table->runifnotnull=array();
+    $std_process_table->table_name="";
+    $std_process_table->execute="";
+    $std_process_table->id=null;
+    $std_process_table->process_name="";
+    $std_process_table->param=array();
+    $std_process_table->array_data=array();
+    $std_process_table->where=array();
+    $std_process_table->outputVariable="";
+
+return $std_process_table;
 }
 
  ?>

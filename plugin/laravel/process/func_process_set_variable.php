@@ -17,6 +17,10 @@ function func_process_set_variable($engine,$pro,$action){
   $page_nickname="page_".$properties_page;
   $page_name_controller=$page_nickname.$controller_nickname;
   $work_id="";
+  $operasideclare="=";
+  if(isset($engine->operator)){
+    $operasideclare=$engine->operator;
+  }
 
   $varphpawal[]=create_variable_web($engine->var).' = null; '."\n";
   $kasihequal=true;
@@ -46,7 +50,8 @@ function func_process_set_variable($engine,$pro,$action){
   if(isset($engine->clossing)){
     $clossing=$engine->clossing;
   }
-  $content.=$varvar." = ".$clossing.$varequal.$clossing."; \n";
+  $content.=$varvar." ".$operasideclare." ".$clossing.$varequal.$clossing."; \n";
+  $content.='$variables[\''.get_variable_name($engine->var).'\'] = $'.get_variable_name($engine->var).';'."\n";
 
   $objreturn->content=$content;
   $objreturn->varjsawal=$varjsawal;

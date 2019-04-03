@@ -14,7 +14,7 @@ var date = new Date()
 var d    = date.getDate(),
     m    = date.getMonth(),
     y    = date.getFullYear()
-$('#{elemen_id}').fullCalendar({
+$('<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}').fullCalendar({
   header    : {
     left  : 'prev,next today',
     center: 'title',
@@ -46,10 +46,10 @@ $('#{elemen_id}').fullCalendar({
 
     // render the event on the calendar
     // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-    $('#{elemen_id}').fullCalendar('renderEvent', copiedEventObject, true)
+    $('<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}').fullCalendar('renderEvent', copiedEventObject, true)
 
     // is the "remove after drop" checkbox checked?
-    if ($('#drop-remove').is(':checked')) {
+    if ($('<?php if(isset($prepage)){print($prepage);} ?>#drop-remove').is(':checked')) {
       // if so, remove the element from the "Draggable Events" list
       $(this).remove()
     }

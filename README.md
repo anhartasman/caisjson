@@ -3,6 +3,144 @@
 ## Create Admin In Seconds
 ### Open source tool for web programmer to compile JSON into : html files, php files, APIs and documentations
 
+
+![Admin Example](ss_example_1.png)
+
+### Auto Crud Example
+```json
+
+{
+
+  "modul":"administrative"
+  ,"page":"class"
+  ,"master":[
+    {
+      "table":"tb_class"
+        ,"column":[
+        {
+          "column":"name"
+        }
+        ,
+        {
+          "column":"description"
+        }
+      ]
+      ,"field_add":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"description"
+          }
+        ]
+      }
+      ,"field_edit":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"description"
+          }
+        ]
+      }
+      ,"field_delete":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"description"
+          }
+        ]
+      }
+
+    }
+  ]
+
+}
+,
+{
+
+  "modul":"people"
+  ,"page":"student"
+  ,"master":[
+    {
+      "table":"tb_student"
+        ,"column":[
+        {
+          "column":"name"
+        }
+        ,
+        {
+          "column":"photo"
+          ,"type":"image"
+        }
+        ,
+        {
+          "column":"address"
+        }
+      ]
+      ,"field_add":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"address"
+          }
+          ,
+          {
+            "field":"photo"
+            ,"type":"image_upload"
+          }
+        ]
+      }
+      ,"field_edit":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"address"
+          }
+          ,
+          {
+            "field":"photo"
+            ,"type":"image_upload"
+          }
+        ]
+      }
+      ,"field_delete":{
+        "field":[
+          {
+            "field":"name"
+          }
+          ,
+          {
+            "field":"address"
+          }
+          ,
+          {
+            "field":"photo"
+            ,"type":"image_upload"
+          }
+        ]
+      }
+
+    }
+  ]
+
+}
+
+```
+
 ![caisjsonexplain1](caisjsonexplain1.png)
 
 ![caisjsonexplain2](caisjsonexplain2.png)
@@ -15,14 +153,12 @@
 
 ## Vanilla
 * Copy vanilla folder to your htdocs and rename as you like
-* Copy contents of CB Folders/web to your vanilla folder
 
 ## Laravel
 
 * Create laravel project with composer
 * Create helper file with name helpers.php in app folder (app/helpers.php)
 * Remove public from your url so it is become localhost/yourweb/admin and not localhost/yourweb/public/admin
-* Copy contents of CB Folders/weblaraver to your laravel folder
 * Copy bower_components folder to (your laravel folder)/public
 
 # How to use it

@@ -16,8 +16,10 @@ function func_process_file_delete($engine,$pro,$action){
   //------------------------
   //tempat skrip
   $content.='if (file_exists('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).')) {'."\n";
-    $content.='unlink('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).');'."\n";
-    $content.='}'."\n";
+  $content.='if (is_file('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).')) {'."\n";
+  $content.='unlink('.create_text_upload_directory().'.'.create_variable_web($engine->file_name).');'."\n";
+  $content.='}'."\n";
+  $content.='}'."\n";
   //------------------
   //balikan
   $objreturn->content=$content;

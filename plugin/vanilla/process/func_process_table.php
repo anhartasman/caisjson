@@ -19,7 +19,7 @@ function func_process_table($engine,$pro,$action){
   $table_action=$engine;
   $table_name=$table_action->table_name;
   $include[]=create_text_include_model('model_tabel_'.$table_name);
-  $ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfile_tabel_".$table_name,"file_id"=>"tabel_".$table_name,"location"=>create_text_model_file_location("model_tabel_".$table_name),"content_from"=>"file","content"=>"file_template/language_php_template_class.php");
+  $ar_worktodo[]=array("type"=>"addfile","work_id"=>"addfile_tabel_".$table_name,"file_id"=>"tabel_".$table_name,"location"=>create_text_model_file_location("model_tabel_".$table_name),"content_from"=>"file","autopath_content"=>true,"content"=>"file_template/language_php_template_class.php");
   if(!isset($engine->need)){
     $engine->need="caller";
   }

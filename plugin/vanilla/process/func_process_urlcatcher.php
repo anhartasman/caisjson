@@ -23,6 +23,8 @@ function func_process_url_catcher($engine,$pro,$action){
     $thecontent.='if($url_catch[$i]=="'.$thecatcher->catch.'"){'."\n";
       $thecontent.='if($i+1<=count($url_catch)){'."\n";
         $thecontent.='$'.$thecatcher->variable.' = $url_catch[$i+1];'."\n";
+        $thecontent.='$'.$thecatcher->variable.' = str_replace("?modal=iya","",$'.$thecatcher->variable.');'."\n";
+        $thecontent.='$'.$thecatcher->variable.' = str_replace("&modal=iya","",$'.$thecatcher->variable.');'."\n";
         $thecontent.='$variables[\''.$thecatcher->variable.'\'] = $'.$thecatcher->variable.';'."\n";
         $thecontent.='}'."\n";
         $thecontent.='break;'."\n";

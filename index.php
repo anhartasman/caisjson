@@ -95,6 +95,17 @@ switch($job){
     $generated_code= bacafile($file_address_json);
 
     $thejson=json_decode($generated_code);
+
+      $daf_stringinclude=rekursifcekinclude($thejson,"");
+      //echo "DAF STRING INCLUDE ".count($daf_stringinclude);
+      $tulisanmanifest=json_encode($thejson);
+      for($i=0; $i<count($daf_stringinclude); $i++){
+        $tulisanmanifest=str_replace($daf_stringinclude[$i]["from"],$daf_stringinclude[$i]["to"],$tulisanmanifest);
+      }
+
+      $manifest=json_decode($tulisanmanifest);
+      $thejson=$manifest;
+
     include("code_playground.php");
     for($r=0; $r<count($registered_compilers); $r++){
       if($registered_compilers[$r]["name"]==$platform){
@@ -171,8 +182,10 @@ switch($job){
                     $class_content=str_replace("properties_".$subledakan[0]."\"".$subledakan[1]."\"","",$class_content);
                   }
 
+          $class_content=str_replace("{cais_public_url}",get_public_url(),$class_content);
           $class_content=str_replace("{cais_web_url}",$theconfig->web_url,$class_content);
           $class_content=str_replace("{cais_web_folder}",$theconfig->web_folder,$class_content);
+          $class_content=str_replace("scannedkey=\"Array\"","",$class_content);
 
           $fileArray[$fa]->setFileContent($class_content);
 
@@ -196,5 +209,6 @@ switch($job){
   break;
 }
 
+unset($_SESSION['ar_fungsi_caller']);
 
  ?>

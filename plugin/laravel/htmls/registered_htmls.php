@@ -32,8 +32,8 @@ $requested_html[] = array("key"=>"form_field_js","type"=>"select2","file"=>"plug
 
 $requested_html[] = array("key"=>"form_field_get_value","type"=>"text","get_value"=>"{field_variable} = document.getElementById(\"{field_id}\").value;\n");
 $requested_html[] = array("key"=>"form_field_get_value","type"=>"password","get_value"=>"{field_variable} = document.getElementById(\"{field_id}\").value;\n");
-$requested_html[] = array("key"=>"form_field_get_value","type"=>"select","get_value"=>"{field_variable}_textvalue = $(\"#{field_id}option:selected\").text();\n{field_variable} = $(\"#{field_id}\").val();\n");
-$requested_html[] = array("key"=>"form_field_get_value","type"=>"select2","get_value"=>"{field_variable} = $(\"#{field_id}\").val();\n");
+$requested_html[] = array("key"=>"form_field_get_value","type"=>"select","get_value"=>"{field_variable}_textvalue = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#{field_id}option:selected\").text();\n{field_variable} = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#{field_id}\").val();\n");
+$requested_html[] = array("key"=>"form_field_get_value","type"=>"select2","get_value"=>"{field_variable} = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#{field_id}\").val();\n");
 $requested_html[] = array("key"=>"form_field_get_value","type"=>"number","get_value"=>"{field_variable} = document.getElementById(\"{field_id}\").value;\n");
 $requested_html[] = array("key"=>"form_field_get_value","type"=>"email","get_value"=>"{field_variable} = document.getElementById(\"{field_id}\").value;\n");
 $requested_html[] = array("key"=>"form_field_get_value","type"=>"textarea","get_value"=>"{field_variable} = document.getElementById(\"{field_id}\").value;\n");
@@ -97,12 +97,17 @@ $requested_html[] = array("key"=>"void_script","name"=>"page_jumper","file"=>"pl
 $requested_html[] = array("key"=>"page_element_script","type"=>"tabel","file"=>"plugin/laravel/htmls/page_element_scripts/tabel.php");
 $requested_html[] = array("key"=>"page_element","type"=>"tabel","file"=>"plugin/laravel/htmls/page_elements/elemen_tabel.txt");
 $requested_html[] = array("key"=>"page_element","type"=>"form","file"=>"plugin/laravel/htmls/page_elements/elemen_form.txt");
+$requested_html[] = array("key"=>"page_element","type"=>"dropzone","file"=>"plugin/laravel/htmls/page_elements/elemen_dropzone.txt");
 $requested_html[] = array("key"=>"page_element_js_insert","type"=>"tabel","file"=>"plugin/laravel/htmls/js_inserts/jsinsert_tabel.txt");
 $requested_html[] = array("key"=>"page_element_js_declaration","type"=>"tabel","file"=>"plugin/laravel/htmls/js_loops/jsloop_tabel.txt");
 $requested_html[] = array("key"=>"page_element","type"=>"calendar","file"=>"plugin/laravel/htmls/page_elements/elemen_calendar.txt");
 $requested_html[] = array("key"=>"page_element_js_insert","type"=>"calendar","file"=>"plugin/laravel/htmls/js_inserts/jsinsert_calendar.txt");
 $requested_html[] = array("key"=>"page_element_js_declaration","type"=>"calendar","file"=>"plugin/laravel/htmls/js_loops/jsloop_calendar.txt");
 $requested_html[] = array("key"=>"page_element_css_insert","type"=>"calendar","path"=>"public/bower_components/fullcalendar/dist/fullcalendar.min.css","language"=>"library_web_css");
+$requested_html[] = array("key"=>"page_element_js_insert","type"=>"dropzone","file"=>"plugin/laravel/htmls/js_inserts/jsinsert_dropzone.txt");
+$requested_html[] = array("key"=>"page_element_js_declaration","type"=>"dropzone","file"=>"plugin/laravel/htmls/js_loops/jsloop_dropzone.txt");
+$requested_html[] = array("key"=>"page_element_css_insert","type"=>"dropzone","path"=>"public/dropzone_assets/dropzone.css","language"=>"library_web_css");
+$requested_html[] = array("key"=>"page_element_script","type"=>"dropzone","file"=>"plugin/laravel/htmls/page_element_scripts/dropzone.php");
 
 $requested_html[] = array("key"=>"js_insert","name"=>"","file"=>"js_inserts/");
 $requested_html[] = array("key"=>"css_insert","name"=>"","file"=>"css_inserts/");

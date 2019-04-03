@@ -1,0 +1,17 @@
+{
+    "title": "Logout",
+    "subtitle": "Page Logout",
+    "id": "logout",
+    "ignore": false,
+    "frame": "adminlogin",
+    "placement": [],
+    "elemen": [],
+    "functions": [],
+    "process": [{
+        "type": "session",
+        "destroy_session": true
+    }
+    ,{"type":"change_page","modul":"account","page":"login"}
+    ],
+    "engine": []
+}

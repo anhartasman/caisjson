@@ -1,0 +1,25 @@
+
+ <div class="row">
+
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">{elemen_title} {head_link}</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="box-body">
+
+                           <form action="{{url('/upload')}}" class="dropzone" id="dropzone{elemen_id}">
+                        @csrf
+                        <div id="preview{elemen_id}"></div>
+                           </form>
+                           <br />
+                           <div align="center">
+                            <button type="button" class="btn btn-info" id="submit-all{elemen_id}">Upload</button>
+                           </div>
+                      </div>
+              <!-- /.box-body -->
+          </div>
+
+
+          </div>

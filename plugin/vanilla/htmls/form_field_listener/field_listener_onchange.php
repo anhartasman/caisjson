@@ -21,8 +21,8 @@ function create_web_onchange_listener($elemen,$tolisten){
       }
       switch($elemen->type){
         case "select":
-        $listener_content.=$namavariablefield."_textvalue = $(\"#".$elemen->id." option:selected\").text();"."\n";
-        $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
+        $listener_content.=$namavariablefield."_textvalue = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id." option:selected\").text();"."\n";
+        $listener_content.=$namavariablefield." = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id."\").val();"."\n";
         break;
         case "file":
         $listener_content.=$namavariablefield."_file = document.getElementById(\"".$elemen->id."\").files[0];\n";
@@ -48,7 +48,7 @@ function create_web_onchange_listener($elemen,$tolisten){
                 $listener_content.="}\n";
                 break;
                 default:
-                $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
+                $listener_content.=$namavariablefield." = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id."\").val();"."\n";
                 break;
               }
 

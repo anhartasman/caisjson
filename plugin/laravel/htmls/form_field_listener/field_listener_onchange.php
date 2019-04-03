@@ -9,7 +9,7 @@ function create_web_onchange_listener($elemen,$tolisten){
     $namavariablefield=$elemen->variable;
   }
   if($elemen->type!="image"){
-    $content='$("#{elemen_id}").on( \'change\', function () {'."\n";
+    $content='$("<?php if(isset($prepage)){print($prepage);} ?>#{elemen_id}").on( \'change\', function () {'."\n";
       $content.="{content}"."\n";
       $content.="});"."\n";
 
@@ -21,8 +21,8 @@ function create_web_onchange_listener($elemen,$tolisten){
       }
       switch($elemen->type){
         case "select":
-        $listener_content.=$namavariablefield."_textvalue = $(\"#".$elemen->id." option:selected\").text();"."\n";
-        $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
+        $listener_content.=$namavariablefield."_textvalue = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id." option:selected\").text();"."\n";
+        $listener_content.=$namavariablefield." = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id."\").val();"."\n";
         break;
         case "file":
         $listener_content.=$namavariablefield."_file = document.getElementById(\"".$elemen->id."\").files[0];\n";
@@ -41,14 +41,14 @@ function create_web_onchange_listener($elemen,$tolisten){
               $listener_content.="var r = new FileReader();\n";
               $listener_content.="r.onload = function(e) {\n";
                 $listener_content.="var contents = e.target.result;\n";
-                $listener_content.="$('#img_of_".$elemen->id."').attr('src', e.target.result);\n";
+                $listener_content.="$('<?php if(isset(\$prepage)){print(\$prepage);} ?>#img_of_".$elemen->id."').attr('src', e.target.result);\n";
                 $listener_content.=$namavariablefield."_file_content = contents;\n";
                 $listener_content.="}\n";
                 $listener_content.="r.readAsDataURL (".$namavariablefield."_file);\n";
                 $listener_content.="}\n";
                 break;
                 default:
-                $listener_content.=$namavariablefield." = $(\"#".$elemen->id."\").val();"."\n";
+                $listener_content.=$namavariablefield." = $(\"<?php if(isset(\$prepage)){print(\$prepage);} ?>#".$elemen->id."\").val();"."\n";
                 break;
               }
 

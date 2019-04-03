@@ -76,10 +76,10 @@ include ("../inc_body_footer.php");
   $(function () {
 
         var isifile="";
-        $("#buttonSubmit").on( 'click', function () {
+        $("<?php if(isset($prepage)){print($prepage);} ?>#buttonSubmit").on( 'click', function () {
         var file = document.getElementById('foto').files[0];
 
-          var formData = JSON.stringify($("#formaddsiswa").serializeArray());
+          var formData = JSON.stringify($("<?php if(isset($prepage)){print($prepage);} ?>#formaddsiswa").serializeArray());
           //alert(file);
 
         if (file) {
@@ -96,7 +96,7 @@ include ("../inc_body_footer.php");
           //alert(contents);
           isifile=contents;
            kirimData();
-          $('#blah').attr('src', e.target.result);
+          $('<?php if(isset($prepage)){print($prepage);} ?>#blah').attr('src', e.target.result);
           }
           r.readAsDataURL (file);
         //  r.readAsBinaryString (file);
@@ -104,7 +104,7 @@ include ("../inc_body_footer.php");
 
         var fd = new FormData();
 
-            //var formData = new FormData($("#formaddsiswa")[0]);
+            //var formData = new FormData($("<?php if(isset($prepage)){print($prepage);} ?>#formaddsiswa")[0]);
         //fd.append("file", file);
         //fd.append("isFirst", true);
         fd.append("modul", "report");
@@ -163,13 +163,13 @@ include ("../inc_body_footer.php");
                     jsonisitabel=datarjsonisitabel;
                       //    alert('ada');
                     //document.getElementById("hasilkirim").html = data;
-                  //  $('#bodyexample1').html(data);
+                  //  $('<?php if(isset($prepage)){print($prepage);} ?>#bodyexample1').html(data);
                   var string = "UpdateBootProfile,PASS,00:00:00";
                   var array = datarjsonisitabel.split(",");
                   var data = [
                       array
                   ];
-                  $('#sample_1').dataTable().fnClearTable();
+                  $('<?php if(isset($prepage)){print($prepage);} ?>#sample_1').dataTable().fnClearTable();
                   var obj=JSON.parse(datarjsonisitabel);
 
                   if(obj.list!=null){
@@ -178,10 +178,10 @@ include ("../inc_body_footer.php");
                     }
                     listidtabel=obj.listidtabel;
 
-                  $('#sample_1').dataTable().fnAddData(obj.list);
-                    $("#isifooter").html(obj.isifooter);
+                  $('<?php if(isset($prepage)){print($prepage);} ?>#sample_1').dataTable().fnAddData(obj.list);
+                    $("<?php if(isset($prepage)){print($prepage);} ?>#isifooter").html(obj.isifooter);
                   }else{
-                    $("#isifooter").html("");
+                    $("<?php if(isset($prepage)){print($prepage);} ?>#isifooter").html("");
                   }
 
                    }

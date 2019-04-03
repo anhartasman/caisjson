@@ -4,7 +4,12 @@ function stateChangedjson_{id}(){
      this_html_response=ajaxjson_{id}.responseText;
      console.log("response from {id} : "+ajaxjson_{id}.responseText);
      if(this_html_response.length>0){
+
+
+
      {onAPIReturn}
+
+          setListeners();
       }
     }
 }

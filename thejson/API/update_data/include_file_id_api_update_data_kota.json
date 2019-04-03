@@ -1,0 +1,327 @@
+{
+  "action": "update_data_kota",
+  "param": [
+    {
+      "name": "country_code",
+      "mandatory": true
+    },
+    {
+      "name": "province_code",
+      "mandatory": true
+    },
+    {
+      "name": "kota",
+      "mandatory": true
+    },
+    {
+      "name": "kodekota",
+      "mandatory": true
+    },
+    {
+      "name": "city_id",
+      "mandatory": true
+    }
+  ],
+  "process": [
+    {
+      "type": "condition",
+      "from_engine": false,
+      "id": null,
+      "check_condition": [
+        {
+          "check": {
+            "var_name": "param_api_city_id",
+            "index": []
+          },
+          "operator": "!=",
+          "value": {
+            "var_type": "hardcode",
+            "var_name": "null",
+            "index": []
+          }
+        }
+      ],
+      "ontrue": {
+        "process": [
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_cities",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_city_id"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName",
+                  "CityCode",
+                  "CityName"
+              ],
+              "where": [
+                  {
+                      "index": "id",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_city_id"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_kota"
+          }
+          ,
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_countries",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_country_code"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName"
+              ],
+              "where": [
+                  {
+                      "index": "CountryCode",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_country_code"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_negara"
+          }
+          ,
+          {
+              "type": "table",
+              "from_engine": false,
+              "runifnotnull": [],
+              "table_name": "tb_location_provinces",
+              "process_name": "select",
+              "output_generate": "auto",
+              "param": [
+                  {
+                      "type": "variable",
+                      "var_type": "variable",
+                      "var_name": "param_api_province_code"
+                  }
+              ],
+              "array_data": [
+                  "id",
+                  "CountryCode",
+                  "CountryName",
+                  "ProvinceCode",
+                  "ProvinceName"
+              ],
+              "where": [
+                  {
+                      "index": "ProvinceCode",
+                      "operator": "=",
+                      "value": {
+                          "var_type": "variable",
+                          "var_name": "param_api_province_code"
+                      }
+                  }
+              ],
+              "execute": "one",
+              "outputVariable": "data_provinsi"
+          }
+          ,
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_cities",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "data_negara"
+              },
+              {
+                "var_name": "data_provinsi"
+              },
+              {
+                "var_name": "param_api_kota"
+              },
+              {
+                "var_name": "param_api_kodekota"
+              },
+              {
+                "var_name": "param_api_city_id"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "CountryName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryName"]
+                }
+              },
+              {
+                "index": "CountryCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryCode"]
+                }
+              },
+              {
+                "index": "ProvinceName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_provinsi"
+                  ,"index":["ProvinceName"]
+                }
+              },
+              {
+                "index": "ProvinceCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_provinsi"
+                  ,"index":["ProvinceCode"]
+                }
+              },
+              {
+                "index": "CityName",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kota"
+                }
+              },
+              {
+                "index": "CityCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kodekota"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "id",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_city_id"
+                }
+              }
+            ],
+            "outputVariable": "hasil_updatedata_kota"
+          }
+          ,
+          {
+            "type": "table",
+            "from_engine": false,
+            "runifnotnull": [],
+            "table_name": "tb_location_code",
+            "execute": "execute",
+            "id": null,
+            "process_name": "update",
+            "param": [
+              {
+                "var_name": "data_negara"
+              },
+              {
+                "var_name": "data_provinsi"
+              },
+              {
+                "var_name": "data_kota"
+              },
+              {
+                "var_name": "param_api_kota"
+              },
+              {
+                "var_name": "param_api_kodekota"
+              }
+            ],
+            "array_data": [
+              {
+                "index": "CountryName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryName"]
+                }
+              },
+              {
+                "index": "CountryCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_negara"
+                  ,"index":["CountryCode"]
+                }
+              },
+              {
+                "index": "ProvinceName",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_provinsi"
+                  ,"index":["ProvinceName"]
+                }
+              },
+              {
+                "index": "ProvinceCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_provinsi"
+                  ,"index":["ProvinceCode"]
+                }
+              },
+              {
+                "index": "CityName",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kota"
+                }
+              },
+              {
+                "index": "CityCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "param_api_kodekota"
+                }
+              }
+            ],
+            "where": [
+              {
+                "index": "CityCode",
+                "operator": "=",
+                "value": {
+                  "var_name": "data_kota"
+                  ,"index":["CityCode"]
+                }
+              }
+            ],
+            "outputVariable": "hasil_updatedata_code"
+          }
+        ]
+      },
+      "runifnotnull": []
+    }
+  ],
+  "engine": [],
+  "response_output": "{hasil_updatedata_kota}",
+  "response_type": "text"
+}
